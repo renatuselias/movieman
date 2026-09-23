@@ -1,0 +1,71 @@
+{
+   "meta": {
+      "mainPageDescription": "Search, collect and share your movie collection"
+   },
+   "auth": {
+      "signIn": "Sign in",
+      "signInWith": "Sign in with:",
+      "logout": "Logout",
+      "library": "Library",
+      "logIn": "Log in",
+      "register": "Register",
+      "email": "Email",
+      "name": "Name",
+      "password": "Password",
+      "namePlaceholder": "Enter your name",
+      "emailPlaceholder": "Enter your email",
+      "passwordPlaceholder": "Enter your password",
+      "passwordTip": "Must be at least 8 characters long.",
+      "loginDescription": "Welcome back! Log in to access your collection, personal lists.",
+      "registerDescription": "Discover new movies and manage your movie collection. Create and share your own movie lists with friends and family.",
+      "error": {
+         "INVALID_EMAIL_OR_PASSWORD": "Invalid email or password",
+         "INVALID_EMAIL": "Invalid email",
+         "PASSWORD_TOO_SHORT": "Password too short",
+         "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL": "User already exists. Use another email.",
+         "VALIDATION_ERROR": "Invalid email or password.",
+         "failedSignIn": "Failed to sign in"
+      }
+   },
+   "menu": {
+      "about": "About",
+      "movies": "Movies",
+      "tvshows": "TV Shows",
+      "language": "Language",
+      "search": "Search"
+   },
+   "loaders": {
+      "loadingPoster": "Loading poster..."
+   },
+
+   "genres": {
+      "genres": "Genres",
+      "Action": "Action",
+      "Adventure": "Adventure",
+      "Animation": "Animation",
+      "Comedy": "Comedy",
+      "Crime": "Crime",
+      "Documentary": "Documentary",
+      "Drama": "Drama",
+      "Family": "Family",
+      "Fantasy": "Fantasy",
+      "History": "History",
+      "Horror": "Horror",
+      "Music": "Music",
+      "Mystery": "Mystery",
+      "Romance": "Romance",
+      "Science Fiction": "Science Fiction",
+      "TV Movie": "TV Movie",
+      "Thriller": "Thriller",
+      "War": "War",
+      "Western": "Western",
+      "Action & Adventure": "Action & Adventure",
+      "Kids": "Kids",
+      "News": "News",
+      "Reality": "Reality",
+      "Sci-Fi & Fantasy": "Sci-Fi & Fantasy",
+      "Soap": "Soap",
+      "Talk": "Talk",
+      "War & Politics": "War & Politics"
+   }
+}

@@ -1,0 +1,74 @@
+{
+   "meta": {
+      "mainPageDescription": "Шукайте, збирайте та діліться своєю колекцією фільмів"
+   },
+
+   "auth": {
+      "signIn": "Увійти",
+      "signInWith": "Увійти за допомогою:",
+      "logout": "Вийти",
+      "library": "Бібліотека",
+      "logIn": "Вхід",
+      "register": "Реєстрація",
+      "email": "Електронна пошта",
+      "name": "Ім'я",
+      "password": "Пароль",
+      "namePlaceholder": "Введіть ваше ім'я",
+      "emailPlaceholder": "Введіть ваш email",
+      "passwordPlaceholder": "Введіть ваш пароль",
+      "passwordTip": "Пароль має містити щонайменше 8 символів.",
+      "loginDescription": "З поверненням! Увійдіть до акаунту, щоб отримати доступ до власної колекції та списків фільмів.",
+      "registerDescription": "Відкривайте для себе нові фільми та керуйте власною колекцією. Створюйте та діліться своїми списками фільмів із друзями та родиною.",
+      "error": {
+         "INVALID_EMAIL_OR_PASSWORD": "Невірний email або пароль",
+         "INVALID_EMAIL": "Некоректний email",
+         "PASSWORD_TOO_SHORT": "Занадто короткий пароль",
+         "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL": "Користувач вже існує. Використайте інший email.",
+         "VALIDATION_ERROR": "Невірний email або пароль.",
+         "failedSignIn": "Не вдалося увійти"
+      }
+   },
+
+   "menu": {
+      "about": "Про нас",
+      "movies": "Фільми",
+      "tvshows": "Серіали",
+      "language": "Мова",
+      "search": "Пошук"
+   },
+
+   "loaders": {
+      "loadingPoster": "Завантаження постера..."
+   },
+
+   "genres": {
+      "genres": "Жанри",
+      "Action": "Бойовик",
+      "Adventure": "Пригоди",
+      "Animation": "Анімація",
+      "Comedy": "Комедія",
+      "Crime": "Кримінал",
+      "Documentary": "Документальний",
+      "Drama": "Драма",
+      "Family": "Сімейний",
+      "Fantasy": "Фентезі",
+      "History": "Історія",
+      "Horror": "Жахи",
+      "Music": "Музика",
+      "Mystery": "Детектив",
+      "Romance": "Мелодрама",
+      "Science Fiction": "Наукова фантастика",
+      "TV Movie": "ТБ фільм",
+      "Thriller": "Триллер",
+      "War": "Війна",
+      "Western": "Вестерн",
+      "Action & Adventure": "Бойовик та пригоди",
+      "Kids": "Для дітей",
+      "News": "Новини",
+      "Reality": "Реаліті",
+      "Sci-Fi & Fantasy": "Наукова фантастика та фентезі",
+      "Soap": "Мильна опера",
+      "Talk": "Ток-шоу",
+      "War & Politics": "Війна та політика"
+   }
+}
