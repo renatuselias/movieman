@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
@@ -12,8 +12,6 @@ interface BackgroundImageProps {
    loadingText?: string;
    aspectRatio?: string;
 }
-
-const globalLoadedImages = new Set<string>();
 
 export function BackgroundImage({
    src,
@@ -27,21 +25,38 @@ export function BackgroundImage({
    const isSrc = Boolean(src && !src.includes("null"));
    const validSrc = isSrc ? (src as string) : null;
 
-   const [prevSrc, setPrevSrc] = useState(src);
-   const [isLoading, setIsLoading] = useState(() =>
-      validSrc ? !globalLoadedImages.has(validSrc) : false,
-   );
+   const [loadedSrcs, setLoadedSrcs] = useState<Set<string>>(() => new Set());
+   const imageRef = useRef<HTMLImageElement>(null);
+   const isLoading = Boolean(validSrc && !loadedSrcs.has(validSrc));
 
-   if (prevSrc !== src) {
-      setPrevSrc(src);
-      setIsLoading(validSrc ? !globalLoadedImages.has(validSrc) : false);
-   }
+   const markSrcAsLoaded = useCallback((imageSrc: string) => {
+      setLoadedSrcs((current) => {
+         if (current.has(imageSrc)) return current;
+
+         const next = new Set(current);
+         next.add(imageSrc);
+         return next;
+      });
+   }, []);
+
+   useEffect(() => {
+      if (!validSrc) return;
+
+      const image = imageRef.current;
+      const expectedSrc = new URL(validSrc, window.location.href).href;
+      const imageSrc = image?.currentSrc || image?.src;
+
+      if (
+         image?.complete &&
+         image.naturalWidth > 0 &&
+         imageSrc === expectedSrc
+      ) {
+         markSrcAsLoaded(validSrc);
+      }
+   }, [markSrcAsLoaded, validSrc]);
 
    const handleImageLoad = () => {
-      if (validSrc) {
-         globalLoadedImages.add(validSrc);
-      }
-      setIsLoading(false);
+      if (validSrc) markSrcAsLoaded(validSrc);
    };
 
    const containerClasses = aspectRatio
@@ -54,40 +69,6 @@ export function BackgroundImage({
          style={aspectRatio ? { aspectRatio } : undefined}
       >
          <div className="relative h-full w-full isolate transform-gpu">
-            {/* Minimal Loader */}
-            <AnimatePresence mode="wait">
-               {isLoading && validSrc && (
-                  <motion.div
-                     key={`loader-${validSrc}`}
-                     initial={{ opacity: 0 }}
-                     animate={{ opacity: 1 }}
-                     exit={{ opacity: 0 }}
-                     transition={{ duration: 0.3 }}
-                     className="absolute inset-0 bg-black/90 overflow-hidden z-30 flex items-center justify-center"
-                  >
-                     <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent -translate-x-full animate-[shimmer_2s_infinite]" />
-
-                     <div className="relative flex flex-col items-center gap-3">
-                        <div className="h-0.5 w-16 overflow-hidden rounded-full bg-white/10">
-                           <motion.div
-                              className="h-full bg-white/80"
-                              initial={{ x: "-100%" }}
-                              animate={{ x: "100%" }}
-                              transition={{
-                                 repeat: Infinity,
-                                 duration: 1.2,
-                                 ease: "easeInOut",
-                              }}
-                           />
-                        </div>
-                        <span className="text-[10px] font-medium uppercase tracking-[0.4em] text-white/50 animate-pulse">
-                           {loadingText}
-                        </span>
-                     </div>
-                  </motion.div>
-               )}
-            </AnimatePresence>
-
             {/* Animation from Top-Right */}
             <AnimatePresence mode="sync">
                <motion.div
@@ -122,12 +103,13 @@ export function BackgroundImage({
                >
                   {validSrc ? (
                      <Image
+                        ref={imageRef}
                         src={validSrc}
                         alt={alt}
                         fill
                         priority={true}
                         quality={90}
-                        className="object-cover select-none object-top"
+                        className="object-cover select-none object-top animate-kenburns"
                         sizes={
                            aspectRatio
                               ? "(max-width: 640px) 92vw, 50vw"
@@ -143,6 +125,27 @@ export function BackgroundImage({
                   )}
                </motion.div>
             </AnimatePresence>
+
+            {/* Background loader stays mounted so it appears immediately on slow connections. */}
+            <div
+               role="status"
+               aria-live="polite"
+               aria-hidden={!isLoading}
+               className={`absolute inset-0 z-50 flex items-center justify-center overflow-hidden bg-black/90 transition-opacity duration-300 ${
+                  isLoading ? "opacity-100" : "pointer-events-none opacity-0"
+               }`}
+            >
+               <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent -translate-x-full animate-[shimmer_2s_infinite]" />
+
+               <div className="relative flex flex-col items-center gap-3">
+                  <div className="h-0.5 w-16 overflow-hidden rounded-full bg-white/10">
+                     <div className="background-loader-segment h-full w-8 bg-white/80" />
+                  </div>
+                  <span className="text-[10px] font-medium uppercase tracking-[0.4em] text-white/50 animate-pulse">
+                     {loadingText}
+                  </span>
+               </div>
+            </div>
 
             {/* Gradients Overlay */}
             <div className="absolute inset-0 bg-linear-to-l from-black/60 via-transparent to-transparent z-20 pointer-events-none" />

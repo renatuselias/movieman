@@ -91,7 +91,7 @@ export function HeroCarousel({ media }: { media: BaseMedia[] }) {
                   <div className="flex gap-3 sm:gap-5 flex-wrap-reverse items-center mt-2">
                      <Link
                         href={mediaHref}
-                        className="flex transition-all duration-700 bg-transparent items-center gap-2 text-sm! sm:text-md! py-2! px-3! rounded-sm! text-zinc-400 border border-white/10 hover:bg-transparent hover:text-zinc-300 hover:scale-105"
+                        className="flex transition-all duration-700 bg-transparent items-center gap-2 text-base py-2! px-3! rounded-sm! text-zinc-400 border border-white/10 hover:bg-transparent hover:text-zinc-300 hover:scale-105"
                      >
                         <span className="select-none">Discover</span>
                         <InfoIcon

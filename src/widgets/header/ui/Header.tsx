@@ -23,12 +23,12 @@ export async function Header() {
             </h1>
          </Link>
          <div className="flex grow items-center justify-end gap-2 md:gap-3 lg:gap-6 min-w-0 flex-wrap">
-            <button className="flex items-center gap-2 text-sm lg:text-[16px] cursor-pointer text-zinc-400 hover:text-zinc-500 transition-colors duration-700">
+            <button className="flex items-center gap-2 text-base cursor-pointer text-zinc-400 hover:text-zinc-500 transition-colors duration-700">
                <SearchIcon
                   className="text-zinc-700
                   h-4 w-4 max-[350px]:h-5 max-[350px]:w-5"
                />
-               <span className="hidden min-[300px]:block select-none">
+               <span className="hidden min-[350px]:block select-none">
                   {t("search")}
                </span>
             </button>

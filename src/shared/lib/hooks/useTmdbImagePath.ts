@@ -12,32 +12,28 @@ interface NetworkInformation {
    saveData?: boolean;
 }
 
-function getInitialQuality(): ImageQuality {
-   if (typeof window === "undefined") return "high";
-
-   const nav = navigator as Navigator & { connection?: NetworkInformation };
-   const connection = nav.connection;
-
-   if (connection) {
-      if (
-         connection.saveData ||
-         connection.effectiveType === "2g" ||
-         connection.effectiveType === "slow-2g"
-      ) {
-         return "low";
-      }
-   }
-
-   return "high";
-}
-
 export function useTmdbImagePath(type: ImageType = "poster"): string {
-   const [quality, setQuality] = useState<ImageQuality>(getInitialQuality);
+   // Keep the server and first client render identical to avoid hydration mismatches.
+   const [quality, setQuality] = useState<ImageQuality>("high");
 
    useEffect(() => {
-      if (quality === "low") return;
-
       let isMounted = true;
+
+      const nav = navigator as Navigator & { connection?: NetworkInformation };
+      const connection = nav.connection;
+      if (
+         connection?.saveData ||
+         connection?.effectiveType === "2g" ||
+         connection?.effectiveType === "slow-2g"
+      ) {
+         Promise.resolve().then(() => {
+            if (isMounted) setQuality("low");
+         });
+         return () => {
+            isMounted = false;
+         };
+      }
+
       const startTime = performance.now();
 
       fetch(`/api/ping?t=${Date.now()}`, { method: "HEAD", cache: "no-store" })
@@ -56,7 +52,7 @@ export function useTmdbImagePath(type: ImageType = "poster"): string {
       return () => {
          isMounted = false;
       };
-   }, [quality]);
+   }, []);
 
    return TMDB_IMAGE_BASES[type][quality];
 }

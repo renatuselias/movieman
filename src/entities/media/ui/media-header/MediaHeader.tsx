@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useMemo } from "react";
+import { ReactNode, useMemo, useState } from "react";
 import { Link } from "@/app/i18n/navigation";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { useLocale, useTranslations } from "next-intl";
@@ -11,6 +11,48 @@ import { TmdbImage } from "@/shared/ui/TmdbImage";
 import { HeaderInfo } from "../../model/types";
 import { FormattedRuntime } from "@/shared/ui/FormattedRuntime";
 import { StarRating } from "@/shared/ui/StarRating";
+
+interface MediaLogoProps {
+   logoPath: string;
+   title?: string;
+   isDarkLogo: boolean;
+}
+
+function MediaLogo({ logoPath, title, isDarkLogo }: MediaLogoProps) {
+   const [imageState, setImageState] = useState<"loading" | "loaded" | "error">(
+      "loading",
+   );
+
+   if (imageState === "error") {
+      return (
+         <div className="mb-3 sm:mb-6 lg:mb-8">
+            <h1 className="inline text-3xl sm:text-5xl bg-linear-to-r from-zinc-100 via-zinc-400 to-zinc-600 bg-clip-text animate-shimmer font-bold text-white leading-tight">
+               {title}
+            </h1>
+         </div>
+      );
+   }
+
+   return (
+      <div className="relative inline-block ">
+         {imageState === "loading" && (
+            <Skeleton className="absolute bottom-0 left-0 h-12 animate-none sm:h-16 w-60 md:h-20 sm:w-80" />
+         )}
+         <TmdbImage
+            src={logoPath}
+            alt={title || "Media title"}
+            tmdbSize="w300"
+            width={280}
+            height={240}
+            fadeDuration={300}
+            fetchPriority="high"
+            onLoad={() => setImageState("loaded")}
+            onError={() => setImageState("error")}
+            className={`${isDarkLogo ? "brightness-200 invert" : ""} origin-bottom-left select-none object-contain drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)] h-auto max-[500px]:w-40 w-60 md:w-80`}
+         />
+      </div>
+   );
+}
 
 interface MediaDetailsProps {
    id: number;
@@ -57,7 +99,7 @@ export function MediaHeader({
       <div className="space-y-3 sm:space-y-5 w-full sm:max-w-2xl">
          {isLoading ? (
             <div className="animate-[fadeInUp_0.8s_ease-out]">
-               <Skeleton className="h-12 w-64 sm:h-16 sm:w-80 md:h-20 md:w-100 mb-4 sm:mb-8 lg:mb-10" />
+               <Skeleton className="h-12 w-64 sm:h-16 sm:w-80 md:h-20 mb-4 sm:mb-8 lg:mb-10" />
                <div className="space-y-2 max-w-xl">
                   <Skeleton className="h-4 w-3/4" />
                   <Skeleton className="h-4 w-2/4" />
@@ -82,21 +124,17 @@ export function MediaHeader({
                className="space-y-3 sm:space-y-5 animate-[fadeInUp_0.8s_ease-out] will-change-transform"
             >
                {logoPath ? (
-                  <div className="mb-3 sm:mb-6 lg:mb-8">
-                     <Link
-                        href={mediaHref}
-                        className="block group transition-transform duration-500 w-fit"
-                     >
-                        <TmdbImage
-                           src={logoPath}
-                           alt={title || "Media title"}
-                           width={280}
-                           height={240}
-                           fadeDuration={300}
-                           className={`${isDarkLogo ? "brightness-200 invert" : ""} origin-bottom-left select-none object-contain drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)] h-auto w-40 md:w-80`}
-                        />
-                     </Link>
-                  </div>
+                  <Link
+                     href={mediaHref}
+                     className="block group transition-transform duration-500 w-fit"
+                  >
+                     <MediaLogo
+                        key={logoPath}
+                        logoPath={logoPath}
+                        title={title}
+                        isDarkLogo={isDarkLogo}
+                     />
+                  </Link>
                ) : (
                   <div className="max-w-70 sm:max-w-150">
                      <Link
@@ -111,18 +149,16 @@ export function MediaHeader({
                )}
 
                {/* media info */}
-               <div className="flex flex-col gap-2 text-white/50">
+               <div className="flex flex-col gap-1 text-white/50 w-full text-base">
                   {tagline && (
-                     <p className="text-sm font-sans italic sm:text-base md:text-lg leading-relaxed text-zinc-300 drop-shadow-lg line-clamp-3 sm:line-clamp-4 max-w-xl">
+                     <p className="font-sans italic text-lg leading-relaxed text-zinc-300 drop-shadow-lg line-clamp-3 sm:line-clamp-4 w-full">
                         {tagline}
                      </p>
                   )}
-
                   {genreIds && genreIds.length > 0 && (
                      <GenresList genreIds={genreIds} />
                   )}
-
-                  <div className="flex items-center flex-wrap tracking-tighter gap-2 font-medium drop-shadow-md text-sm cursor-default">
+                  <div className="mt-1 flex items-center flex-wrap tracking-tighter gap-2 font-medium drop-shadow-md cursor-default">
                      {Number(rating) > 0 && (
                         <>
                            <StarRating text={`${Number(rating).toFixed(1)}`} />
@@ -161,7 +197,6 @@ export function MediaHeader({
                         </>
                      )}
                   </div>
-
                   {children}
                </div>
             </div>

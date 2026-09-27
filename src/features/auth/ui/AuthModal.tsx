@@ -16,7 +16,7 @@ export function AuthModal() {
       >
          <DialogTrigger
             className="border tracking-widest rounded-sm py-1! px-1.5
-         cursor-pointer transition-colors! text-sm md:text-lg
+         cursor-pointer transition-colors! text-base md:text-lg
          bg-linear-to-r from-zinc-100 via-zinc-400 to-zinc-600 bg-clip-text text-transparent animate-shimmer"
          >
             {t("signIn")}
