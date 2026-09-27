@@ -154,6 +154,28 @@ li:hover {
    color: var(--color-zinc-100);
 }
 
+::-webkit-scrollbar {
+   overflow-y: overlay;
+   scrollbar-width: thin;
+   width: 4px;
+   height: 5px;
+}
+
+::-webkit-scrollbar-track {
+   background: rgb(16, 16, 16);
+}
+
+::-webkit-scrollbar-thumb {
+   border-radius: 0px;
+   transition: background 0.2s ease-in-out;
+   background: rgba(98, 97, 97, 0.35);
+   cursor: pointer;
+}
+
+::-webkit-scrollbar-thumb:hover {
+   background: rgba(123, 122, 122, 0.682);
+}
+
 /* shimmer animation for header logo title */
 @keyframes shimmer {
    0% {
@@ -202,3 +224,31 @@ li:hover {
    animation: kenburns 20s ease-in-out infinite alternate;
 }
 /* END of animation for hero image MainPage */
+
+/* MediaHeader details info section appearance from bottom */
+@keyframes fadeInUp {
+   from {
+      opacity: 0;
+      transform: translateY(20px);
+   }
+
+   to {
+      opacity: 1;
+      transform: translateY(0);
+   }
+}
+/* END of MediaHeader details info section appearance from bottom */
+
+/* animation for navigation progress bar */
+
+@keyframes progressScaleX {
+   0% {
+      transform: scaleX(0);
+   }
+
+   100% {
+      transform: scaleX(1);
+   }
+}
+
+/* END animation for navigation progress bar */

@@ -1,7 +1,8 @@
-export default function Home() {
-   return (
-      <div className="pt-20">
-         <h1>MainPage</h1>
-      </div>
-   );
+import { MainPage } from "@/pages/main";
+import { getTrendingMedia } from "@/entities/media";
+
+export default async function Home() {
+   const data = await getTrendingMedia();
+
+   return <MainPage media={data.results} />;
 }

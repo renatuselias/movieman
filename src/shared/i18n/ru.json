@@ -41,6 +41,15 @@
       "loadingPoster": "Загрузка постера..."
    },
 
+   "media": {
+      "headerInfo": {
+         "hour": "ч",
+         "minute": "мин",
+         "season": "{count, plural, =1 {# сезон} one {# сезон} few {# сезона} many {# сезонов} other {# сезонов}}",
+         "details": "Детали"
+      }
+   },
+
    "genres": {
       "genres": "Жанры",
       "Action": "Боевик",

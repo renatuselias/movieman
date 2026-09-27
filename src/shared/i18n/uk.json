@@ -41,6 +41,15 @@
       "loadingPoster": "Завантаження постера..."
    },
 
+   "media": {
+      "headerInfo": {
+         "hour": "г",
+         "minute": "хв",
+         "season": "{count, plural, one {# сезон} few {# сезони} many {# сезонів} other {# сезонів}}",
+         "details": "Деталі"
+      }
+   },
+
    "genres": {
       "genres": "Жанри",
       "Action": "Бойовик",

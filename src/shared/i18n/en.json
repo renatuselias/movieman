@@ -37,6 +37,14 @@
    "loaders": {
       "loadingPoster": "Loading poster..."
    },
+   "media": {
+      "headerInfo": {
+         "hour": "h",
+         "minute": "m",
+         "season": "{count, plural, =1 {# season} one {# season} other {# seasons}}",
+         "details": "Details"
+      }
+   },
 
    "genres": {
       "genres": "Genres",

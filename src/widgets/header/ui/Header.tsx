@@ -6,10 +6,11 @@ import { HeaderNav } from "./HeaderNav";
 import { LanguageSelect } from "@/features/select-language";
 import { getAuthSession } from "@/shared/lib/auth/auth-sessions";
 import { UserDropdownMenu } from "@/features/auth";
+import { getTranslations } from "next-intl/server";
 
 export async function Header() {
    const userSession = await getAuthSession();
-
+   const t = await getTranslations("menu");
    return (
       <HeaderClient>
          <Link
@@ -28,7 +29,7 @@ export async function Header() {
                   h-4 w-4 max-[350px]:h-5 max-[350px]:w-5"
                />
                <span className="hidden min-[300px]:block select-none">
-                  search
+                  {t("search")}
                </span>
             </button>
             <span className="text-zinc-600 select-none">|</span>
