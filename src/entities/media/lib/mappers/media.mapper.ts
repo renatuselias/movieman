@@ -1,5 +1,5 @@
 import { BaseMedia, HeaderInfo } from "../../model/types";
-import { TMDBMedia } from "@/shared/types/tmdb-types";
+import { TMDBMedia } from "@/shared/types/media-types";
 
 export function mapToBaseMedia(item: TMDBMedia): BaseMedia {
    const isMovie = item.media_type === "movie";

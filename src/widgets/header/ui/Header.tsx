@@ -1,11 +1,10 @@
 import { Link } from "@/app/i18n/navigation";
 import { SearchIcon } from "lucide-react";
-import { AuthModal } from "@/features/auth";
+import { AuthModal, UserDropdownMenu } from "@/features/auth";
 import { HeaderClient } from "./HeaderClient";
 import { HeaderNav } from "./HeaderNav";
 import { LanguageSelect } from "@/features/select-language";
 import { getAuthSession } from "@/shared/lib/auth/auth-sessions";
-import { UserDropdownMenu } from "@/features/auth";
 import { getTranslations } from "next-intl/server";
 
 export async function Header() {

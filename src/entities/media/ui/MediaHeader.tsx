@@ -1,58 +1,16 @@
 "use client";
 
-import { ReactNode, useMemo, useState } from "react";
+import { ReactNode } from "react";
 import { Link } from "@/app/i18n/navigation";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { useLocale, useTranslations } from "next-intl";
-import { GenresList } from "@/entities/media";
 import { useImageLuminance } from "@/shared/lib/hooks/useImageLuminance";
 import { formatDate } from "@/shared/lib/format/format-date";
-import { TmdbImage } from "@/shared/ui/TmdbImage";
-import { HeaderInfo } from "../../model/types";
+import { HeaderInfo } from "../model/types";
 import { FormattedRuntime } from "@/shared/ui/FormattedRuntime";
 import { StarRating } from "@/shared/ui/StarRating";
-
-interface MediaLogoProps {
-   logoPath: string;
-   title?: string;
-   isDarkLogo: boolean;
-}
-
-function MediaLogo({ logoPath, title, isDarkLogo }: MediaLogoProps) {
-   const [imageState, setImageState] = useState<"loading" | "loaded" | "error">(
-      "loading",
-   );
-
-   if (imageState === "error") {
-      return (
-         <div className="mb-3 sm:mb-6 lg:mb-8">
-            <h1 className="inline text-3xl sm:text-5xl bg-linear-to-r from-zinc-100 via-zinc-400 to-zinc-600 bg-clip-text animate-shimmer font-bold text-white leading-tight">
-               {title}
-            </h1>
-         </div>
-      );
-   }
-
-   return (
-      <div className="relative inline-block ">
-         {imageState === "loading" && (
-            <Skeleton className="absolute bottom-0 left-0 h-12 animate-none sm:h-16 w-60 md:h-20 sm:w-80" />
-         )}
-         <TmdbImage
-            src={logoPath}
-            alt={title || "Media title"}
-            tmdbSize="w300"
-            width={280}
-            height={240}
-            fadeDuration={300}
-            fetchPriority="high"
-            onLoad={() => setImageState("loaded")}
-            onError={() => setImageState("error")}
-            className={`${isDarkLogo ? "brightness-200 invert" : ""} origin-bottom-left select-none object-contain drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)] h-auto max-[500px]:w-40 w-60 md:w-80`}
-         />
-      </div>
-   );
-}
+import { MediaLogo } from "./MediaLogo";
+import { GenresList } from "./GenresList";
 
 interface MediaDetailsProps {
    id: number;
@@ -71,7 +29,6 @@ export function MediaHeader({
 }: MediaDetailsProps) {
    const t = useTranslations("media.headerInfo");
    const currentLocale = useLocale();
-   console.log(media);
 
    const {
       title,
@@ -86,14 +43,14 @@ export function MediaHeader({
    } = media || {};
 
    const mediaHref = `/${mediaType === "tv" ? "tvshow" : mediaType}/${mediaId}`;
-   const date = useMemo(
-      () => formatDate(releaseDate, "yearOnly", currentLocale),
-      [releaseDate, currentLocale],
-   );
+   const releaseYear = releaseDate
+      ? formatDate(releaseDate, "yearOnly", currentLocale)
+      : null;
 
-   const isDarkLogo = useImageLuminance(
-      logoPath ? `https://image.tmdb.org/t/p/w200${logoPath}` : null,
-   );
+   const logoUrl = logoPath
+      ? `https://image.tmdb.org/t/p/w200${logoPath}`
+      : null;
+   const isDarkLogo = useImageLuminance(logoUrl);
 
    return (
       <div className="space-y-3 sm:space-y-5 w-full sm:max-w-2xl">
@@ -119,17 +76,13 @@ export function MediaHeader({
                </div>
             </div>
          ) : (
-            <div
-               key={mediaId}
-               className="space-y-3 sm:space-y-5 animate-[fadeInUp_0.8s_ease-out] will-change-transform"
-            >
+            <div className="space-y-3 sm:space-y-5 animate-[fadeInUp_0.8s_ease-out] will-change-transform">
                {logoPath ? (
                   <Link
                      href={mediaHref}
                      className="block group transition-transform duration-500 w-fit"
                   >
                      <MediaLogo
-                        key={logoPath}
                         logoPath={logoPath}
                         title={title}
                         isDarkLogo={isDarkLogo}
@@ -141,43 +94,51 @@ export function MediaHeader({
                         href={mediaHref}
                         className="group inline hover:opacity-90 transition-opacity"
                      >
-                        <h1 className="inline text-3xl sm:text-5xl bg-linear-to-r from-zinc-100 via-zinc-400 to-zinc-600 bg-clip-text animate-shimmer font-bold text-white leading-tight">
+                        <h1 className="inline text-3xl sm:text-5xl bg-linear-to-r from-zinc-100 via-zinc-400 to-zinc-600 bg-clip-text font-bold text-transparent leading-tight">
                            {title}
                         </h1>
                      </Link>
                   </div>
                )}
 
-               {/* media info */}
-               <div className="flex flex-col gap-1 text-white/50 w-full text-base">
+               {/* Media info */}
+               <div className="flex flex-col gap-1 text-muted-foreground w-full text-base">
                   {tagline && (
-                     <p className="font-sans italic text-lg leading-relaxed text-zinc-300 drop-shadow-lg line-clamp-3 sm:line-clamp-4 w-full">
-                        {tagline}
-                     </p>
+                     <div className="relative pl-2 border-l-2 border-red-700 my-1">
+                        <p className="font-sans italic text-base leading-relaxed text-zinc-300 drop-shadow-sm line-clamp-3 sm:line-clamp-4">
+                           “{tagline}”
+                        </p>
+                     </div>
                   )}
+
                   {genreIds && genreIds.length > 0 && (
                      <GenresList genreIds={genreIds} />
                   )}
-                  <div className="mt-1 flex items-center flex-wrap tracking-tighter gap-2 font-medium drop-shadow-md cursor-default">
+
+                  <div className="mt-1 flex items-center flex-wrap tracking-tighter gap-2 drop-shadow-md cursor-default">
                      {Number(rating) > 0 && (
                         <>
-                           <StarRating text={`${Number(rating).toFixed(1)}`} />
-                           <span className="text-white/20">|</span>
+                           <StarRating text={Number(rating).toFixed(1)} />
+                           <span className="text-white/20">•</span>
                         </>
                      )}
 
-                     {releaseDate && <span>{date}</span>}
+                     {releaseYear && (
+                        <>
+                           <span>{releaseYear}</span>
+                        </>
+                     )}
 
                      {mediaType === "movie" && runtime ? (
                         <>
-                           <span className="text-white/20">|</span>
+                           <span className="text-white/20">•</span>
                            <FormattedRuntime runtime={runtime} />
                         </>
                      ) : null}
 
                      {mediaType === "tv" && numberOfSeasons ? (
                         <>
-                           <span className="text-white/20">|</span>
+                           <span className="text-white/20">•</span>
                            <span>
                               {t("season", {
                                  count: numberOfSeasons,
@@ -188,8 +149,8 @@ export function MediaHeader({
 
                      {productionCountries && productionCountries.length > 0 && (
                         <>
-                           <span className="text-white/20">|</span>
-                           <span>
+                           <span className="text-white/20">•</span>
+                           <span className="text-sm">
                               {productionCountries
                                  .map((c) => c.iso_3166_1)
                                  .join(", ")}
@@ -197,6 +158,7 @@ export function MediaHeader({
                         </>
                      )}
                   </div>
+
                   {children}
                </div>
             </div>

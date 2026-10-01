@@ -1,4 +1,4 @@
-import { TMDBProductionCountry } from "@/shared/types/tmdb-types";
+import { TMDBProductionCountry } from "@/shared/types/media-types";
 
 export interface BaseMedia {
    id: number;

@@ -8,6 +8,25 @@ interface TMDBImage {
    width: number;
 }
 
+export interface TMDBVideo {
+   id: string;
+   iso_639_1: string;
+   iso_3166_1: string;
+   key: string;
+   name: string;
+   site: string;
+   size: number;
+   type:
+      | "Trailer"
+      | "Teaser"
+      | "Clip"
+      | "Featurette"
+      | "Behind the Scenes"
+      | "Bloopers";
+   official: boolean;
+   published_at: string;
+}
+
 interface TMDBLast_episode_to_air {
    air_date: string;
    episode_number: number;
@@ -44,6 +63,7 @@ interface TMDBBaseMedia {
    images: { logos: TMDBImage[]; backdrops: TMDBImage[]; posters: TMDBImage[] };
    production_countries: TMDBProductionCountry[];
    tagline: string;
+   videos: { results: TMDBVideo[] };
 }
 
 interface TMDBMovieListItem extends TMDBBaseMedia {
@@ -78,3 +98,20 @@ export type TmdbSize =
    | "w780"
    | "w1280"
    | "original";
+
+// RECOMMENDATIONS
+
+export interface TMDBPaginatedResponse<T> {
+   page: number;
+   results: T[];
+   total_pages: number;
+   total_results: number;
+}
+
+export type TMDBMovieRecommendations = TMDBPaginatedResponse<TMDBMovieListItem>;
+
+export type TMDBTVRecommendations = TMDBPaginatedResponse<TMDBTVShowListItem>;
+
+export type TMDBRecommendations =
+   | TMDBMovieRecommendations
+   | TMDBTVRecommendations;

@@ -25,43 +25,43 @@ export function BackgroundImage({
    const isSrc = Boolean(src && !src.includes("null"));
    const validSrc = isSrc ? (src as string) : null;
 
-   const [loadedSrcs, setLoadedSrcs] = useState<Set<string>>(() => new Set());
+   const [isLoaded, setIsLoaded] = useState(false);
+
+   // Track previous src during render to detect changes
+   const [prevSrc, setPrevSrc] = useState(validSrc);
+   if (prevSrc !== validSrc) {
+      setPrevSrc(validSrc);
+      setIsLoaded(false); // Valid state update during render (no cascading effect render!)
+   }
+
    const imageRef = useRef<HTMLImageElement>(null);
-   const isLoading = Boolean(validSrc && !loadedSrcs.has(validSrc));
 
-   const markSrcAsLoaded = useCallback((imageSrc: string) => {
-      setLoadedSrcs((current) => {
-         if (current.has(imageSrc)) return current;
-
-         const next = new Set(current);
-         next.add(imageSrc);
-         return next;
-      });
-   }, []);
-
+   // Check cached/already completed image on mount or src change
    useEffect(() => {
       if (!validSrc) return;
 
       const image = imageRef.current;
+      if (!image) return;
+
       const expectedSrc = new URL(validSrc, window.location.href).href;
-      const imageSrc = image?.currentSrc || image?.src;
+      const imageSrc = image.currentSrc || image.src;
 
       if (
-         image?.complete &&
+         image.complete &&
          image.naturalWidth > 0 &&
          imageSrc === expectedSrc
       ) {
-         markSrcAsLoaded(validSrc);
+         setIsLoaded(true);
       }
-   }, [markSrcAsLoaded, validSrc]);
+   }, [validSrc]);
 
-   const handleImageLoad = () => {
-      if (validSrc) markSrcAsLoaded(validSrc);
-   };
+   const handleImageLoad = useCallback(() => {
+      setIsLoaded(true);
+   }, []);
 
    const containerClasses = aspectRatio
-      ? `relative w-full overflow-hidden select-none shrink-0 bg-black`
-      : `absolute inset-0 bg-black overflow-hidden pointer-events-none z-0`;
+      ? "relative w-full overflow-hidden select-none shrink-0 bg-black"
+      : "absolute inset-0 bg-black overflow-hidden pointer-events-none z-0";
 
    return (
       <div
@@ -69,7 +69,7 @@ export function BackgroundImage({
          style={aspectRatio ? { aspectRatio } : undefined}
       >
          <div className="relative h-full w-full isolate transform-gpu">
-            {/* Animation from Top-Right */}
+            {/* Top-Right Entrance Animation */}
             <AnimatePresence mode="sync">
                <motion.div
                   key={imageKey || validSrc || "no-src"}
@@ -107,9 +107,9 @@ export function BackgroundImage({
                         src={validSrc}
                         alt={alt}
                         fill
-                        priority={true}
+                        priority
                         quality={90}
-                        className="object-cover select-none object-top animate-kenburns"
+                        className="object-cover select-none object-top"
                         sizes={
                            aspectRatio
                               ? "(max-width: 640px) 92vw, 50vw"
@@ -126,13 +126,15 @@ export function BackgroundImage({
                </motion.div>
             </AnimatePresence>
 
-            {/* Background loader stays mounted so it appears immediately on slow connections. */}
+            {/* Background loader stays mounted until active image finishes loading */}
             <div
                role="status"
                aria-live="polite"
-               aria-hidden={!isLoading}
+               aria-hidden={isLoaded || !validSrc}
                className={`absolute inset-0 z-50 flex items-center justify-center overflow-hidden bg-black/90 transition-opacity duration-300 ${
-                  isLoading ? "opacity-100" : "pointer-events-none opacity-0"
+                  !isLoaded && validSrc
+                     ? "opacity-100"
+                     : "pointer-events-none opacity-0"
                }`}
             >
                <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent -translate-x-full animate-[shimmer_2s_infinite]" />
@@ -149,7 +151,7 @@ export function BackgroundImage({
 
             {/* Gradients Overlay */}
             <div className="absolute inset-0 bg-linear-to-l from-black/60 via-transparent to-transparent z-20 pointer-events-none" />
-            <div className="hidden sm:block absolute inset-x-0 -bottom-0.5 h-[calc(75%+2px)] bg-linear-to-t from-black via-black/90 via-30% to-transparent z-20 pointer-events-none scale-[1.01] transform-gpu" />
+            <div className="hidden sm:block absolute inset-x-0 -bottom-0.5 h-[calc(75%+200px)] bg-linear-to-t from-black via-black/70 via-10% to-transparent z-20 pointer-events-none scale-[1.01] transform-gpu" />
             <div className="absolute inset-0 bg-linear-to-r from-black/60 via-transparent to-transparent z-20 pointer-events-none" />
          </div>
       </div>

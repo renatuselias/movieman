@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image, { ImageProps } from "next/image";
-import { TmdbSize } from "../types/tmdb-types";
+import { TmdbSize } from "../types/media-types";
 
 interface TmdbImageProps extends Omit<ImageProps, "src"> {
    src?: string | null;

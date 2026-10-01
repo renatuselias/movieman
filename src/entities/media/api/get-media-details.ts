@@ -5,13 +5,15 @@ import { CacheConfig } from "@/shared/config/cache";
 import { TMDB_LANGUAGES } from "@/shared/config/tmdb-languages";
 import { getLocale } from "next-intl/server";
 import { mapToHeaderInfo } from "../lib/mappers/media.mapper";
+import { TMDBMedia, TMDBVideo } from "@/shared/types/media-types";
+import { TMDBMediaCredits } from "@/shared/types/credits-types";
 
 export type MediaType = "movie" | "tv";
 
 export async function getMediaDetails(
    mediaId: string,
    mediaType: MediaType = "movie",
-   isFoolInfo: boolean,
+   isFullInfo: boolean,
 ) {
    try {
       const locale = await getLocale();
@@ -21,7 +23,7 @@ export async function getMediaDetails(
          mediaType === "movie" ? "credits" : "aggregate_credits";
 
       const [details, credits, recommendations] = await Promise.all([
-         tmdbFetch(
+         tmdbFetch<TMDBMedia>(
             `/${mediaType}/${mediaId}`,
             {
                language,
@@ -30,14 +32,14 @@ export async function getMediaDetails(
             },
             CacheConfig.DETAILS,
          ),
-         isFoolInfo
-            ? tmdbFetch(
+         isFullInfo
+            ? tmdbFetch<TMDBMediaCredits>(
                  `/${mediaType}/${mediaId}/${creditsEndpoint}`,
                  { language },
                  CacheConfig.DETAILS,
               )
             : null,
-         isFoolInfo
+         isFullInfo
             ? tmdbFetch(
                  `/${mediaType}/${mediaId}/recommendations`,
                  { language },
@@ -46,32 +48,39 @@ export async function getMediaDetails(
             : null,
       ]);
 
-      if (!details || details.status_code === 34) {
+      if (
+         !details ||
+         ("status_code" in details && details.status_code === 34)
+      ) {
          return null;
       }
 
-      if (!isFoolInfo) {
+      if (!isFullInfo) {
          const results = {
             ...details,
             media_type: mediaType,
-         };
+         } as TMDBMedia;
+
          return mapToHeaderInfo(results);
       }
 
-      let videos = details?.videos;
-      if (!videos?.results?.length) {
-         const fallbackVideos = await tmdbFetch(
+      type TMDBVideosResponse = { results: TMDBVideo[] };
+      let videos: TMDBVideo[] = details?.videos?.results ?? [];
+
+      if (!videos.length) {
+         const fallbackVideos = await tmdbFetch<TMDBVideosResponse>(
             `/${mediaType}/${mediaId}/videos`,
             { language },
             CacheConfig.DETAILS,
          );
-         videos = fallbackVideos ?? videos;
+         videos = fallbackVideos?.results ?? [];
       }
 
       return {
          ...details,
-         cast: credits?.cast || [],
-         crew: credits?.crew || [],
+         videos,
+         cast: (credits && credits.cast) || [],
+         crew: (credits && credits.crew) || [],
          recommendations,
       };
    } catch (error) {

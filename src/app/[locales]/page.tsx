@@ -1,8 +1,14 @@
 import { MainPage } from "@/pages/main";
 import { getTrendingMedia } from "@/entities/media";
 
-export default async function Home() {
-   const data = await getTrendingMedia();
+interface Props {
+   params: Promise<{ locales: string }>;
+}
+
+export default async function Home({ params }: Props) {
+   const { locales } = await params;
+
+   const data = await getTrendingMedia({ locale: locales });
 
    return <MainPage media={data.results} />;
 }

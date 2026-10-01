@@ -20,7 +20,7 @@ export function GenresList({
    if (!validGenres.length) return null;
 
    return (
-      <div className="truncate min-w-0 text-base sm:text-sm text-muted-foreground flex flex-wrap">
+      <div className="truncate min-w-0 text-base sm:text-sm flex flex-wrap">
          {validGenres.map((genre, index) => {
             const isLast = index === validGenres.length - 1;
             return (

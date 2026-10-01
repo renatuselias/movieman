@@ -1,6 +1,6 @@
 export { useGetExtras } from "./model/use-get-extras";
 
-export { MediaHeader } from "./ui/media-header/MediaHeader";
+export { MediaHeader } from "./ui/MediaHeader";
 export { GenresList } from "./ui/GenresList";
 
 export { mapToBaseMedia } from "./lib/mappers/media.mapper";

@@ -3,11 +3,11 @@ const TMDB_API_KEY = process.env.TMDB_API_KEY;
 
 type TmdbParams = Record<string, string | number | boolean | undefined | null>;
 
-export async function tmdbFetch(
+export async function tmdbFetch<T = unknown>(
    endpoint: string,
    params: TmdbParams = {},
    revalidate: number = 3600,
-) {
+): Promise<T | null> {
    const url = new URL(`${TMDB_BASE_URL}${endpoint}`);
 
    Object.entries(params).forEach(([key, value]) => {
@@ -16,19 +16,25 @@ export async function tmdbFetch(
       }
    });
 
-   const res = await fetch(url.toString(), {
-      headers: {
-         accept: "application/json",
-         Authorization: `Bearer ${TMDB_API_KEY}`,
-      },
-      next: {
-         revalidate, // ISR
-      },
-   });
+   try {
+      const res = await fetch(url, {
+         headers: {
+            accept: "application/json",
+            Authorization: `Bearer ${TMDB_API_KEY}`,
+         },
+         next: {
+            revalidate,
+         },
+      });
 
-   if (!res.ok) {
-      throw new Error(`TMDB error: ${res.status}`);
+      if (!res.ok) {
+         console.error(`TMDB Fetch Error [${res.status}]: ${endpoint}`);
+         return null;
+      }
+
+      return (await res.json()) as T;
+   } catch (error) {
+      console.error(`TMDB Network Error: ${endpoint}`, error);
+      return null;
    }
-
-   return res.json();
 }
