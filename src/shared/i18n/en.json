@@ -42,7 +42,8 @@
          "hour": "h",
          "minute": "m",
          "season": "{count, plural, =1 {# season} one {# season} other {# seasons}}",
-         "details": "Details"
+         "details": "Details",
+         "createdBy": "Directed by"
       }
    },
 

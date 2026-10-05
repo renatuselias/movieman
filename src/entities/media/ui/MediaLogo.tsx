@@ -1,10 +1,12 @@
+import { useTmdbImagePath } from "@/shared/lib/hooks/useTmdbImagePath";
+import { TmdbSize } from "@/shared/types/media-types";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { TmdbImage } from "@/shared/ui/TmdbImage";
 import { useState } from "react";
 
 interface MediaLogoProps {
    logoPath: string;
-   title?: string;
+   title: string;
    isDarkLogo: boolean;
 }
 
@@ -12,6 +14,9 @@ export function MediaLogo({ logoPath, title, isDarkLogo }: MediaLogoProps) {
    const [imageState, setImageState] = useState<"loading" | "loaded" | "error">(
       "loading",
    );
+
+   const logoUrl = useTmdbImagePath("logo");
+   const tmdbSize: TmdbSize = logoUrl.includes("w185") ? "w185" : "w500";
 
    if (imageState === "error") {
       return (
@@ -31,7 +36,7 @@ export function MediaLogo({ logoPath, title, isDarkLogo }: MediaLogoProps) {
          <TmdbImage
             src={logoPath}
             alt={title || "Media title"}
-            tmdbSize="w300"
+            tmdbSize={tmdbSize}
             width={280}
             height={240}
             fadeDuration={300}

@@ -11,6 +11,7 @@ interface TMDBCastMember {
    character: string;
    credit_id: string;
    order: number;
+   media_type: "movie";
 }
 
 interface TMDBCrewMember {
@@ -24,6 +25,7 @@ interface TMDBCrewMember {
    credit_id: string;
    department: string;
    job: string;
+   media_type: "movie";
 }
 
 interface TMDBMovieCredits {
@@ -47,6 +49,7 @@ interface TMDBAggregateJob {
 
 interface TMDBAggregateCastMember {
    id: number;
+   media_type: "tv";
    gender: number | null;
    known_for_department: string;
    name: string;
@@ -60,6 +63,7 @@ interface TMDBAggregateCastMember {
 
 interface TMDBAggregateCrewMember {
    id: number;
+   media_type: "tv";
    gender: number | null;
    known_for_department: string;
    name: string;
@@ -78,3 +82,6 @@ interface TMDBTVAggregateCredits {
 }
 
 export type TMDBMediaCredits = TMDBMovieCredits | TMDBTVAggregateCredits;
+
+export type TMDBMediaCast = TMDBCastMember | TMDBAggregateCastMember;
+export type TMDBMediaCrew = TMDBCrewMember | TMDBAggregateCrewMember;

@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { Link } from "@/app/i18n/navigation";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { useLocale, useTranslations } from "next-intl";
@@ -11,6 +11,7 @@ import { FormattedRuntime } from "@/shared/ui/FormattedRuntime";
 import { StarRating } from "@/shared/ui/StarRating";
 import { MediaLogo } from "./MediaLogo";
 import { GenresList } from "./GenresList";
+import { CastList } from "./CastList";
 
 interface MediaDetailsProps {
    id: number;
@@ -30,6 +31,10 @@ export function MediaHeader({
    const t = useTranslations("media.headerInfo");
    const currentLocale = useLocale();
 
+   const [dateFormat, setDateFormat] = useState<"yearOnly" | "full">(
+      "yearOnly",
+   );
+
    const {
       title,
       tagline,
@@ -40,15 +45,16 @@ export function MediaHeader({
       rating,
       productionCountries,
       numberOfSeasons,
+      cast,
+      createdBy,
    } = media || {};
 
    const mediaHref = `/${mediaType === "tv" ? "tvshow" : mediaType}/${mediaId}`;
-   const releaseYear = releaseDate
-      ? formatDate(releaseDate, "yearOnly", currentLocale)
-      : null;
+   const release = (format: "yearOnly" | "full") =>
+      releaseDate ? formatDate(releaseDate, format, currentLocale) : null;
 
    const logoUrl = logoPath
-      ? `https://image.tmdb.org/t/p/w200${logoPath}`
+      ? `https://image.tmdb.org/t/p/w92${logoPath}`
       : null;
    const isDarkLogo = useImageLuminance(logoUrl);
 
@@ -56,23 +62,35 @@ export function MediaHeader({
       <div className="space-y-3 sm:space-y-5 w-full sm:max-w-2xl">
          {isLoading ? (
             <div className="animate-[fadeInUp_0.8s_ease-out]">
-               <Skeleton className="h-12 w-64 sm:h-16 sm:w-80 md:h-20 mb-4 sm:mb-8 lg:mb-10" />
+               <Skeleton className="h-12 w-64 sm:h-16 sm:w-80 md:h-20 mb-4 sm:mb-8" />
                <div className="space-y-2 max-w-xl">
                   <Skeleton className="h-4 w-3/4" />
                   <Skeleton className="h-4 w-2/4" />
                </div>
-               <div className="flex items-center gap-2 sm:gap-3 mt-3 sm:mt-4">
-                  <Skeleton className="h-4 w-8" />
-                  <span className="text-white/20">|</span>
+               <div className="flex items-center gap-2 mt-3 sm:mt-4">
+                  <Skeleton className="h-4 w-10" />
+                  <span className="text-white/20">•</span>
                   <Skeleton className="h-4 w-11" />
-                  <span className="text-white/20">|</span>
+                  <span className="text-white/20">•</span>
                   <Skeleton className="h-4 w-14" />
-                  <span className="text-white/20">|</span>
+                  <span className="text-white/20">•</span>
                   <Skeleton className="h-4 w-14" />
                </div>
+               <div className="flex gap-2 items-center mt-2">
+                  <div className="flex -space-x-1">
+                     <Skeleton className="h-8 w-8 rounded-full" />
+                     <Skeleton className="h-8 w-8 rounded-full" />
+                     <Skeleton className="h-8 w-8 rounded-full" />
+                     <Skeleton className="h-8 w-8 rounded-full" />
+                     <Skeleton className="h-8 w-8 rounded-full" />
+                  </div>
+                  <Skeleton className="h-5 w-28" />
+               </div>
                <div className="flex items-center gap-2 sm:gap-3 mt-3 sm:mt-4">
-                  <Skeleton className="h-7 w-1/5" />
-                  <Skeleton className="h-6 w-1/3" />
+                  <Skeleton className="h-5 w-2/5" />
+               </div>
+               <div>
+                  <Skeleton className="mt-2 h-5 w-28" />
                </div>
             </div>
          ) : (
@@ -106,7 +124,7 @@ export function MediaHeader({
                   {tagline && (
                      <div className="relative pl-2 border-l-2 border-red-700 my-1">
                         <p className="font-sans italic text-base leading-relaxed text-zinc-300 drop-shadow-sm line-clamp-3 sm:line-clamp-4">
-                           “{tagline}”
+                           {tagline.startsWith("«") ? tagline : `"${tagline}"`}
                         </p>
                      </div>
                   )}
@@ -115,7 +133,7 @@ export function MediaHeader({
                      <GenresList genreIds={genreIds} />
                   )}
 
-                  <div className="mt-1 flex items-center flex-wrap tracking-tighter gap-2 drop-shadow-md cursor-default">
+                  <div className="mt-1 mb-1 flex items-center flex-wrap tracking-tighter gap-2 drop-shadow-md cursor-default">
                      {Number(rating) > 0 && (
                         <>
                            <StarRating text={Number(rating).toFixed(1)} />
@@ -123,9 +141,18 @@ export function MediaHeader({
                         </>
                      )}
 
-                     {releaseYear && (
+                     {releaseDate && (
                         <>
-                           <span>{releaseYear}</span>
+                           <span
+                              onClick={() =>
+                                 setDateFormat((prev) =>
+                                    prev === "yearOnly" ? "full" : "yearOnly",
+                                 )
+                              }
+                              className="cursor-pointer hover:text-zinc-300"
+                           >
+                              {release(dateFormat)}
+                           </span>
                         </>
                      )}
 
@@ -158,6 +185,27 @@ export function MediaHeader({
                         </>
                      )}
                   </div>
+
+                  <CastList
+                     mediaId={mediaId}
+                     mediaType={mediaType}
+                     cast={cast}
+                     textList={false}
+                  />
+
+                  {createdBy && (
+                     <div className="text-sm text-zinc-500 mt-2">
+                        <span>
+                           {t("createdBy")}{" "}
+                           <Link
+                              className="text-base text-zinc-400 hover:text-zinc-300 transition-all duration-500"
+                              href={`person/${createdBy.id}`}
+                           >
+                              {createdBy.name}
+                           </Link>
+                        </span>
+                     </div>
+                  )}
 
                   {children}
                </div>

@@ -46,7 +46,8 @@
          "hour": "г",
          "minute": "хв",
          "season": "{count, plural, one {# сезон} few {# сезони} many {# сезонів} other {# сезонів}}",
-         "details": "Деталі"
+         "details": "Детальніше",
+         "createdBy": "Режисер"
       }
    },
 

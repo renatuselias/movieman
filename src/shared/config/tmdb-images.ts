@@ -12,10 +12,10 @@ export const TMDB_IMAGE_BASES: Record<
    },
    poster: {
       low: "https://image.tmdb.org/t/p/w342",
-      high: "https://image.tmdb.org/t/p/w500",
+      high: "https://image.tmdb.org/t/p/w780",
    },
    logo: {
       low: "https://image.tmdb.org/t/p/w185",
-      high: "https://image.tmdb.org/t/p/w300",
+      high: "https://image.tmdb.org/t/p/w500",
    },
 };

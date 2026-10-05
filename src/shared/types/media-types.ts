@@ -1,3 +1,5 @@
+import { TMDBMediaCast, TMDBMediaCrew } from "./credits-types";
+
 interface TMDBImage {
    aspect_ratio: number;
    height: number;
@@ -64,6 +66,8 @@ interface TMDBBaseMedia {
    production_countries: TMDBProductionCountry[];
    tagline: string;
    videos: { results: TMDBVideo[] };
+   cast: TMDBMediaCast[];
+   crew: TMDBMediaCrew[];
 }
 
 interface TMDBMovieListItem extends TMDBBaseMedia {
@@ -84,6 +88,11 @@ interface TMDBTVShowListItem extends TMDBBaseMedia {
    episode_run_time: number[];
    last_episode_to_air: TMDBLast_episode_to_air;
    number_of_seasons: number;
+   created_by: {
+      id: number;
+      name: string;
+      profile_path: string | null;
+   }[];
 }
 
 export type TMDBMedia = TMDBMovieListItem | TMDBTVShowListItem;

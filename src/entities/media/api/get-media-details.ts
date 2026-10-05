@@ -32,13 +32,11 @@ export async function getMediaDetails(
             },
             CacheConfig.DETAILS,
          ),
-         isFullInfo
-            ? tmdbFetch<TMDBMediaCredits>(
-                 `/${mediaType}/${mediaId}/${creditsEndpoint}`,
-                 { language },
-                 CacheConfig.DETAILS,
-              )
-            : null,
+         tmdbFetch<TMDBMediaCredits>(
+            `/${mediaType}/${mediaId}/${creditsEndpoint}`,
+            { language },
+            CacheConfig.DETAILS,
+         ),
          isFullInfo
             ? tmdbFetch(
                  `/${mediaType}/${mediaId}/recommendations`,
@@ -59,6 +57,8 @@ export async function getMediaDetails(
          const results = {
             ...details,
             media_type: mediaType,
+            cast: (credits && credits.cast) || [],
+            crew: (credits && credits.crew) || [],
          } as TMDBMedia;
 
          return mapToHeaderInfo(results);
