@@ -47,7 +47,8 @@
          "minute": "хв",
          "season": "{count, plural, one {# сезон} few {# сезони} many {# сезонів} other {# сезонів}}",
          "details": "Детальніше",
-         "createdBy": "Режисер"
+         "createdBy": "Режисер",
+         "fullCast": "> Повний склад"
       }
    },
 

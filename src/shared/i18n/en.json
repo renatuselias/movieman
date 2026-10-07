@@ -43,7 +43,8 @@
          "minute": "m",
          "season": "{count, plural, =1 {# season} one {# season} other {# seasons}}",
          "details": "Details",
-         "createdBy": "Directed by"
+         "createdBy": "Directed by",
+         "fullCast": "> Full cast"
       }
    },
 

@@ -28,13 +28,13 @@ export function HeroCarousel({ media }: HeroCarouselProps) {
 
    if (!media || media.length === 0) return null;
 
-   const currentMovie = media[currentSlide];
+   const currentMedia = media[currentSlide];
 
    return (
       <div className="flex-1 min-h-[calc(100svh-55px)] sm:min-h-screen relative flex flex-col justify-end bg-black lg:bg-[#010101]">
          <HeroSlideContent
-            key={currentMovie.id}
-            movie={currentMovie}
+            key={currentMedia.id}
+            media={currentMedia}
          >
             <CarouselNavigation
                media={media}

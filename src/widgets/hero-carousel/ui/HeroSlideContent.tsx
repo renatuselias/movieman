@@ -15,18 +15,25 @@ import {
    MediaHeader,
    useGetExtras,
 } from "@/entities/media";
+import { MediaModal } from "@/widgets/media-modal";
+import { useState } from "react";
 
 interface HeroSlideContentProps {
-   movie: BaseMedia;
+   media: BaseMedia;
    children?: React.ReactNode; // For CarouselNavigation slot
 }
 
-export function HeroSlideContent({ movie, children }: HeroSlideContentProps) {
+export function HeroSlideContent({ media, children }: HeroSlideContentProps) {
    const t = useTranslations();
    const isPortrait = useIsPortrait();
    const imageBaseUrl = useTmdbImagePath(isPortrait ? "poster" : "backdrop");
+   const [isOpenModal, setIsOpenModal] = useState(false);
 
-   const { id: mediaId, title, backdropPath, posterPath, mediaType } = movie;
+   const handleCloseModal = () => {
+      setIsOpenModal(false);
+   };
+
+   const { id: mediaId, title, backdropPath, posterPath, mediaType } = media;
 
    // Pure Hook call without optional chaining
    const { data: extraMedia, isLoading } = useGetExtras(
@@ -37,9 +44,6 @@ export function HeroSlideContent({ movie, children }: HeroSlideContentProps) {
 
    const rawPath = isPortrait ? posterPath : backdropPath;
    const backdrop = rawPath ? `${imageBaseUrl}${rawPath}` : null;
-   const mediaHref = `/${mediaType === "tv" ? "tvshow" : mediaType}/${mediaId}`;
-
-   console.log(extraMedia);
 
    return (
       <>
@@ -64,9 +68,9 @@ export function HeroSlideContent({ movie, children }: HeroSlideContentProps) {
                   isLoading={isLoading}
                >
                   <div className="flex gap-3 sm:gap-5 flex-wrap-reverse items-center mt-2">
-                     <Link
-                        href={mediaHref}
-                        className="flex transition-all duration-700 bg-transparent items-center gap-1 text-xs text-zinc-400 hover:bg-transparent hover:text-zinc-300"
+                     <span
+                        onClick={() => setIsOpenModal(true)}
+                        className="cursor-pointer flex transition-all duration-700 bg-transparent items-center gap-1 text-xs text-zinc-400 hover:bg-transparent hover:text-zinc-300"
                      >
                         <span className="select-none uppercase tracking-widest">
                            {t("media.headerInfo.details")}
@@ -75,11 +79,17 @@ export function HeroSlideContent({ movie, children }: HeroSlideContentProps) {
                            strokeWidth={1.5}
                            size={17}
                         />
-                     </Link>
+                     </span>
                   </div>
                </MediaHeader>
             </div>
-
+            {isOpenModal && (
+               <MediaModal
+                  mediaId={mediaId}
+                  mediaType={mediaType}
+                  onClose={handleCloseModal}
+               />
+            )}
             {/* CarouselNavigation */}
             {children}
          </div>

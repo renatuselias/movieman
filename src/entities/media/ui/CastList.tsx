@@ -1,6 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
 import { HeaderInfo } from "../model/types";
 import { Link } from "@/app/i18n/navigation";
+import { useTranslations } from "next-intl";
 
 interface CastListProps {
    cast: HeaderInfo["cast"];
@@ -17,6 +18,8 @@ export function CastList({
    mediaType,
    mediaId,
 }: CastListProps) {
+   const t = useTranslations();
+
    return (
       <div>
          {textList ? (
@@ -65,9 +68,9 @@ export function CastList({
                </ul>
                <Link
                   href={`/${mediaType}/${mediaId}`}
-                  className="bg-none! text-sm hover:text-zinc-500 transform transition-all duration-300"
+                  className="bg-none! font-medium text-sm hover:text-zinc-500 transform transition-all duration-300"
                >
-                  View full cast
+                  {t("media.headerInfo.fullCast")}
                </Link>
             </div>
          )}
