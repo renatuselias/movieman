@@ -151,7 +151,9 @@ export function BackgroundImage({
 
             {/* Gradients Overlay */}
             <div className="absolute inset-0 bg-linear-to-l from-black/60 via-transparent to-transparent z-20 pointer-events-none" />
-            <div className="hidden sm:block absolute inset-x-0 -bottom-0.5 h-[calc(75%+200px)] bg-linear-to-t from-black via-black/70 via-10% to-transparent z-20 pointer-events-none scale-[1.01] transform-gpu" />
+            <div
+               className={`${aspectRatio ? "block" : "hidden sm:block"} absolute inset-x-0 -bottom-0.5 h-[calc(75%+200px)] bg-linear-to-t from-black via-black/70 via-10% to-transparent z-20 pointer-events-none scale-[1.01] transform-gpu`}
+            />
             <div className="absolute inset-0 bg-linear-to-r from-black/60 via-transparent to-transparent z-20 pointer-events-none" />
          </div>
       </div>

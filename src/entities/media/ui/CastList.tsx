@@ -21,58 +21,64 @@ export function CastList({
    const t = useTranslations();
 
    return (
-      <div>
-         {textList ? (
-            <ul className="flex">
-               {cast &&
-                  cast.length > 0 &&
-                  cast.slice(0, 5).map((member) => (
+      <div className="flex gap-2 items-center">
+         <ul
+            className={`flex ${textList ? "gap-1 sm:gap-2 flex-wrap" : "-space-x-2"}`}
+         >
+            {cast &&
+               cast.length > 0 &&
+               cast.slice(0, 5).map((member, index) => {
+                  const isLast = index === Math.min(cast.length, 5) - 1;
+
+                  return (
                      <li
                         key={member.id}
-                        className="text-sm"
+                        className="inline-flex items-center"
                      >
-                        {member.name}
-                     </li>
-                  ))}
-            </ul>
-         ) : (
-            <div className="flex gap-2 items-center">
-               <ul className="flex -space-x-2">
-                  {cast &&
-                     cast.length > 0 &&
-                     cast.slice(0, 5).map((member) => (
-                        <li key={member.id}>
-                           {/* {member.name} as {member.character} */}
-                           {member.profilePath && (
-                              <Link
-                                 href={`/person/${member.id}`}
-                                 className="block transition-all duration-700 hover:scale-110 hover:z-10 relative"
-                                 title={member.name}
-                              >
-                                 <Avatar
-                                    className={`h-${avatarSize} w-${avatarSize} border border-background shrink-0`}
-                                 >
-                                    <AvatarImage
-                                       src={`https://image.tmdb.org/t/p/w92${member.profilePath}`}
-                                       alt={member.name}
-                                       className="object-cover"
-                                    />
-                                    <AvatarFallback className="bg-zinc-800 text-[10px] font-medium text-zinc-300">
-                                       {member.name.charAt(0)}
-                                    </AvatarFallback>
-                                 </Avatar>
-                              </Link>
+                        <Link
+                           href={`/person/${member.id}`}
+                           className="flex gap-1.5 items-center transition-all duration-300 hover:scale-105 hover:z-10 relative"
+                           title={`${member.name}${member.character ? ` as ${member.character}` : ""}`}
+                        >
+                           <Avatar
+                              className={`${textList ? "hidden sm:block" : ""} border border-background shrink-0`}
+                              style={{
+                                 width: `${avatarSize * 4}px`,
+                                 height: `${avatarSize * 4}px`,
+                              }}
+                           >
+                              {member.profilePath && (
+                                 <AvatarImage
+                                    src={`https://image.tmdb.org/t/p/w185${member.profilePath}`}
+                                    alt={member.name}
+                                    className="object-cover"
+                                 />
+                              )}
+                              <AvatarFallback className="bg-zinc-800 text-[10px] font-medium text-zinc-300">
+                                 {member.name.charAt(0)}
+                              </AvatarFallback>
+                           </Avatar>
+
+                           {textList && (
+                              <span className="text-sm text-zinc-300">
+                                 {member.name}
+                                 {textList && !isLast && (
+                                    <span className="inline sm:hidden">,</span>
+                                 )}
+                              </span>
                            )}
-                        </li>
-                     ))}
-               </ul>
-               <Link
-                  href={`/${mediaType}/${mediaId}`}
-                  className="bg-none! font-medium text-sm hover:text-zinc-500 transform transition-all duration-300"
-               >
-                  {t("media.headerInfo.fullCast")}
-               </Link>
-            </div>
+                        </Link>
+                     </li>
+                  );
+               })}
+         </ul>
+         {!textList && (
+            <Link
+               href={`/${mediaType}/${mediaId}`}
+               className="bg-none! font-heading tracking-tight font-medium text-sm text-zinc-500 hover:text-zinc-300 transform transition-all duration-300"
+            >
+               {t("media.headerInfo.fullCast")}
+            </Link>
          )}
       </div>
    );

@@ -7,40 +7,37 @@ import { InfoIcon } from "lucide-react";
 import { BackgroundImage } from "@/shared/ui/BackgroundImage";
 import { useTmdbImagePath } from "@/shared/lib/hooks/useTmdbImagePath";
 import { useIsPortrait } from "@/shared/lib/hooks/useIsPortrait";
-import { Link } from "@/app/i18n/navigation";
 
-import {
-   BaseMedia,
-   HeaderInfo,
-   MediaHeader,
-   useGetExtras,
-} from "@/entities/media";
+import { BaseMedia, MediaHeader, useGetMediaDetails } from "@/entities/media";
 import { MediaModal } from "@/widgets/media-modal";
-import { useState } from "react";
+import { Button } from "@/shared/ui/button";
 
 interface HeroSlideContentProps {
    media: BaseMedia;
+   isModalOpen: boolean;
+   onModalOpenChange: (isOpen: boolean) => void;
    children?: React.ReactNode; // For CarouselNavigation slot
 }
 
-export function HeroSlideContent({ media, children }: HeroSlideContentProps) {
+export function HeroSlideContent({
+   media,
+   isModalOpen,
+   onModalOpenChange,
+   children,
+}: HeroSlideContentProps) {
    const t = useTranslations();
    const isPortrait = useIsPortrait();
    const imageBaseUrl = useTmdbImagePath(isPortrait ? "poster" : "backdrop");
-   const [isOpenModal, setIsOpenModal] = useState(false);
-
-   const handleCloseModal = () => {
-      setIsOpenModal(false);
-   };
 
    const { id: mediaId, title, backdropPath, posterPath, mediaType } = media;
 
    // Pure Hook call without optional chaining
-   const { data: extraMedia, isLoading } = useGetExtras(
+   const { data: extraMedia, isLoading } = useGetMediaDetails(
       mediaId,
       mediaType,
-      false,
    );
+
+   console.log(extraMedia);
 
    const rawPath = isPortrait ? posterPath : backdropPath;
    const backdrop = rawPath ? `${imageBaseUrl}${rawPath}` : null;
@@ -64,13 +61,13 @@ export function HeroSlideContent({ media, children }: HeroSlideContentProps) {
                <MediaHeader
                   id={mediaId}
                   mediaType={mediaType}
-                  media={extraMedia as HeaderInfo}
+                  media={extraMedia}
                   isLoading={isLoading}
                >
                   <div className="flex gap-3 sm:gap-5 flex-wrap-reverse items-center mt-2">
-                     <span
-                        onClick={() => setIsOpenModal(true)}
-                        className="cursor-pointer flex transition-all duration-700 bg-transparent items-center gap-1 text-xs text-zinc-400 hover:bg-transparent hover:text-zinc-300"
+                     <Button
+                        onClick={() => onModalOpenChange(true)}
+                        className="rounded-none px-0 py-0 w-fit h-fit cursor-pointer flex transition-all duration-700 bg-transparent items-center gap-1 text-xs text-zinc-400 hover:bg-transparent hover:text-zinc-300"
                      >
                         <span className="select-none uppercase tracking-widest">
                            {t("media.headerInfo.details")}
@@ -79,15 +76,15 @@ export function HeroSlideContent({ media, children }: HeroSlideContentProps) {
                            strokeWidth={1.5}
                            size={17}
                         />
-                     </span>
+                     </Button>
                   </div>
                </MediaHeader>
             </div>
-            {isOpenModal && (
+            {isModalOpen && (
                <MediaModal
                   mediaId={mediaId}
                   mediaType={mediaType}
-                  onClose={handleCloseModal}
+                  onClose={() => onModalOpenChange(false)}
                />
             )}
             {/* CarouselNavigation */}

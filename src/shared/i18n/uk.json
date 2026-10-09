@@ -49,6 +49,10 @@
          "details": "Детальніше",
          "createdBy": "Режисер",
          "fullCast": "> Повний склад"
+      },
+      "mediaDetails": {
+         "cast": "Актори",
+         "director": "Режисер"
       }
    },
 

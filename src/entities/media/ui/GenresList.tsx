@@ -31,7 +31,7 @@ export function GenresList({
                   {!isCard ? (
                      <Link
                         href={`/genre/${genre.id}`}
-                        className="hover:underline hover:text-white transition-colors"
+                        className="text-zinc-400 underline hover:text-white transition-colors"
                      >
                         {t(`genres.${genre.key}`)}
                      </Link>

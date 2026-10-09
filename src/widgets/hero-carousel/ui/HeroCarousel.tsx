@@ -1,7 +1,7 @@
 // widgets/hero-carousel/ui/HeroCarousel.tsx
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { BaseMedia } from "@/entities/media";
 import { CarouselNavigation } from "./CarouselNavigation";
 import { HeroSlideContent } from "./HeroSlideContent";
@@ -10,21 +10,41 @@ interface HeroCarouselProps {
    media: BaseMedia[];
 }
 
-const SLIDER_TIME = 100000;
+const SLIDER_TIME = 20000;
 
 export function HeroCarousel({ media }: HeroCarouselProps) {
    const [currentSlide, setCurrentSlide] = useState(0);
+   const [isModalOpen, setIsModalOpen] = useState(false);
+   const remainingTime = useRef(SLIDER_TIME);
+   const startedAt = useRef<number | null>(null);
+   const previousSlide = useRef(currentSlide);
 
-   // Reset auto-play timer on manual slide change
    useEffect(() => {
-      if (!media || media.length <= 1) return;
+      if (previousSlide.current !== currentSlide) {
+         previousSlide.current = currentSlide;
+         remainingTime.current = SLIDER_TIME;
+      }
 
-      const timer = setInterval(() => {
+      if (media.length <= 1 || isModalOpen) return;
+
+      startedAt.current = performance.now();
+      const timer = setTimeout(() => {
+         startedAt.current = null;
+         remainingTime.current = SLIDER_TIME;
          setCurrentSlide((prev) => (prev + 1) % media.length);
-      }, SLIDER_TIME);
+      }, remainingTime.current);
 
-      return () => clearInterval(timer);
-   }, [media, currentSlide]);
+      return () => {
+         clearTimeout(timer);
+         if (startedAt.current !== null) {
+            remainingTime.current = Math.max(
+               0,
+               remainingTime.current - (performance.now() - startedAt.current),
+            );
+            startedAt.current = null;
+         }
+      };
+   }, [media.length, currentSlide, isModalOpen]);
 
    if (!media || media.length === 0) return null;
 
@@ -35,12 +55,15 @@ export function HeroCarousel({ media }: HeroCarouselProps) {
          <HeroSlideContent
             key={currentMedia.id}
             media={currentMedia}
+            isModalOpen={isModalOpen}
+            onModalOpenChange={setIsModalOpen}
          >
             <CarouselNavigation
                media={media}
                sliderTime={SLIDER_TIME}
                currentSlide={currentSlide}
                setCurrentSlide={setCurrentSlide}
+               isPaused={isModalOpen}
             />
          </HeroSlideContent>
       </div>

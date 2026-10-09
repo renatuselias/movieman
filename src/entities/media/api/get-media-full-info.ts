@@ -4,12 +4,11 @@ import { tmdbFetch } from "@/shared/api/tmdb-api";
 import { CacheConfig } from "@/shared/config/cache";
 import { TMDB_LANGUAGES } from "@/shared/config/tmdb-languages";
 import { getLocale } from "next-intl/server";
-import { mapToHeaderInfo } from "../lib/mappers/media.mapper";
-import { TMDBMedia } from "@/shared/types/media-types";
+import { TMDBMedia, TMDBVideo } from "@/shared/types/media-types";
 import { TMDBMediaCredits } from "@/shared/types/credits-types";
 import { MediaType } from "../model/types";
 
-export async function getMediaDetails(
+export async function getMediaFullInfo(
    mediaId: string,
    mediaType: MediaType = "movie",
 ) {
@@ -19,7 +18,7 @@ export async function getMediaDetails(
       const creditsEndpoint =
          mediaType === "movie" ? "credits" : "aggregate_credits";
 
-      const [details, credits] = await Promise.all([
+      const [details, credits, recommendations] = await Promise.all([
          tmdbFetch<TMDBMedia>(
             `/${mediaType}/${mediaId}`,
             {
@@ -34,6 +33,11 @@ export async function getMediaDetails(
             { language },
             CacheConfig.DETAILS,
          ),
+         tmdbFetch(
+            `/${mediaType}/${mediaId}/recommendations`,
+            { language },
+            CacheConfig.LISTS,
+         ),
       ]);
 
       if (
@@ -43,17 +47,27 @@ export async function getMediaDetails(
          return null;
       }
 
-      const results = {
+      type TMDBVideosResponse = { results: TMDBVideo[] };
+      let videos: TMDBVideo[] = details?.videos?.results ?? [];
+
+      if (!videos.length) {
+         const fallbackVideos = await tmdbFetch<TMDBVideosResponse>(
+            `/${mediaType}/${mediaId}/videos`,
+            { language },
+            CacheConfig.DETAILS,
+         );
+         videos = fallbackVideos?.results ?? [];
+      }
+
+      return {
          ...details,
-         media_type: mediaType,
+         videos,
          cast: credits?.cast || [],
          crew: credits?.crew || [],
-      } as TMDBMedia;
-
-      return mapToHeaderInfo(results);
-      //return results;
+         recommendations,
+      };
    } catch (error) {
-      console.error("Failed to fetch media header info:", error);
+      console.error("Failed to fetch full media details:", error);
       return null;
    }
 }

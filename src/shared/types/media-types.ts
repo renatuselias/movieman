@@ -68,6 +68,7 @@ interface TMDBBaseMedia {
    videos: { results: TMDBVideo[] };
    cast: TMDBMediaCast[];
    crew: TMDBMediaCrew[];
+   homepage: string;
 }
 
 interface TMDBMovieListItem extends TMDBBaseMedia {

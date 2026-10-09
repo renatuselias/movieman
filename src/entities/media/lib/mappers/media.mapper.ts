@@ -98,5 +98,6 @@ export function mapToHeaderInfo(media: TMDBMedia): HeaderInfo {
       cast,
       crew,
       createdBy,
+      homePage: media.homepage,
    };
 }

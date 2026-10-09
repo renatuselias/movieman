@@ -6,6 +6,7 @@ interface CarouselNavigationProps {
    currentSlide: number;
    setCurrentSlide: (value: number) => void;
    sliderTime: number;
+   isPaused: boolean;
 }
 
 export function CarouselNavigation({
@@ -13,6 +14,7 @@ export function CarouselNavigation({
    currentSlide,
    setCurrentSlide,
    sliderTime,
+   isPaused,
 }: CarouselNavigationProps) {
    return (
       <div className="flex w-full justify-center sm:justify-end items-center gap-5 tracking-tighter text-sm">
@@ -49,6 +51,7 @@ export function CarouselNavigation({
                            style={{
                               animation: `progressScaleX ${sliderTime}ms linear forwards`,
                               transformOrigin: "left",
+                              animationPlayState: isPaused ? "paused" : "running",
                            }}
                         />
                      )}

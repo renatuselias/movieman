@@ -1,6 +1,11 @@
+export { Info } from "./ui/Info";
+export { Tagline } from "./ui/Tagline";
 export { getMainCreators } from "./lib/getMainCreators";
 
-export { useGetExtras } from "./model/use-get-extras";
+export {
+   useGetMediaDetails,
+   useGetMediaFullInfo,
+} from "./model/use-get-extras";
 
 export { MediaHeader } from "./ui/MediaHeader";
 export { GenresList } from "./ui/GenresList";

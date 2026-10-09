@@ -45,6 +45,10 @@
          "details": "Details",
          "createdBy": "Directed by",
          "fullCast": "> Full cast"
+      },
+      "mediaDetails": {
+         "cast": "starring",
+         "director": "Director"
       }
    },
 

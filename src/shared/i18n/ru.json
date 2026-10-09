@@ -49,6 +49,10 @@
          "details": "Подробнее",
          "createdBy": "Режиссер",
          "fullCast": "> Весь состав"
+      },
+      "mediaDetails": {
+         "cast": "Актеры",
+         "director": "Режиссер"
       }
    },
 

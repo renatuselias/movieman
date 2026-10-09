@@ -1,8 +1,10 @@
 import { TMDBProductionCountry } from "@/shared/types/media-types";
 
+export type MediaType = "movie" | "tv";
+
 export interface BaseMedia {
    id: number;
-   mediaType: "movie" | "tv";
+   mediaType: MediaType;
    title: string;
    backdropPath: string | null;
    posterPath: string | null;
@@ -33,6 +35,7 @@ export interface HeaderInfo extends BaseMedia {
    runtime: number;
    productionCountries: TMDBProductionCountry[];
    numberOfSeasons: number;
+   homePage: string;
    cast: CastMember[];
    crew: CrewMember[];
    createdBy: {
@@ -40,4 +43,8 @@ export interface HeaderInfo extends BaseMedia {
       name: string;
       profilePath: string | null;
    } | null;
+}
+
+export interface MediaFullInfo extends HeaderInfo {
+   videos: [];
 }
