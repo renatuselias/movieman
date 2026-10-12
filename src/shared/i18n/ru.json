@@ -42,18 +42,22 @@
    },
 
    "media": {
-      "headerInfo": {
+      "mediaDetails": {
          "hour": "ч",
          "minute": "мин",
          "season": "{count, plural, =1 {# сезон} one {# сезон} few {# сезона} many {# сезонов} other {# сезонов}}",
          "details": "Подробнее",
          "createdBy": "Режиссер",
-         "fullCast": "> Весь состав"
-      },
-      "mediaDetails": {
+         "fullCast": "> Весь состав",
          "cast": "Актеры",
          "director": "Режиссер"
-      }
+      },
+      "movie": "Фильм",
+      "tv": "Сериал"
+   },
+   "siteInterface": {
+      "readMore": "Читать далее",
+      "readLess": "Свернуть"
    },
 
    "genres": {

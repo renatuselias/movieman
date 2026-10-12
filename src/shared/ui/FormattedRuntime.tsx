@@ -14,7 +14,7 @@ export function FormattedRuntime({
    runtime,
    className,
 }: FormattedRuntimeProps) {
-   const t = useTranslations("media.headerInfo");
+   const t = useTranslations("media.mediaDetails");
    const [isMinutesOnly, setIsMinutesOnly] = useState(false);
 
    if (!runtime || runtime <= 0) return null;

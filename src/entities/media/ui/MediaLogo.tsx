@@ -67,7 +67,7 @@ export function MediaLogo({
                fetchPriority="high"
                onLoad={() => setImageState("loaded")}
                onError={() => setImageState("error")}
-               className={`${isDarkLogo ? "brightness-200 invert" : ""} origin-bottom-left select-none object-contain drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)] h-auto max-[500px]:w-40 ${size}`}
+               className={`${isDarkLogo ? "brightness-200 invert" : ""} hover:scale-102 origin-bottom-left select-none object-contain drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)] h-auto max-[500px]:w-40 ${size}`}
             />
          </div>
       </Link>

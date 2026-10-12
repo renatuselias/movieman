@@ -19,14 +19,16 @@ export function GenresList({
 
    if (!validGenres.length) return null;
 
+   const genres = validGenres.slice(0, isCard ? 2 : validGenres.length);
+
    return (
-      <div className="truncate min-w-0 text-sm flex flex-wrap">
-         {validGenres.map((genre, index) => {
-            const isLast = index === validGenres.length - 1;
+      <div className={`truncate min-w-0 text-sm flex flex-wrap`}>
+         {genres.map((genre, index) => {
+            const isLast = index === genres.length - 1;
             return (
                <span
                   key={genre.id}
-                  className="inline"
+                  className="inline text-wrap"
                >
                   {!isCard ? (
                      <Link
@@ -36,9 +38,15 @@ export function GenresList({
                         {t(`genres.${genre.key}`)}
                      </Link>
                   ) : (
-                     <span> {t(`genres.${genre.key}`)}</span>
+                     <span className="text-zinc-500 text-xs">
+                        {t(`genres.${genre.key}`)}
+                     </span>
                   )}
-                  {!isLast && <span className="mr-1">,</span>}
+                  {!isLast && (
+                     <span className="mr-1 text-sm text-zinc-500">
+                        {`${isCard ? " / " : ","}`}{" "}
+                     </span>
+                  )}
                </span>
             );
          })}

@@ -13,7 +13,7 @@ interface TmdbImageProps extends Omit<ImageProps, "src"> {
 export function TmdbImage({
    src,
    alt,
-   className = "",
+   className = "group-hover:scale-105",
    style,
    tmdbSize = "original",
    fadeDuration = 700,
@@ -43,7 +43,7 @@ export function TmdbImage({
             transition: `all ${fadeDuration}ms ease-in-out`,
             ...style,
          }}
-         className={`object-cover select-none transition-transform duration-500 ease-out group-hover:scale-101 z-10 ${className}`}
+         className={`object-cover select-none transition-transform duration-500 ease-out z-10 ${className}`}
          {...props}
          sizes={sizes}
       />

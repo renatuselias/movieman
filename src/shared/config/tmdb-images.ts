@@ -11,7 +11,7 @@ export const TMDB_IMAGE_BASES: Record<
       high: "https://image.tmdb.org/t/p/original",
    },
    poster: {
-      low: "https://image.tmdb.org/t/p/w342",
+      low: "https://image.tmdb.org/t/p/w300",
       high: "https://image.tmdb.org/t/p/w780",
    },
    logo: {

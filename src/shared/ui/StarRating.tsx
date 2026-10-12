@@ -1,11 +1,13 @@
 import { Star } from "lucide-react";
 
-export function StarRating({ text }: { text: string }) {
+export function StarRating({ rating }: { rating: number }) {
+   if (!rating) return null;
+
    return (
       <div className="group flex w-fit items-center gap-1.5 text-yellow-400">
          <Star className="w-3.5 h-3.5 text-yellow-400 fill-transparent transition-colors duration-500 group-hover:fill-yellow-400" />
          <span className="text-zinc-300 select-none text-sm font-bold">
-            {text}
+            {rating}
          </span>
       </div>
    );

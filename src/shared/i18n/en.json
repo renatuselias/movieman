@@ -38,18 +38,22 @@
       "loadingPoster": "Loading poster..."
    },
    "media": {
-      "headerInfo": {
+      "mediaDetails": {
          "hour": "h",
          "minute": "m",
          "season": "{count, plural, =1 {# season} one {# season} other {# seasons}}",
          "details": "Details",
          "createdBy": "Directed by",
-         "fullCast": "> Full cast"
-      },
-      "mediaDetails": {
+         "fullCast": "> Full cast",
          "cast": "starring",
          "director": "Director"
-      }
+      },
+      "movie": "Movie",
+      "tv": "TV Show"
+   },
+   "siteInterface": {
+      "readMore": "Read more",
+      "readLess": "Read less"
    },
 
    "genres": {

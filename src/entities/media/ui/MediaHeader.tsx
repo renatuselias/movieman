@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 import { Link } from "@/app/i18n/navigation";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { useTranslations } from "next-intl";
-import { HeaderInfo } from "../model/types";
+import { MediaDetails, MediaType } from "../model/types";
 import { MediaLogo } from "./MediaLogo";
 import { GenresList } from "./GenresList";
 import { CastList } from "./CastList";
@@ -13,9 +13,9 @@ import { Info } from "./Info";
 
 interface MediaDetailsProps {
    id: number;
-   mediaType: "movie" | "tv";
+   mediaType: MediaType;
    children?: ReactNode;
-   media?: HeaderInfo | null;
+   media?: MediaDetails | null;
    isLoading: boolean;
 }
 
@@ -26,7 +26,7 @@ export function MediaHeader({
    media,
    isLoading,
 }: MediaDetailsProps) {
-   const t = useTranslations("media.headerInfo");
+   const t = useTranslations("media.mediaDetails");
 
    const {
       title,

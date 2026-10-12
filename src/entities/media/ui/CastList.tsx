@@ -1,13 +1,13 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
-import { HeaderInfo } from "../model/types";
+import { MediaDetails, MediaType } from "../model/types";
 import { Link } from "@/app/i18n/navigation";
 import { useTranslations } from "next-intl";
 
 interface CastListProps {
-   cast: HeaderInfo["cast"];
+   cast: MediaDetails["cast"];
    textList: boolean;
    avatarSize?: number;
-   mediaType?: "movie" | "tv";
+   mediaType?: MediaType;
    mediaId?: number;
 }
 
@@ -77,7 +77,7 @@ export function CastList({
                href={`/${mediaType}/${mediaId}`}
                className="bg-none! font-heading tracking-tight font-medium text-sm text-zinc-500 hover:text-zinc-300 transform transition-all duration-300"
             >
-               {t("media.headerInfo.fullCast")}
+               {t("media.mediaDetails.fullCast")}
             </Link>
          )}
       </div>

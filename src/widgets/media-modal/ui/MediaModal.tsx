@@ -4,10 +4,11 @@ import type { ReactNode } from "react";
 import {
    GenresList,
    Info,
+   MediaType,
    Tagline,
    useGetMediaDetails,
 } from "@/entities/media";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Dialog, DialogContent } from "@/shared/ui/dialog";
 import { BackgroundImage } from "@/shared/ui/BackgroundImage";
 import { useTmdbImagePath } from "@/shared/lib/hooks/useTmdbImagePath";
@@ -15,10 +16,11 @@ import { MediaLogo } from "@/entities/media/ui/MediaLogo";
 import { CastList } from "@/entities/media/ui/CastList";
 import { Link } from "@/app/i18n/navigation";
 import { Skeleton } from "@/shared/ui/skeleton";
+import { ExpandableText } from "@/shared/ui/ExpandableText";
 
 interface MediaModalProps {
    mediaId: number;
-   mediaType: "movie" | "tv";
+   mediaType: MediaType;
    onClose: () => void;
 }
 
@@ -45,12 +47,14 @@ function MediaDetailRow({
 
 export function MediaModal({ mediaId, mediaType, onClose }: MediaModalProps) {
    const t = useTranslations();
+   const locale = useLocale();
 
    const imageBaseUrl = useTmdbImagePath("backdrop");
 
    const { data: extraMedia, isLoading } = useGetMediaDetails(
       mediaId,
       mediaType,
+      locale,
    );
 
    const backdrop = `${imageBaseUrl}${extraMedia?.backdropPath}`;
@@ -103,7 +107,7 @@ export function MediaModal({ mediaId, mediaType, onClose }: MediaModalProps) {
                </div>
 
                {isLoading ? (
-                  <div className="w-full px-4 sm:px-8 md:px-12 z-50 -mt-10 text-zinc-300">
+                  <div className="w-full px-4 sm:px-8 md:px-12 z-50 -mt-10 sm:-mt-44 text-zinc-300">
                      {/* logo */}
                      <Skeleton className="h-12 w-64 sm:h-16 sm:w-80 md:h-20" />
                      {/* tagline */}
@@ -127,7 +131,7 @@ export function MediaModal({ mediaId, mediaType, onClose }: MediaModalProps) {
                      {/* cast, creator, genres */}
                      <div className="mt-7 space-y-2">
                         <div className="flex gap-15">
-                           <Skeleton className="w-20 h-5" />
+                           <Skeleton className="w-15 h-5 mr-5" />
                            <Skeleton className="flex-1 h-5" />
                         </div>
                         <div className="flex gap-15">
@@ -135,13 +139,13 @@ export function MediaModal({ mediaId, mediaType, onClose }: MediaModalProps) {
                            <Skeleton className="w-1/3 h-5" />
                         </div>
                         <div className="flex gap-15">
-                           <Skeleton className="w-20 h-5" />
+                           <Skeleton className="w-15 h-5 mr-5" />
                            <Skeleton className="w-2/4 h-5" />
                         </div>
                      </div>
                   </div>
                ) : (
-                  <div className="w-full px-4 sm:px-8 md:px-12 z-50 -mt-10 space-y-5 text-zinc-300">
+                  <div className="relative z-999 w-full px-4 sm:px-8 md:px-12 -mt-10 sm:-mt-44 space-y-5 text-zinc-300">
                      <MediaLogo
                         logoPath={logoPath ?? null}
                         title={title ?? ""}
@@ -161,9 +165,9 @@ export function MediaModal({ mediaId, mediaType, onClose }: MediaModalProps) {
                      />
 
                      {overview && (
-                        <p className="mt-4 line-clamp-3 text-base">
-                           {overview}
-                        </p>
+                        <div className="mt-4 text-base">
+                           <ExpandableText text={overview} />
+                        </div>
                      )}
 
                      <div className="flex flex-col gap-3">

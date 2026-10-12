@@ -3,8 +3,7 @@
 import { tmdbFetch } from "@/shared/api/tmdb-api";
 import { CacheConfig } from "@/shared/config/cache";
 import { TMDB_LANGUAGES } from "@/shared/config/tmdb-languages";
-import { getLocale } from "next-intl/server";
-import { mapToHeaderInfo } from "../lib/mappers/media.mapper";
+import { mapToMediaDetails } from "../lib/mappers/media.mapper";
 import { TMDBMedia } from "@/shared/types/media-types";
 import { TMDBMediaCredits } from "@/shared/types/credits-types";
 import { MediaType } from "../model/types";
@@ -12,9 +11,9 @@ import { MediaType } from "../model/types";
 export async function getMediaDetails(
    mediaId: string,
    mediaType: MediaType = "movie",
+   locale: string,
 ) {
    try {
-      const locale = await getLocale();
       const language = TMDB_LANGUAGES[locale] ?? locale;
       const creditsEndpoint =
          mediaType === "movie" ? "credits" : "aggregate_credits";
@@ -50,7 +49,7 @@ export async function getMediaDetails(
          crew: credits?.crew || [],
       } as TMDBMedia;
 
-      return mapToHeaderInfo(results);
+      return mapToMediaDetails(results);
       //return results;
    } catch (error) {
       console.error("Failed to fetch media header info:", error);

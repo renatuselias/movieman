@@ -8,7 +8,7 @@ interface Props {
 export default async function Home({ params }: Props) {
    const { locales } = await params;
 
-   const data = await getTrendingMedia({ locale: locales });
+   const data = await getTrendingMedia({ locale: locales, mediaType: "all" });
 
-   return <MainPage media={data.results} />;
+   return <MainPage media={data} />;
 }

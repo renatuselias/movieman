@@ -42,20 +42,23 @@
    },
 
    "media": {
-      "headerInfo": {
+      "mediaDetails": {
          "hour": "г",
          "minute": "хв",
          "season": "{count, plural, one {# сезон} few {# сезони} many {# сезонів} other {# сезонів}}",
          "details": "Детальніше",
          "createdBy": "Режисер",
-         "fullCast": "> Повний склад"
-      },
-      "mediaDetails": {
+         "fullCast": "> Повний склад",
          "cast": "Актори",
          "director": "Режисер"
-      }
+      },
+      "movie": "Фільм",
+      "tv": "Серіал"
    },
-
+   "siteInterface": {
+      "readMore": "Читати далі",
+      "readLess": "Згорнути"
+   },
    "genres": {
       "genres": "Жанри",
       "Action": "Бойовик",

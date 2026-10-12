@@ -1,4 +1,4 @@
-import { BaseMedia, HeaderInfo } from "../../model/types";
+import { BaseMedia, MediaDetails } from "../../model/types";
 import { TMDBMedia } from "@/shared/types/media-types";
 import { getMainCreators } from "../getMainCreators";
 
@@ -18,7 +18,7 @@ export function mapToBaseMedia(item: TMDBMedia): BaseMedia {
    };
 }
 
-export function mapToHeaderInfo(media: TMDBMedia): HeaderInfo {
+export function mapToMediaDetails(media: TMDBMedia): MediaDetails {
    const baseMedia = mapToBaseMedia(media);
    const isMovieMedia = media.media_type === "movie";
    const runtime = isMovieMedia

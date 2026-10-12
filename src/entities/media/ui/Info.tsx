@@ -25,7 +25,7 @@ export function Info({
    numberOfSeasons,
    productionCountries,
 }: InfoProps) {
-   const t = useTranslations("media.headerInfo");
+   const t = useTranslations("media.mediaDetails");
    const currentLocale = useLocale();
 
    const [dateFormat, setDateFormat] = useState<"yearOnly" | "full">(
@@ -39,7 +39,7 @@ export function Info({
       <div className="text-muted-foreground my-1 flex items-center flex-wrap tracking-tighter gap-2 drop-shadow-md cursor-default">
          {Number(rating) > 0 && (
             <>
-               <StarRating text={Number(rating).toFixed(1)} />
+               <StarRating rating={Number(Number(rating).toFixed(1))} />
                <span className="text-white/20">•</span>
             </>
          )}

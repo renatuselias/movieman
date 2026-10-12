@@ -1,6 +1,6 @@
 import { TMDBProductionCountry } from "@/shared/types/media-types";
 
-export type MediaType = "movie" | "tv";
+export type MediaType = "movie" | "tv" | "all";
 
 export interface BaseMedia {
    id: number;
@@ -29,7 +29,7 @@ interface CrewMember extends BaseCreditMember {
    job: string;
 }
 
-export interface HeaderInfo extends BaseMedia {
+export interface MediaDetails extends BaseMedia {
    tagline: string;
    logoPath: string | null;
    runtime: number;
@@ -45,6 +45,6 @@ export interface HeaderInfo extends BaseMedia {
    } | null;
 }
 
-export interface MediaFullInfo extends HeaderInfo {
+export interface MediaFullInfo extends MediaDetails {
    videos: [];
 }

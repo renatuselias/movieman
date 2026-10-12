@@ -1,16 +1,23 @@
 // widgets/hero-carousel/ui/HeroSlideContent.tsx
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { InfoIcon } from "lucide-react";
 
 import { BackgroundImage } from "@/shared/ui/BackgroundImage";
 import { useTmdbImagePath } from "@/shared/lib/hooks/useTmdbImagePath";
 import { useIsPortrait } from "@/shared/lib/hooks/useIsPortrait";
 
-import { BaseMedia, MediaHeader, useGetMediaDetails } from "@/entities/media";
+import {
+   BaseMedia,
+   getFaviconUrl,
+   MediaHeader,
+   useGetMediaDetails,
+} from "@/entities/media";
 import { MediaModal } from "@/widgets/media-modal";
 import { Button } from "@/shared/ui/button";
+import Image from "next/image";
+import { Link } from "@/app/i18n/navigation";
 
 interface HeroSlideContentProps {
    media: BaseMedia;
@@ -26,6 +33,8 @@ export function HeroSlideContent({
    children,
 }: HeroSlideContentProps) {
    const t = useTranslations();
+   const locale = useLocale();
+
    const isPortrait = useIsPortrait();
    const imageBaseUrl = useTmdbImagePath(isPortrait ? "poster" : "backdrop");
 
@@ -35,9 +44,8 @@ export function HeroSlideContent({
    const { data: extraMedia, isLoading } = useGetMediaDetails(
       mediaId,
       mediaType,
+      locale,
    );
-
-   console.log(extraMedia);
 
    const rawPath = isPortrait ? posterPath : backdropPath;
    const backdrop = rawPath ? `${imageBaseUrl}${rawPath}` : null;
@@ -65,12 +73,28 @@ export function HeroSlideContent({
                   isLoading={isLoading}
                >
                   <div className="flex gap-3 sm:gap-5 flex-wrap-reverse items-center mt-2">
+                     {extraMedia?.homePage && (
+                        <Link
+                           href={extraMedia.homePage}
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           className="inline-flex items-center gap-2 hover:opacity-80 transition-opacity"
+                        >
+                           <Image
+                              src={getFaviconUrl(extraMedia.homePage) ?? ""}
+                              alt="Official site"
+                              width={20}
+                              height={20}
+                              className="w-7 h-7 object-cover"
+                           />
+                        </Link>
+                     )}
                      <Button
                         onClick={() => onModalOpenChange(true)}
                         className="rounded-none px-0 py-0 w-fit h-fit cursor-pointer flex transition-all duration-700 bg-transparent items-center gap-1 text-xs text-zinc-400 hover:bg-transparent hover:text-zinc-300"
                      >
                         <span className="select-none uppercase tracking-widest">
-                           {t("media.headerInfo.details")}
+                           {t("media.mediaDetails.details")}
                         </span>
                         <InfoIcon
                            strokeWidth={1.5}
