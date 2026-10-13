@@ -3,14 +3,13 @@
 import { tmdbFetch } from "@/shared/api/tmdb-api";
 import { CacheConfig } from "@/shared/config/cache";
 import { mapToBaseMedia } from "../lib/mappers/media.mapper";
-import { TMDBMedia } from "@/shared/types/media-types";
-import { MediaType } from "../model/types";
+import { MediaTypeWithAll, TMDBMedia } from "@/shared/types/media-types";
 
 interface GetTrendingOptions {
    timeWindow?: "day" | "week";
    locale: string;
    limit?: number; // Optional limit for returned items
-   mediaType: MediaType;
+   mediaType: MediaTypeWithAll;
 }
 
 export async function getTrendingMedia({

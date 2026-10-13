@@ -46,7 +46,11 @@
          "createdBy": "Directed by",
          "fullCast": "> Full cast",
          "cast": "starring",
-         "director": "Director"
+         "director": "Director",
+         "synopsis": "Synopsis",
+         "premiere": "Premiere",
+         "firstAired": "First Aired",
+         "releaseDate": "Release Date"
       },
       "movie": "Movie",
       "tv": "TV Show"

@@ -4,7 +4,6 @@ import type { ReactNode } from "react";
 import {
    GenresList,
    Info,
-   MediaType,
    Tagline,
    useGetMediaDetails,
 } from "@/entities/media";
@@ -17,6 +16,7 @@ import { CastList } from "@/entities/media/ui/CastList";
 import { Link } from "@/app/i18n/navigation";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { ExpandableText } from "@/shared/ui/ExpandableText";
+import { MediaType } from "@/shared/types/media-types";
 
 interface MediaModalProps {
    mediaId: number;

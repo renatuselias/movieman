@@ -4,12 +4,13 @@ import { ReactNode } from "react";
 import { Link } from "@/app/i18n/navigation";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { useTranslations } from "next-intl";
-import { MediaDetails, MediaType } from "../model/types";
+import { MediaDetails } from "../model/types";
 import { MediaLogo } from "./MediaLogo";
 import { GenresList } from "./GenresList";
 import { CastList } from "./CastList";
 import { Tagline } from "./Tagline";
 import { Info } from "./Info";
+import { MediaType } from "@/shared/types/media-types";
 
 interface MediaDetailsProps {
    id: number;

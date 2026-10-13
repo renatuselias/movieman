@@ -4,9 +4,8 @@ import { tmdbFetch } from "@/shared/api/tmdb-api";
 import { CacheConfig } from "@/shared/config/cache";
 import { TMDB_LANGUAGES } from "@/shared/config/tmdb-languages";
 import { mapToMediaDetails } from "../lib/mappers/media.mapper";
-import { TMDBMedia } from "@/shared/types/media-types";
+import { MediaType, TMDBMedia } from "@/shared/types/media-types";
 import { TMDBMediaCredits } from "@/shared/types/credits-types";
-import { MediaType } from "../model/types";
 
 export async function getMediaDetails(
    mediaId: string,

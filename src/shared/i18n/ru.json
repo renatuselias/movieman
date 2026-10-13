@@ -50,7 +50,11 @@
          "createdBy": "Режиссер",
          "fullCast": "> Весь состав",
          "cast": "Актеры",
-         "director": "Режиссер"
+         "director": "Режиссер",
+         "synopsis": "Синопсис",
+         "premiere": "Премьера",
+         "firstAired": "Первый эфир",
+         "releaseDate": "Дата выхода"
       },
       "movie": "Фильм",
       "tv": "Сериал"

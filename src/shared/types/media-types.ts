@@ -1,5 +1,8 @@
 import { TMDBMediaCast, TMDBMediaCrew } from "./credits-types";
 
+export type MediaType = "movie" | "tv";
+export type MediaTypeWithAll = MediaType | "all";
+
 interface TMDBImage {
    aspect_ratio: number;
    height: number;

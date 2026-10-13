@@ -18,7 +18,7 @@ export function useGetMedias({ shouldFetch, locale, limit }: GetMediasProps) {
             timeWindow: "week",
             locale,
             limit,
-            mediaType: "tv",
+            mediaType: "all",
          }),
       staleTime: CacheConfig.LISTS,
       enabled: shouldFetch,

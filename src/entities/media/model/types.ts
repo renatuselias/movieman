@@ -1,6 +1,4 @@
-import { TMDBProductionCountry } from "@/shared/types/media-types";
-
-export type MediaType = "movie" | "tv" | "all";
+import { MediaType, TMDBProductionCountry } from "@/shared/types/media-types";
 
 export interface BaseMedia {
    id: number;

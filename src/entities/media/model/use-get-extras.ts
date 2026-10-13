@@ -2,9 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import { MEDIA_EXTRAS_QUERY_KEY } from "@/shared/config/query-keys";
 import { CacheConfig } from "@/shared/config/cache";
 import { getMediaDetails } from "../api/get-media-details";
-import { MediaType } from "./types";
 import { getMediaFullInfo } from "../api/get-media-full-info";
 import { Locale } from "next-intl";
+import { MediaType } from "@/shared/types/media-types";
 
 export function useGetMediaDetails(
    mediaId: number,

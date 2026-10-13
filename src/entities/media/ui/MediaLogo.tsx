@@ -2,11 +2,10 @@
 
 import { Link } from "@/app/i18n/navigation";
 import { useTmdbImagePath } from "@/shared/lib/hooks/useTmdbImagePath";
-import { TmdbSize } from "@/shared/types/media-types";
+import { MediaType, TmdbSize } from "@/shared/types/media-types";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { TmdbImage } from "@/shared/ui/TmdbImage";
 import { useState } from "react";
-import { MediaType } from "../model/types";
 import { useImageLuminance } from "@/shared/lib/hooks/useImageLuminance";
 
 interface MediaLogoProps {

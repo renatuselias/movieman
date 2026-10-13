@@ -1,12 +1,11 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { MediaType } from "../model/types";
 import { useState } from "react";
 import { formatDate } from "@/shared/lib/format/format-date";
 import { StarRating } from "@/shared/ui/StarRating";
 import { FormattedRuntime } from "@/shared/ui/FormattedRuntime";
-import { TMDBProductionCountry } from "@/shared/types/media-types";
+import { MediaType, TMDBProductionCountry } from "@/shared/types/media-types";
 
 interface InfoProps {
    rating: number;

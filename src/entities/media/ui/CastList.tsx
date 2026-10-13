@@ -1,7 +1,8 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
-import { MediaDetails, MediaType } from "../model/types";
+import { MediaDetails } from "../model/types";
 import { Link } from "@/app/i18n/navigation";
 import { useTranslations } from "next-intl";
+import { MediaType } from "@/shared/types/media-types";
 
 interface CastListProps {
    cast: MediaDetails["cast"];

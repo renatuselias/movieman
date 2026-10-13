@@ -1,14 +1,14 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { BaseMedia, MediaCard, MediaType } from "@/entities/media";
+import { BaseMedia, MediaCard } from "@/entities/media";
 import { ContentTitle } from "@/shared/ui/ContentTitle";
 import { MediaModal } from "@/widgets/media-modal";
 import { useLocale, useTranslations } from "next-intl";
 import { useGetMedias } from "@/entities/media/model/use-get-medias";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { useTmdbImagePath } from "@/shared/lib/hooks/useTmdbImagePath";
-import { TmdbSize } from "@/shared/types/media-types";
+import { MediaType, TmdbSize } from "@/shared/types/media-types";
 
 interface MediaGridProps {
    title: string;

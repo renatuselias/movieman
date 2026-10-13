@@ -3,9 +3,8 @@
 import { tmdbFetch } from "@/shared/api/tmdb-api";
 import { CacheConfig } from "@/shared/config/cache";
 import { TMDB_LANGUAGES } from "@/shared/config/tmdb-languages";
-import { TMDBMedia, TMDBVideo } from "@/shared/types/media-types";
+import { MediaType, TMDBMedia, TMDBVideo } from "@/shared/types/media-types";
 import { TMDBMediaCredits } from "@/shared/types/credits-types";
-import { MediaType } from "../model/types";
 import { Locale } from "next-intl";
 
 export async function getMediaFullInfo(

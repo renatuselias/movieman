@@ -2,11 +2,9 @@ import { TmdbImage } from "@/shared/ui/TmdbImage";
 import { GenresList } from "./GenresList";
 import { StarRating } from "@/shared/ui/StarRating";
 import { Skeleton } from "@/shared/ui/skeleton";
-import { MediaType } from "../model/types";
-import { formatDate } from "@/shared/lib/format/format-date";
+import { formatDate, getReleaseLabel } from "@/shared/lib/format/format-date";
 import { useLocale, useTranslations } from "next-intl";
-import { TmdbSize } from "@/shared/types/media-types";
-import { Button } from "@/shared/ui/button";
+import { MediaType, TmdbSize } from "@/shared/types/media-types";
 
 export function MediaCard({
    genreIds,
@@ -48,11 +46,23 @@ export function MediaCard({
             />
             <div className="px-5 absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center z-20">
                <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-300 ease-out flex flex-col gap-2">
-                  <p>{`Release date: ${formatDate(releaseDate, "full", currentLocale)}`}</p>
+                  {releaseDate && (
+                     <div>
+                        <h4>
+                           {t(
+                              `media.mediaDetails.${getReleaseLabel(releaseDate, mediaType)}`,
+                           )}
+                        </h4>
+                        <p className="text-xs">{`${formatDate(releaseDate, "full", currentLocale)}`}</p>
+                     </div>
+                  )}
                   {overview && (
-                     <p className="line-clamp-5 text-xs leading-relaxed text-zinc-300/90 font-normal mt-1">
-                        {overview}
-                     </p>
+                     <div>
+                        <h4>{t("media.mediaDetails.synopsis")}</h4>
+                        <p className="line-clamp-5 text-xs leading-relaxed text-zinc-300/90 font-normal">
+                           {overview}
+                        </p>
+                     </div>
                   )}
                </div>
             </div>

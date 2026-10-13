@@ -1,3 +1,5 @@
+import { MediaType } from "@/shared/types/media-types";
+
 type DateFormatMode = "full" | "yearOnly";
 
 export const formatDate = (
@@ -13,4 +15,17 @@ export const formatDate = (
          : { day: "numeric", month: "long", year: "numeric" };
 
    return new Date(date).toLocaleDateString(currentLocale, options);
+};
+
+export const getReleaseLabel = (
+   date: string | null,
+   mediaType: MediaType,
+): string | null => {
+   if (!date) return null;
+
+   const isFuture = new Date(date) > new Date();
+
+   if (isFuture) return "premiere";
+
+   return mediaType === "tv" ? "firstAired" : "releaseDate";
 };
