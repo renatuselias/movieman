@@ -91,7 +91,8 @@ export function MediaModal({ mediaId, mediaType, onClose }: MediaModalProps) {
          <DialogContent
             tabIndex={-1}
             style={{ border: "none", boxShadow: "none", outline: "none" }}
-            className="fixed top-1/2 left-1/2! -translate-x-1/2! -translate-y-1/2!
+            className="fixed top-[5dvh]! left-1/2! -translate-x-1/2! translate-y-0!
+            sm:top-1/2! sm:-translate-y-1/2!
             block! w-[90vw]! max-w-[90vw]! lg:w-240! lg:max-w-240! max-h-[90dvh] overflow-y-auto
              bg-black! border-0! shadow-none! ring-0! outline-none!
              focus:outline-none! focus-visible:outline-none! rounded-none!
