@@ -4,26 +4,30 @@ import { useState, useCallback } from "react";
 import { BaseMedia, MediaCard } from "@/entities/media";
 import { ContentTitle } from "@/shared/ui/ContentTitle";
 import { MediaModal } from "@/widgets/media-modal";
-import { useLocale, useTranslations } from "next-intl";
 import { useGetMedias } from "@/entities/media/model/use-get-medias";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { useTmdbImagePath } from "@/shared/lib/hooks/useTmdbImagePath";
-import { MediaType, TmdbSize } from "@/shared/types/media-types";
+import {
+   MediaParams,
+   MediaTypeWithAll,
+   TmdbSize,
+} from "@/shared/types/media-types";
 
 interface MediaGridProps {
    title: string;
    subtitle: string;
-   mediaType: MediaType;
-   mediaCount?: number;
+   mediaType: MediaTypeWithAll;
+   mediaCount: number;
+   params?: MediaParams;
 }
 
 export function MediaGrid({
    title,
    subtitle,
+   params,
+   mediaType,
    mediaCount = 12,
 }: MediaGridProps) {
-   const t = useTranslations("mediaDetail");
-   const locale = useLocale();
    const [selectedItem, setSelectedItem] = useState<BaseMedia | null>(null);
    const posterUrl = useTmdbImagePath("poster");
    const tmdbSize: TmdbSize = posterUrl.includes("w300") ? "w300" : "w780";
@@ -32,10 +36,13 @@ export function MediaGrid({
       setSelectedItem(null);
    }, []);
 
+   const shouldFetch = Boolean(params);
+
    const { data: medias = [], isLoading } = useGetMedias({
-      shouldFetch: true,
-      locale,
+      ...params,
+      mediaType,
       limit: mediaCount,
+      enabled: shouldFetch,
    });
 
    const showSkeleton = isLoading && medias?.length === 0;

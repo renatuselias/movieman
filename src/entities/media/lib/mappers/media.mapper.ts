@@ -1,20 +1,20 @@
-import { BaseMedia, MediaDetails } from "../../model/types";
+import { BaseMedia, MediaDetails, MediaFullInfo } from "../../model/types";
 import { TMDBMedia } from "@/shared/types/media-types";
 import { getMainCreators } from "../getMainCreators";
 
-export function mapToBaseMedia(item: TMDBMedia): BaseMedia {
-   const isMovie = item.media_type === "movie";
+export function mapToBaseMedia(media: TMDBMedia): BaseMedia {
+   const isMovie = media.media_type === "movie";
 
    return {
-      id: item.id,
-      mediaType: item.media_type,
-      title: (isMovie ? item.title : item.name) ?? "No title",
-      backdropPath: item.backdrop_path,
-      posterPath: item.poster_path,
-      rating: item.vote_average,
-      genreIds: item.genre_ids,
-      overview: item.overview,
-      releaseDate: isMovie ? item.release_date : item.first_air_date,
+      id: media.id,
+      mediaType: media.media_type,
+      title: (isMovie ? media.title : media.name) ?? "No title",
+      backdropPath: media.backdrop_path,
+      posterPath: media.poster_path,
+      rating: media.vote_average,
+      genreIds: media.genre_ids,
+      overview: media.overview,
+      releaseDate: isMovie ? media.release_date : media.first_air_date,
    };
 }
 
@@ -28,44 +28,44 @@ export function mapToMediaDetails(media: TMDBMedia): MediaDetails {
    const logoPath = media.images.logos?.[0]?.file_path || null;
    const numberOfSeasons = isMovieMedia ? 0 : media.number_of_seasons || 0;
 
-   const genres = media.genres.map((item) => item.id);
+   const genres = media.genres.map((genre) => genre.id);
 
-   const cast = media.cast.map((item) => {
+   const cast = media.cast.map((member) => {
       const character =
-         "character" in item && typeof item.character === "string"
-            ? item.character
-            : "roles" in item
-              ? item.roles
+         "character" in member && typeof member.character === "string"
+            ? member.character
+            : "roles" in member
+              ? member.roles
                    ?.map((role) => role.character)
                    .filter(Boolean)
                    .join(" / ") || "Unknown character"
               : "Unknown character";
 
       return {
-         id: item.id,
-         name: item.name,
+         id: member.id,
+         name: member.name,
          character,
-         profilePath: item.profile_path,
+         profilePath: member.profile_path,
          episodeCount:
-            "total_episode_count" in item ? item.total_episode_count : 0,
+            "total_episode_count" in member ? member.total_episode_count : 0,
       };
    });
 
-   const crew = media.crew.map((item) => {
+   const crew = media.crew.map((member) => {
       const job =
-         "job" in item && typeof item.job === "string"
-            ? item.job
-            : "jobs" in item
-              ? item.jobs
+         "job" in member && typeof member.job === "string"
+            ? member.job
+            : "jobs" in member
+              ? member.jobs
                    ?.map((crewJob) => crewJob.job)
                    .filter(Boolean)
                    .join(" / ") || "Unknown job"
               : "Unknown job";
 
       return {
-         id: item.id,
-         name: item.name,
-         profilePath: item.profile_path,
+         id: member.id,
+         name: member.name,
+         profilePath: member.profile_path,
          job,
       };
    });
@@ -99,5 +99,18 @@ export function mapToMediaDetails(media: TMDBMedia): MediaDetails {
       crew,
       createdBy,
       homePage: media.homepage,
+   };
+}
+
+export function mapToFullMedia(media: TMDBMedia): MediaFullInfo {
+   const mediaDetails = mapToMediaDetails(media);
+   const recommendations = media.recommendations.results.map((item) =>
+      mapToBaseMedia(item),
+   );
+
+   return {
+      ...mediaDetails,
+      videos: media.videos.results,
+      recommendations,
    };
 }

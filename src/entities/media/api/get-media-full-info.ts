@@ -3,9 +3,15 @@
 import { tmdbFetch } from "@/shared/api/tmdb-api";
 import { CacheConfig } from "@/shared/config/cache";
 import { TMDB_LANGUAGES } from "@/shared/config/tmdb-languages";
-import { MediaType, TMDBMedia, TMDBVideo } from "@/shared/types/media-types";
+import {
+   MediaType,
+   TMDBMedia,
+   TMDBPaginatedResponse,
+   TMDBVideo,
+} from "@/shared/types/media-types";
 import { TMDBMediaCredits } from "@/shared/types/credits-types";
 import { Locale } from "next-intl";
+import { mapToFullMedia } from "../lib/mappers/media.mapper";
 
 export async function getMediaFullInfo(
    mediaId: string,
@@ -32,7 +38,7 @@ export async function getMediaFullInfo(
             { language },
             CacheConfig.DETAILS,
          ),
-         tmdbFetch(
+         tmdbFetch<TMDBPaginatedResponse<TMDBMedia>>(
             `/${mediaType}/${mediaId}/recommendations`,
             { language },
             CacheConfig.LISTS,
@@ -47,7 +53,7 @@ export async function getMediaFullInfo(
       }
 
       type TMDBVideosResponse = { results: TMDBVideo[] };
-      let videos: TMDBVideo[] = details?.videos?.results ?? [];
+      let videos: TMDBVideo[] = details.videos?.results ?? [];
 
       if (!videos.length) {
          const fallbackVideos = await tmdbFetch<TMDBVideosResponse>(
@@ -58,13 +64,16 @@ export async function getMediaFullInfo(
          videos = fallbackVideos?.results ?? [];
       }
 
-      return {
+      const results = {
          ...details,
-         videos,
+         media_type: mediaType,
+         videos: { ...details.videos, results: videos },
          cast: credits?.cast || [],
          crew: credits?.crew || [],
-         recommendations,
-      };
+         recommendations: recommendations ?? { results: [] },
+      } as TMDBMedia;
+
+      return mapToFullMedia(results);
    } catch (error) {
       console.error("Failed to fetch full media details:", error);
       return null;

@@ -57,7 +57,8 @@
          "releaseDate": "Дата виходу"
       },
       "movie": "Фільм",
-      "tv": "Серіал"
+      "tv": "Серіал",
+      "noBackground": "Зображення вісутнє"
    },
    "siteInterface": {
       "readMore": "Читати далі",
@@ -92,5 +93,86 @@
       "Soap": "Мильна опера",
       "Talk": "Ток-шоу",
       "War & Politics": "Війна та політика"
+   },
+
+   "MainPage": {
+      "sections": {
+         "trending": {
+            "title": "У тренді",
+            "subtitle": "Популярне просто зараз"
+         },
+         "inTheaters": {
+            "title": "Зараз у кіно",
+            "subtitle": "Вже на великих екранах"
+         },
+         "comedy": {
+            "title": "Час посміятися",
+            "subtitle": "Чистий дофамін і жодної драми"
+         },
+         "comingSoon": {
+            "title": "Скоро на екранах",
+            "subtitle": "Найочікуваніші прем'єри"
+         },
+         "onTheAir": {
+            "title": "Серіали в ефірі",
+            "subtitle": "Свіжі серії щотижня"
+         },
+         "actionAdventure": {
+            "title": "Пригодницькі бойовики",
+            "subtitle": "Максимум драйву та видовищ"
+         },
+         "mindGames": {
+            "title": "Ігри розуму",
+            "subtitle": "Заплутані трилери та детективи"
+         },
+         "adrenalineRush": {
+            "title": "Чистий адреналін",
+            "subtitle": "Шалений темп, погоні та екшен"
+         },
+         "HBO_hits": {
+            "title": "Хіти HBO",
+            "subtitle": "Культові серіали бренду"
+         },
+         "Apple": {
+            "title": "Apple TV+ Originals",
+            "subtitle": "Преміальне кіно та ексклюзивні шоу"
+         },
+         "Netflix": {
+            "title": "Netflix Originals",
+            "subtitle": "Затягують з першої серії"
+         },
+         "EdgeOfYourSeatTV": {
+            "title": "На межі емоцій",
+            "subtitle": "Тримають у напрузі до останньої хвилини"
+         },
+         "HeartWrenchingStories": {
+            "title": "Чіпляє за душу",
+            "subtitle": "Глибокі історії, що залишають слід"
+         },
+         "Family": {
+            "title": "Сімейний кіновечір",
+            "subtitle": "Затишне кіно для дорослих та дітей"
+         },
+         "TimeCapsule": {
+            "title": "Машина часу: 1980 - 1995",
+            "subtitle": "Рідкісні та недооцінені знахідки року"
+         },
+         "BoxOffice": {
+            "title": "Рекордсмени прокату",
+            "subtitle": "Найкасовіші фільми в історії кіно"
+         },
+         "TopRated": {
+            "title": "Найвищий бал",
+            "subtitle": "Визнані шедеври з топовим рейтингом"
+         },
+         "popularInCountry": {
+            "title": "Популярне: {country}",
+            "subtitle": "Головні хіти прокатного топу"
+         },
+         "localLegends": {
+            "title": "Кінохіти",
+            "subtitle": "Найкраще з кінематографа {countryGenitive}"
+         }
+      }
    }
 }

@@ -14,6 +14,7 @@ import { useTmdbImagePath } from "@/shared/lib/hooks/useTmdbImagePath";
 import { MediaLogo } from "@/entities/media/ui/MediaLogo";
 import { CastList } from "@/entities/media/ui/CastList";
 import { Link } from "@/app/i18n/navigation";
+import { useRouter } from "@/app/i18n/navigation";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { ExpandableText } from "@/shared/ui/ExpandableText";
 import { MediaType } from "@/shared/types/media-types";
@@ -34,9 +35,9 @@ function MediaDetailRow({
    children: ReactNode;
 }) {
    return (
-      <div className="flex items-center gap-6">
+      <div className="flex items-center gap-2 sm:gap-6">
          <h3
-            className={`${isCast ? "self-start mt-2" : ""} w-22 shrink-0 uppercase text-zinc-500 text-[10px] font-semibold tracking-widest`}
+            className={`${isCast ? "sm:self-start mt-2" : ""} w-22 shrink-0 uppercase text-zinc-500 text-[10px] font-semibold tracking-widest`}
          >
             {label}
          </h3>
@@ -48,6 +49,7 @@ function MediaDetailRow({
 export function MediaModal({ mediaId, mediaType, onClose }: MediaModalProps) {
    const t = useTranslations();
    const locale = useLocale();
+   const router = useRouter();
 
    const imageBaseUrl = useTmdbImagePath("backdrop");
 
@@ -58,6 +60,13 @@ export function MediaModal({ mediaId, mediaType, onClose }: MediaModalProps) {
    );
 
    const backdrop = `${imageBaseUrl}${extraMedia?.backdropPath}`;
+
+   const navigateToMedia = (href: string) => {
+      onClose();
+      window.requestAnimationFrame(() => {
+         window.requestAnimationFrame(() => router.push(href));
+      });
+   };
 
    const {
       title,
@@ -83,7 +92,7 @@ export function MediaModal({ mediaId, mediaType, onClose }: MediaModalProps) {
             tabIndex={-1}
             style={{ border: "none", boxShadow: "none", outline: "none" }}
             className="fixed top-1/2 left-1/2! -translate-x-1/2! -translate-y-1/2!
-            w-[90vw]! max-w-[90vw]! lg:w-240! lg:max-w-240! max-h-[90dvh] overflow-y-auto
+            block! w-[90vw]! max-w-[90vw]! lg:w-240! lg:max-w-240! max-h-[90dvh] overflow-y-auto
              bg-black! border-0! shadow-none! ring-0! outline-none!
              focus:outline-none! focus-visible:outline-none! rounded-none!
              px-0! py-0! pb-10! sm:pb-20!"
@@ -152,6 +161,7 @@ export function MediaModal({ mediaId, mediaType, onClose }: MediaModalProps) {
                         mediaId={mediaId}
                         mediaType={mediaType}
                         size={"w-50 md:w-60"}
+                        onNavigate={navigateToMedia}
                      />
                      <Tagline tagline={tagline ?? null} />
 
@@ -170,7 +180,7 @@ export function MediaModal({ mediaId, mediaType, onClose }: MediaModalProps) {
                         </div>
                      )}
 
-                     <div className="flex flex-col gap-3">
+                     <div className="w-full space-y-3">
                         {cast && (
                            <MediaDetailRow
                               isCast={true}
@@ -187,7 +197,7 @@ export function MediaModal({ mediaId, mediaType, onClose }: MediaModalProps) {
                               label={t("media.mediaDetails.director")}
                            >
                               <Link
-                                 className="text-sm hover:text-zinc-200 hover:scale-105 transform transition-all duration-500"
+                                 className="text-sm text-wrap hover:text-zinc-200 hover:scale-105 transform transition-all duration-500"
                                  href={`/person/${createdBy.id}`}
                               >
                                  {createdBy.name}

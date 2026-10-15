@@ -35,7 +35,7 @@ export function HeaderClient({ children }: HeaderClientProps) {
                 }`}
       >
          <div
-            className={`flex justify-between items-center gap-2 sm:gap-4 md:gap-4 lg:gap-6 px-5 md:px-10 py-3 transition-all duration-500
+            className={`flex justify-between items-center gap-2 sm:gap-4 md:gap-4 lg:gap-6 px-4 sm:px-8 py-3 transition-all duration-500
                 ${
                    isScrolled
                       ? "bg-black"

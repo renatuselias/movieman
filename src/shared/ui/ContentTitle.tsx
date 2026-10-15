@@ -6,7 +6,7 @@ export function ContentTitle({
    subtitle: string;
 }) {
    return (
-      <div className="flex w-fit gap-4 max-w-50 min-[420px]:max-w-full">
+      <div className="flex w-fit gap-4">
          <div className="flex flex-col text-sm">
             <span className="tracking-wider font-semibold uppercase text-[10px] text-zinc-600">
                {subtitle}

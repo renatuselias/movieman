@@ -61,7 +61,7 @@ export function CastList({
                            </Avatar>
 
                            {textList && (
-                              <span className="text-sm text-zinc-300">
+                              <span className="text-sm text-zinc-300 text-wrap">
                                  {member.name}
                                  {textList && !isLast && (
                                     <span className="inline sm:hidden">,</span>

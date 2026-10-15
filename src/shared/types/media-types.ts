@@ -72,6 +72,7 @@ interface TMDBBaseMedia {
    cast: TMDBMediaCast[];
    crew: TMDBMediaCrew[];
    homepage: string;
+   recommendations: { results: TMDBMedia[] };
 }
 
 interface TMDBMovieListItem extends TMDBBaseMedia {
@@ -112,7 +113,7 @@ export type TmdbSize =
    | "w1280"
    | "original";
 
-// RECOMMENDATIONS
+// Fetch interfaces
 
 export interface TMDBPaginatedResponse<T> {
    page: number;
@@ -120,6 +121,56 @@ export interface TMDBPaginatedResponse<T> {
    total_pages: number;
    total_results: number;
 }
+
+export interface FetchMediaParams {
+   endpoint?: string;
+   mediaType?: MediaTypeWithAll;
+   providerId?: number;
+   genreId?: number;
+   voteCountGte?: number;
+   withOriginalLanguage?: string;
+   withOriginCountry?: string;
+   withoutGenres?: string | number; // e.g. 16 or "16,10762"
+   releaseDateGte?: string;
+   releaseDateLte?: string;
+   sortBy?:
+      | "popularity.desc"
+      | "vote_average.desc"
+      | "primary_release_date.desc"
+      | "revenue.desc";
+   region?: string;
+   page?: number;
+   limit?: number;
+   isCarousel?: boolean;
+}
+
+type EndpointParams = {
+   endpoint: string;
+   genreId?: never;
+   providerId?: never;
+   sortBy?: never;
+   region?: never;
+   page?: never;
+};
+
+type DiscoverParams = {
+   endpoint?: never;
+   genreId?: number;
+   providerId?: number;
+   sortBy?: FetchMediaParams["sortBy"];
+   region?: string;
+   voteCountGte?: number;
+   page?: number;
+   releaseDateGte?: string;
+   releaseDateLte?: string;
+   withOriginalLanguage?: string;
+   withOriginCountry?: string;
+   withoutGenres?: string | number; // e.g. 16 or "16,10762"
+};
+
+export type MediaParams = EndpointParams | DiscoverParams;
+
+// RECOMMENDATIONS
 
 export type TMDBMovieRecommendations = TMDBPaginatedResponse<TMDBMovieListItem>;
 

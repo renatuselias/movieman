@@ -44,8 +44,8 @@ export function MediaCard({
                fill
                tmdbSize={tmdbSize}
             />
-            <div className="px-5 absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center z-20">
-               <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-300 ease-out flex flex-col gap-2">
+            <div className="px-5 absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-700 flex flex-col justify-center z-20">
+               <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-700 ease-out flex flex-col gap-2">
                   {releaseDate && (
                      <div>
                         <h4>
@@ -69,15 +69,25 @@ export function MediaCard({
          </div>
          <div>
             <div className="flex gap-2 flex-wrap justify-between items-center">
-               <span className="text-zinc-500 text-xs">{`${t(`media.${mediaType}`)} / ${formatDate(releaseDate, "yearOnly", currentLocale)}`}</span>
+               <span className="text-zinc-500 text-xs">
+                  {[
+                     mediaType && t(`media.${mediaType}`),
+                     releaseDate &&
+                        formatDate(releaseDate, "yearOnly", currentLocale),
+                  ]
+                     .filter(Boolean)
+                     .join(" / ")}
+               </span>
                <StarRating rating={Number(rating.toFixed(1))} />
             </div>
-            <h3
-               className="w-fit truncate cursor-pointer text-zinc-300 font-medium hover:text-zinc-100"
+            <button
+               type="button"
                onClick={onClick}
+               className="max-w-full truncate text-zinc-300 font-medium hover:text-zinc-100 cursor-pointer"
             >
-               <button className="w-fit cursor-pointer">{title}</button>
-            </h3>
+               {title}
+            </button>
+
             <div className="w-full hidden sm:block">
                <GenresList
                   genreIds={genreIds}

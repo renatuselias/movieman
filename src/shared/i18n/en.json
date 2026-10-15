@@ -2,6 +2,7 @@
    "meta": {
       "mainPageDescription": "Search, collect and share your movie collection"
    },
+
    "auth": {
       "signIn": "Sign in",
       "signInWith": "Sign in with:",
@@ -27,6 +28,7 @@
          "failedSignIn": "Failed to sign in"
       }
    },
+
    "menu": {
       "about": "About",
       "movies": "Movies",
@@ -34,9 +36,11 @@
       "language": "Language",
       "search": "Search"
    },
+
    "loaders": {
       "loadingPoster": "Loading poster..."
    },
+
    "media": {
       "mediaDetails": {
          "hour": "h",
@@ -53,8 +57,10 @@
          "releaseDate": "Release Date"
       },
       "movie": "Movie",
-      "tv": "TV Show"
+      "tv": "TV Show",
+      "noBackground": "No background"
    },
+
    "siteInterface": {
       "readMore": "Read more",
       "readLess": "Read less"
@@ -89,5 +95,86 @@
       "Soap": "Soap",
       "Talk": "Talk",
       "War & Politics": "War & Politics"
+   },
+
+   "MainPage": {
+      "sections": {
+         "trending": {
+            "title": "Trending today",
+            "subtitle": "right now"
+         },
+         "inTheaters": {
+            "title": "In theaters",
+            "subtitle": "playing now"
+         },
+         "comedy": {
+            "title": "Time to laugh",
+            "subtitle": "Best comedies for a light evening"
+         },
+         "comingSoon": {
+            "title": "Upcoming",
+            "subtitle": "Coming soon to screens"
+         },
+         "onTheAir": {
+            "title": "On the Air",
+            "subtitle": "New episodes dropping weekly"
+         },
+         "actionAdventure": {
+            "title": "Action & Adventure",
+            "subtitle": "Non-stop adrenaline"
+         },
+         "mindGames": {
+            "title": "Mind Games",
+            "subtitle": "Twisted mysteries & thrillers"
+         },
+         "adrenalineRush": {
+            "title": "Adrenaline Rush",
+            "subtitle": "Twisted mysteries & thrillers"
+         },
+         "HBO_hits": {
+            "title": "HBO Hits",
+            "subtitle": "Must-watch HBO originals"
+         },
+         "Apple": {
+            "title": "Apple TV+ Originals",
+            "subtitle": "Premium series and award-winning movies"
+         },
+         "Netflix": {
+            "title": "Netflix Originals",
+            "subtitle": "Made for binge-watching"
+         },
+         "EdgeOfYourSeatTV": {
+            "title": "Edge-of-Your-Seat TV",
+            "subtitle": "Gripping thrillers and crime mysteries"
+         },
+         "HeartWrenchingStories": {
+            "title": "Heart-Wrenching Stories",
+            "subtitle": "Deep, acclaimed dramas that linger"
+         },
+         "Family": {
+            "title": "Family Movie Night",
+            "subtitle": "Good vibes for kids and parents"
+         },
+         "TimeCapsule": {
+            "title": "Time Capsule: 1980 - 1995",
+            "subtitle": "Underrated cinema gems of the year"
+         },
+         "BoxOffice": {
+            "title": "All-Time Box Office",
+            "subtitle": "The highest-grossing movies in cinema history"
+         },
+         "TopRated": {
+            "title": "Top Rated",
+            "subtitle": "All-time fan favorites and masterpieces"
+         },
+         "popularInCountry": {
+            "title": "Popular: {country}",
+            "subtitle": "Top hits in your region"
+         },
+         "localLegends": {
+            "title": "Local Legends",
+            "subtitle": "{countryGenitive}'s Finest Cinema"
+         }
+      }
    }
 }

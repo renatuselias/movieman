@@ -1,4 +1,8 @@
-import { MediaType, TMDBProductionCountry } from "@/shared/types/media-types";
+import {
+   MediaType,
+   TMDBProductionCountry,
+   TMDBVideo,
+} from "@/shared/types/media-types";
 
 export interface BaseMedia {
    id: number;
@@ -10,6 +14,7 @@ export interface BaseMedia {
    genreIds: number[];
    overview: string;
    releaseDate: string;
+   popularity?: number;
 }
 
 interface BaseCreditMember {
@@ -44,5 +49,6 @@ export interface MediaDetails extends BaseMedia {
 }
 
 export interface MediaFullInfo extends MediaDetails {
-   videos: [];
+   videos: TMDBVideo[];
+   recommendations: BaseMedia[];
 }

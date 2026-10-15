@@ -57,8 +57,10 @@
          "releaseDate": "Дата выхода"
       },
       "movie": "Фильм",
-      "tv": "Сериал"
+      "tv": "Сериал",
+      "noBackground": "Нет изображения"
    },
+
    "siteInterface": {
       "readMore": "Читать далее",
       "readLess": "Свернуть"
@@ -93,5 +95,86 @@
       "Soap": "Мыльная опера",
       "Talk": "Ток-шоу",
       "War & Politics": "Война и политика"
+   },
+
+   "MainPage": {
+      "sections": {
+         "trending": {
+            "title": "В тренде",
+            "subtitle": "Популярно прямо сейчас"
+         },
+         "inTheaters": {
+            "title": "Сейчас в кино",
+            "subtitle": "Уже на больших экранах"
+         },
+         "comedy": {
+            "title": "Время посмеяться",
+            "subtitle": "Чистый дофамин и ноль драмы"
+         },
+         "comingSoon": {
+            "title": "Скоро в кино",
+            "subtitle": "Главные предстоящие премьеры"
+         },
+         "onTheAir": {
+            "title": "Сериалы в эфире",
+            "subtitle": "Свежие серии каждую неделю"
+         },
+         "actionAdventure": {
+            "title": "Боевики и приключения",
+            "subtitle": "Максимум драйва и зрелищ"
+         },
+         "mindGames": {
+            "title": "Игры разума",
+            "subtitle": "Запутанные триллеры и детективы"
+         },
+         "adrenalineRush": {
+            "title": "Чистый адреналин",
+            "subtitle": "Бешеный темп, погони и экшен"
+         },
+         "HBO_hits": {
+            "title": "Хиты HBO",
+            "subtitle": "Культовые сериалы бренда"
+         },
+         "Apple": {
+            "title": "Apple TV+ Originals",
+            "subtitle": "Премиальное кино и эксклюзивные шоу"
+         },
+         "Netflix": {
+            "title": "Netflix Originals",
+            "subtitle": "Затягивают с первой серии"
+         },
+         "EdgeOfYourSeatTV": {
+            "title": "На пределе эмоций",
+            "subtitle": "Держат в напряжении до конца"
+         },
+         "HeartWrenchingStories": {
+            "title": "Цепляет за душу",
+            "subtitle": "Глубокие истории, берущие за живое"
+         },
+         "Family": {
+            "title": "Семейный киновечер",
+            "subtitle": "Уютное кино для взрослых и детей"
+         },
+         "TimeCapsule": {
+            "title": "Машина времени: 1980 - 1995",
+            "subtitle": "Скрытые и недооценённые бриллианты года"
+         },
+         "BoxOffice": {
+            "title": "Рекордсмены проката",
+            "subtitle": "Самые кассовые фильмы в истории кино"
+         },
+         "TopRated": {
+            "title": "Высший балл",
+            "subtitle": "Признанные шедевры с топовым рейтингом"
+         },
+         "popularInCountry": {
+            "title": "Популярное: {country}",
+            "subtitle": "Главные хиты в твоем регионе"
+         },
+         "localLegends": {
+            "title": "Кинохиты",
+            "subtitle": "Лучшие фильмы {countryGenitive}"
+         }
+      }
    }
 }

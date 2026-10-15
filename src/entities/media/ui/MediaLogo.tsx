@@ -5,7 +5,7 @@ import { useTmdbImagePath } from "@/shared/lib/hooks/useTmdbImagePath";
 import { MediaType, TmdbSize } from "@/shared/types/media-types";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { TmdbImage } from "@/shared/ui/TmdbImage";
-import { useState } from "react";
+import { MouseEvent, useState } from "react";
 import { useImageLuminance } from "@/shared/lib/hooks/useImageLuminance";
 
 interface MediaLogoProps {
@@ -14,6 +14,7 @@ interface MediaLogoProps {
    mediaType: MediaType;
    mediaId: number;
    size?: string;
+   onNavigate?: (href: string) => void;
 }
 
 export function MediaLogo({
@@ -22,6 +23,7 @@ export function MediaLogo({
    mediaId,
    mediaType,
    size = "w-60 md:w-80",
+   onNavigate,
 }: MediaLogoProps) {
    const [imageState, setImageState] = useState<"loading" | "loaded" | "error">(
       "loading",
@@ -37,6 +39,23 @@ export function MediaLogo({
 
    const mediaHref = `/${mediaType === "tv" ? "tvshow" : mediaType}/${mediaId}`;
 
+   const handleLinkClick = (event: MouseEvent<HTMLAnchorElement>) => {
+      if (
+         !onNavigate ||
+         event.button !== 0 ||
+         event.metaKey ||
+         event.ctrlKey ||
+         event.shiftKey ||
+         event.altKey
+      ) {
+         return;
+      }
+
+      event.preventDefault();
+
+      onNavigate(mediaHref);
+   };
+
    if (imageState === "error") {
       return (
          <div className="mb-3 sm:mb-6 lg:mb-8">
@@ -50,9 +69,10 @@ export function MediaLogo({
    return logoPath ? (
       <Link
          href={mediaHref}
+         onClick={handleLinkClick}
          className="block group transition-transform duration-500 w-fit"
       >
-         <div className="relative inline-block ">
+         <div className="relative inline-block">
             {imageState === "loading" && (
                <Skeleton className="absolute bottom-0 left-0 h-12 animate-none sm:h-16 w-60 md:h-20 sm:w-80" />
             )}
@@ -73,6 +93,7 @@ export function MediaLogo({
    ) : (
       <div className="max-w-70 sm:max-w-150">
          <Link
+            onClick={handleLinkClick}
             href={mediaHref}
             className="group inline hover:opacity-90 transition-opacity"
          >

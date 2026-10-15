@@ -11,6 +11,7 @@ interface BackgroundImageProps {
    imageKey?: string | number;
    loadingText?: string;
    aspectRatio?: string;
+   isLoading?: boolean;
 }
 
 export function BackgroundImage({
@@ -19,6 +20,7 @@ export function BackgroundImage({
    imageKey,
    loadingText = "Loading...",
    aspectRatio,
+   isLoading = false,
 }: BackgroundImageProps) {
    const t = useTranslations();
 
@@ -34,6 +36,7 @@ export function BackgroundImage({
       setIsLoaded(false); // Valid state update during render (no cascading effect render!)
    }
 
+   const showLoader = isLoading || (Boolean(validSrc) && !isLoaded);
    const imageRef = useRef<HTMLImageElement>(null);
 
    // Check cached/already completed image on mount or src change
@@ -118,11 +121,11 @@ export function BackgroundImage({
                         draggable={false}
                         onLoad={handleImageLoad}
                      />
-                  ) : (
+                  ) : !isLoading ? (
                      <div className="absolute inset-0 flex items-center justify-center text-white/60 text-xl tracking-widest select-none font-bold bg-black/70">
-                        {t("common.noBackground")}
+                        {t("media.noBackground")}
                      </div>
-                  )}
+                  ) : null}
                </motion.div>
             </AnimatePresence>
 
@@ -130,11 +133,9 @@ export function BackgroundImage({
             <div
                role="status"
                aria-live="polite"
-               aria-hidden={isLoaded || !validSrc}
+               aria-hidden={!showLoader}
                className={`absolute inset-0 z-50 flex items-center justify-center overflow-hidden bg-black/90 transition-opacity duration-300 ${
-                  !isLoaded && validSrc
-                     ? "opacity-100"
-                     : "pointer-events-none opacity-0"
+                  showLoader ? "opacity-100" : "pointer-events-none opacity-0"
                }`}
             >
                <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent -translate-x-full animate-[shimmer_2s_infinite]" />
