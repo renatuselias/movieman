@@ -51,7 +51,7 @@ export function HeroCarousel({ media }: HeroCarouselProps) {
    const currentMedia = media[currentSlide];
 
    return (
-      <div className="flex-1 min-h-[calc(100svh-55px)] sm:min-h-screen relative flex flex-col justify-end bg-black lg:bg-[#010101]">
+      <div className="flex-1 min-h-[calc(100dvh-55px)] sm:min-h-screen transition-[min-height] duration-300 ease-out relative flex flex-col justify-end bg-black lg:bg-[#010101]">
          <HeroSlideContent
             key={currentMedia.id}
             media={currentMedia}

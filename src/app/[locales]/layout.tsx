@@ -41,7 +41,7 @@ export default async function RootLayout({
          <body className="font-sans min-h-full bg-background text-foreground">
             <NextIntlClientProvider messages={messages}>
                <QueryProvider>
-                  <div className="flex flex-col min-h-svh relative">
+                  <div className="flex flex-col min-h-dvh sm:min-h-screen relative">
                      <Header />
                      <main className="flex-1 flex flex-col">{children}</main>
                      <Footer />
