@@ -54,16 +54,58 @@
          "synopsis": "Синопсис",
          "premiere": "Премьера",
          "firstAired": "Первый эфир",
-         "releaseDate": "Дата выхода"
+         "releaseDate": "Дата выхода",
+         "creators": "Создатели",
+         "screenplay": "Сценарий",
+         "music": "Композиторы",
+         "cinematography": "Операторы",
+         "originalTitle": "Оригинальное название",
+         "seriesFormat": "Формат сериала",
+         "latestEpisode": "Последний эпизод",
+         "nextEpisode": "Грядущая серия",
+         "numberOfSeasons": "Количество сезонов",
+         "numberOfEpisodes": "Количество серий",
+         "countries": "Страны",
+         "networks": "Телесети",
+         "production": "Производство",
+         "status": "Статус",
+         "budget": "Бюджет",
+         "revenue": "Кассовые сборы"
       },
+
+      "status": {
+         "Rumored": "Слухи",
+         "Planned": "Запланирован",
+         "In Production": "В производстве",
+         "Post Production": "Постпродакшн",
+         "Released": "Релиз состоялся",
+         "Canceled": "Отменен",
+         "Returning Series": "Продлен на следующий сезон",
+         "Ended": "Завершен",
+         "Pilot": "Пилотный выпуск"
+      },
+
       "movie": "Фильм",
       "tv": "Сериал",
-      "noBackground": "Нет изображения"
+      "noBackground": "Нет изображения",
+      "watchTrailer": "Смотреть трейлер",
+      "story": "Сюжет",
+      "beforeCredits": "До титров.",
+      "synopsis": "Синопсис",
+      "moreContext": "Немного контекста",
+
+      "menu": {
+         "details": "Детали",
+         "cast": "В ролях",
+         "moreLike": "Рекомендации"
+      }
    },
 
    "siteInterface": {
       "readMore": "Читать далее",
-      "readLess": "Свернуть"
+      "readLess": "Свернуть",
+      "more": "больше",
+      "showLess": "скрыть"
    },
 
    "genres": {

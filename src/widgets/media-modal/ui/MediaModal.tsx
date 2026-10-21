@@ -199,9 +199,9 @@ export function MediaModal({ mediaId, mediaType, onClose }: MediaModalProps) {
                            >
                               <Link
                                  className="text-sm text-wrap hover:text-zinc-200 hover:scale-105 transform transition-all duration-500"
-                                 href={`/person/${createdBy.id}`}
+                                 href={`/person/${createdBy[0].id}`}
                               >
-                                 {createdBy.name}
+                                 {createdBy[0].name}
                               </Link>
                            </MediaDetailRow>
                         )}

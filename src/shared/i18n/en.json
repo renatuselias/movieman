@@ -54,16 +54,58 @@
          "synopsis": "Synopsis",
          "premiere": "Premiere",
          "firstAired": "First Aired",
-         "releaseDate": "Release Date"
+         "releaseDate": "Release Date",
+         "creators": "Created by",
+         "screenplay": "Screenplay",
+         "music": "music",
+         "cinematography": "Cinematography",
+         "originalTitle": "Original Title",
+         "seriesFormat": "Series format",
+         "latestEpisode": "Latest episode",
+         "nextEpisode": "Next episode",
+         "numberOfSeasons": "Number of seasons",
+         "numberOfEpisodes": "Number of episodes",
+         "countries": "Countries",
+         "networks": "Networks",
+         "production": "Production",
+         "status": "Status",
+         "budget": "Budget",
+         "revenue": "Box Office"
       },
+
+      "status": {
+         "Rumored": "Rumored",
+         "Planned": "Planned",
+         "In Production": "In Production",
+         "Post Production": "Post Production",
+         "Released": "Released",
+         "Canceled": "Canceled",
+         "Returning Series": "Returning Series",
+         "Ended": "Ended",
+         "Pilot": "Pilot"
+      },
+
       "movie": "Movie",
       "tv": "TV Show",
-      "noBackground": "No background"
+      "noBackground": "No background",
+      "watchTrailer": "Watch trailer",
+      "story": "The story",
+      "beforeCredits": "Before the credits roll.",
+      "synopsis": "Synopsis",
+      "moreContext": "A little more context",
+
+      "menu": {
+         "details": "The details",
+         "cast": "Cast",
+         "moreLike": "More like this"
+      }
    },
 
    "siteInterface": {
       "readMore": "Read more",
-      "readLess": "Read less"
+      "readLess": "Read less",
+      "more": "more",
+      "showLess": "show less"
    },
 
    "genres": {

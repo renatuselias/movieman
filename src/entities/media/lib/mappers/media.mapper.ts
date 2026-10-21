@@ -70,22 +70,14 @@ export function mapToMediaDetails(media: TMDBMedia): MediaDetails {
       };
    });
 
-   const creator = getMainCreators(crew)[0];
+   const creators = getMainCreators(crew);
    const createdBy = isMovieMedia
-      ? creator
-         ? {
-              id: creator.id,
-              name: creator.name,
-              profilePath: creator.profilePath,
-           }
-         : null
-      : media.created_by[0]
-        ? {
-             id: media.created_by[0].id,
-             name: media.created_by[0].name,
-             profilePath: media.created_by[0].profile_path,
-          }
-        : null;
+      ? creators
+      : media.created_by.map((item) => ({
+           id: item.id,
+           name: item.name,
+           profilePath: item.profile_path,
+        }));
 
    return {
       ...baseMedia,
@@ -95,10 +87,20 @@ export function mapToMediaDetails(media: TMDBMedia): MediaDetails {
       genreIds: genres,
       productionCountries: media.production_countries || [],
       numberOfSeasons,
+      numberOfEpisodes: isMovieMedia ? 0 : media.number_of_episodes,
+      lastEpisode: isMovieMedia ? null : media.last_episode_to_air,
+      nextEpisode: isMovieMedia ? null : media.next_episode_to_air,
       cast,
       crew,
       createdBy,
       homePage: media.homepage,
+      originalTitle: isMovieMedia ? media.original_title : media.original_name,
+      networks: isMovieMedia ? null : media.networks,
+      productionCompanies: media.production_companies,
+      budget: isMovieMedia ? media.budget : 0,
+      revenue: isMovieMedia ? media.revenue : 0,
+      status: media.status,
+      type: isMovieMedia ? null : media.type,
    };
 }
 

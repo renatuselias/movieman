@@ -54,15 +54,57 @@
          "synopsis": "Синопсис",
          "premiere": "Прем'єра",
          "firstAired": "Перший ефір",
-         "releaseDate": "Дата виходу"
+         "releaseDate": "Дата виходу",
+         "creators": "Творці",
+         "screenplay": "Сценарій",
+         "music": "Композитори",
+         "cinematography": "Оператори",
+         "originalTitle": "Оригінальна назва",
+         "seriesFormat": "Формат серіалу",
+         "latestEpisode": "Останній епізод",
+         "nextEpisode": "Наступний епізод",
+         "numberOfSeasons": "Кількість сезонів",
+         "numberOfEpisodes": "Кількість серій",
+         "countries": "Країни",
+         "networks": "Телемережі",
+         "production": "Виробництво",
+         "status": "Статус",
+         "budget": "Бюджет",
+         "revenue": "Касові збори"
       },
+
+      "status": {
+         "Rumored": "Чутки",
+         "Planned": "Запланований",
+         "In Production": "У виробництві",
+         "Post Production": "Постпродакшн",
+         "Released": "Вийшов у прокат",
+         "Canceled": "Скасований",
+         "Returning Series": "Продовжено на наступний сезон",
+         "Ended": "Завершений",
+         "Pilot": "Пілотний випуск"
+      },
+
       "movie": "Фільм",
       "tv": "Серіал",
-      "noBackground": "Зображення вісутнє"
+      "noBackground": "Зображення вісутнє",
+      "watchTrailer": "Переглянути трейлер",
+      "story": "Сюжет",
+      "beforeCredits": "До титрів.",
+      "synopsis": "Синопсис",
+      "moreContext": "Трохи контексту",
+
+      "menu": {
+         "details": "Деталі",
+         "cast": "У ролях",
+         "moreLike": "Подібні"
+      }
    },
    "siteInterface": {
       "readMore": "Читати далі",
-      "readLess": "Згорнути"
+      "readLess": "Згорнути",
+      "more": "більше",
+      "showLess": "приховати"
    },
    "genres": {
       "genres": "Жанри",

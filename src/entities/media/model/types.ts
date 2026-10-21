@@ -1,7 +1,12 @@
 import {
+   MediaStatus,
    MediaType,
+   TMDB_episode_to_air,
+   TMDBNetwork,
+   TMDBProductionCompany,
    TMDBProductionCountry,
    TMDBVideo,
+   TvType,
 } from "@/shared/types/media-types";
 
 export interface BaseMedia {
@@ -28,7 +33,7 @@ interface CastMember extends BaseCreditMember {
    episodeCount: number;
 }
 
-interface CrewMember extends BaseCreditMember {
+export interface CrewMember extends BaseCreditMember {
    job: string;
 }
 
@@ -37,15 +42,27 @@ export interface MediaDetails extends BaseMedia {
    logoPath: string | null;
    runtime: number;
    productionCountries: TMDBProductionCountry[];
+   productionCompanies: TMDBProductionCompany[];
+   originalTitle: string;
    numberOfSeasons: number;
+   numberOfEpisodes: number;
+   lastEpisode: TMDB_episode_to_air | null;
+   nextEpisode: TMDB_episode_to_air | null;
    homePage: string;
+   networks: TMDBNetwork[] | null;
+   budget: number;
+   revenue: number;
    cast: CastMember[];
    crew: CrewMember[];
-   createdBy: {
-      id: number;
-      name: string;
-      profilePath: string | null;
-   } | null;
+   status: MediaStatus;
+   createdBy:
+      | {
+           id: number;
+           name: string;
+           profilePath: string | null;
+        }[]
+      | null;
+   type: TvType | null;
 }
 
 export interface MediaFullInfo extends MediaDetails {

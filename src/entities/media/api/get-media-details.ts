@@ -49,7 +49,7 @@ export async function getMediaDetails(
       } as TMDBMedia;
 
       return mapToMediaDetails(results);
-      //return results;
+      // return results;
    } catch (error) {
       console.error("Failed to fetch media header info:", error);
       return null;

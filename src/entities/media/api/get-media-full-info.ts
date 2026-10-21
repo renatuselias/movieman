@@ -73,6 +73,7 @@ export async function getMediaFullInfo(
          recommendations: recommendations ?? { results: [] },
       } as TMDBMedia;
 
+      // return results;
       return mapToFullMedia(results);
    } catch (error) {
       console.error("Failed to fetch full media details:", error);

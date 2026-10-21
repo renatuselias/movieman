@@ -18,6 +18,7 @@ interface MediaDetailsProps {
    children?: ReactNode;
    media?: MediaDetails | null;
    isLoading: boolean;
+   isMediaPage?: boolean;
 }
 
 export function MediaHeader({
@@ -26,6 +27,7 @@ export function MediaHeader({
    children,
    media,
    isLoading,
+   isMediaPage = false,
 }: MediaDetailsProps) {
    const t = useTranslations("media.mediaDetails");
 
@@ -102,7 +104,7 @@ export function MediaHeader({
                      productionCountries={productionCountries ?? null}
                   />
 
-                  {cast && (
+                  {!isMediaPage && cast && (
                      <CastList
                         mediaId={mediaId}
                         mediaType={mediaType}
@@ -111,15 +113,15 @@ export function MediaHeader({
                      />
                   )}
 
-                  {createdBy && (
+                  {!isMediaPage && createdBy && (
                      <div className="text-sm text-zinc-500 mt-2">
                         <span>
                            {t("createdBy")}{" "}
                            <Link
                               className="text-base text-zinc-400 hover:text-zinc-300 transition-all duration-500"
-                              href={`person/${createdBy.id}`}
+                              href={`person/${createdBy[0].id}`}
                            >
-                              {createdBy.name}
+                              {createdBy[0].name}
                            </Link>
                         </span>
                      </div>

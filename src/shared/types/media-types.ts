@@ -32,7 +32,7 @@ export interface TMDBVideo {
    published_at: string;
 }
 
-interface TMDBLast_episode_to_air {
+export interface TMDB_episode_to_air {
    air_date: string;
    episode_number: number;
    episode_type: string;
@@ -53,6 +53,47 @@ export interface TMDBProductionCountry {
    name: string;
 }
 
+export interface TMDBProductionCompany {
+   id: number;
+   name: string;
+   logo_path: string | null;
+   origin_country: string;
+}
+
+export interface TMDBNetwork {
+   id: number;
+   logo_path: string;
+   name: string;
+   origin_country: string;
+}
+
+type MovieStatus =
+   | "Rumored"
+   | "Planned"
+   | "In Production"
+   | "Post Production"
+   | "Released"
+   | "Canceled";
+
+type TvStatus =
+   | "In Production"
+   | "Returning Series"
+   | "Ended"
+   | "Canceled"
+   | "Pilot";
+
+export type MediaStatus = MovieStatus | TvStatus;
+
+export type TvType =
+   | "Scripted"
+   | "Unscripted"
+   | "Miniseries"
+   | "Documentary"
+   | "Reality"
+   | "Talk Show"
+   | "News"
+   | "Video";
+
 interface TMDBBaseMedia {
    id: number;
    adult: boolean;
@@ -67,12 +108,14 @@ interface TMDBBaseMedia {
    vote_count: number;
    images: { logos: TMDBImage[]; backdrops: TMDBImage[]; posters: TMDBImage[] };
    production_countries: TMDBProductionCountry[];
+   production_companies: TMDBProductionCompany[];
    tagline: string;
    videos: { results: TMDBVideo[] };
    cast: TMDBMediaCast[];
    crew: TMDBMediaCrew[];
    homepage: string;
    recommendations: { results: TMDBMedia[] };
+   status: MediaStatus;
 }
 
 interface TMDBMovieListItem extends TMDBBaseMedia {
@@ -81,6 +124,8 @@ interface TMDBMovieListItem extends TMDBBaseMedia {
    original_title: string;
    release_date: string;
    runtime: number;
+   budget: number;
+   revenue: number;
    video: boolean;
 }
 
@@ -91,8 +136,12 @@ interface TMDBTVShowListItem extends TMDBBaseMedia {
    first_air_date: string;
    origin_country: string[];
    episode_run_time: number[];
-   last_episode_to_air: TMDBLast_episode_to_air;
+   last_episode_to_air: TMDB_episode_to_air;
+   next_episode_to_air: TMDB_episode_to_air;
    number_of_seasons: number;
+   number_of_episodes: number;
+   networks: TMDBNetwork[];
+   type: TvType;
    created_by: {
       id: number;
       name: string;
