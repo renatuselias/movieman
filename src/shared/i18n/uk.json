@@ -90,9 +90,11 @@
       "noBackground": "Зображення вісутнє",
       "watchTrailer": "Переглянути трейлер",
       "story": "Сюжет",
-      "beforeCredits": "До титрів.",
+      "beforeCredits": "До початку титрів",
       "synopsis": "Синопсис",
       "moreContext": "Трохи контексту",
+      "recommendations": "Вам також може сподобатися",
+      "followThread": "Стежити за сюжетом",
 
       "menu": {
          "details": "Деталі",

@@ -63,22 +63,7 @@ export function MediaHeader({
                   <span className="text-white/20">•</span>
                   <Skeleton className="h-4 w-14" />
                </div>
-               <div className="flex gap-2 items-center mt-2">
-                  <div className="flex -space-x-1">
-                     <Skeleton className="h-8 w-8 rounded-full" />
-                     <Skeleton className="h-8 w-8 rounded-full" />
-                     <Skeleton className="h-8 w-8 rounded-full" />
-                     <Skeleton className="h-8 w-8 rounded-full" />
-                     <Skeleton className="h-8 w-8 rounded-full" />
-                  </div>
-                  <Skeleton className="h-5 w-28" />
-               </div>
-               <div className="flex items-center gap-2 sm:gap-3 mt-3 sm:mt-4">
-                  <Skeleton className="h-5 w-2/5" />
-               </div>
-               <div>
-                  <Skeleton className="mt-2 h-5 w-28" />
-               </div>
+               <Skeleton className="h-8 w-64 mt-6" />
             </div>
          ) : (
             <div className="space-y-3 sm:space-y-5 animate-[fadeInUp_0.8s_ease-out] will-change-transform">
@@ -113,15 +98,15 @@ export function MediaHeader({
                      />
                   )}
 
-                  {!isMediaPage && createdBy && (
+                  {!isMediaPage && createdBy && createdBy.length > 0 && (
                      <div className="text-sm text-zinc-500 mt-2">
                         <span>
-                           {t("createdBy")}{" "}
+                           {t("createdBy")}
                            <Link
                               className="text-base text-zinc-400 hover:text-zinc-300 transition-all duration-500"
-                              href={`person/${createdBy[0].id}`}
+                              href={`person/${createdBy[0]?.id}`}
                            >
-                              {createdBy[0].name}
+                              {createdBy[0]?.name}
                            </Link>
                         </span>
                      </div>

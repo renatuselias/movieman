@@ -1,9 +1,4 @@
-type CrewMember = {
-   id: number;
-   job: string;
-   name: string;
-   profilePath: string | null;
-};
+import { BaseCreditMember, CrewMember } from "../model/types";
 
 const JOB_PRIORITIES: Record<string, number> = {
    Director: 1,
@@ -11,7 +6,9 @@ const JOB_PRIORITIES: Record<string, number> = {
    Writer: 3,
 };
 
-export const getMainCreators = (crew: CrewMember[] = []): CrewMember[] => {
+export const getMainCreators = (
+   crew: CrewMember[] = [],
+): BaseCreditMember[] => {
    return crew.reduce<{ priority: number; members: CrewMember[] }>(
       (acc, currentMember) => {
          const currentPriority = JOB_PRIORITIES[currentMember.job];

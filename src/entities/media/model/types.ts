@@ -22,7 +22,7 @@ export interface BaseMedia {
    popularity?: number;
 }
 
-interface BaseCreditMember {
+export interface BaseCreditMember {
    id: number;
    name: string;
    profilePath: string | null;
@@ -55,13 +55,7 @@ export interface MediaDetails extends BaseMedia {
    cast: CastMember[];
    crew: CrewMember[];
    status: MediaStatus;
-   createdBy:
-      | {
-           id: number;
-           name: string;
-           profilePath: string | null;
-        }[]
-      | null;
+   createdBy: BaseCreditMember[] | null;
    type: TvType | null;
 }
 

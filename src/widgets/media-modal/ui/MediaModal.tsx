@@ -193,7 +193,7 @@ export function MediaModal({ mediaId, mediaType, onClose }: MediaModalProps) {
                               />
                            </MediaDetailRow>
                         )}
-                        {createdBy && (
+                        {createdBy && createdBy.length > 0 && (
                            <MediaDetailRow
                               label={t("media.mediaDetails.director")}
                            >

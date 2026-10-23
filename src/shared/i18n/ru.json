@@ -90,9 +90,11 @@
       "noBackground": "Нет изображения",
       "watchTrailer": "Смотреть трейлер",
       "story": "Сюжет",
-      "beforeCredits": "До титров.",
+      "beforeCredits": "Пока не начались титры",
       "synopsis": "Синопсис",
       "moreContext": "Немного контекста",
+      "recommendations": "Вам также может понравиться",
+      "followThread": "Следовать за сюжетом",
 
       "menu": {
          "details": "Детали",

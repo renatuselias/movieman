@@ -90,9 +90,11 @@
       "noBackground": "No background",
       "watchTrailer": "Watch trailer",
       "story": "The story",
-      "beforeCredits": "Before the credits roll.",
+      "beforeCredits": "Before the credits roll",
       "synopsis": "Synopsis",
       "moreContext": "A little more context",
+      "recommendations": "More like this",
+      "followThread": "Follow the thread",
 
       "menu": {
          "details": "The details",

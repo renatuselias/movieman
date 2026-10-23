@@ -6,6 +6,7 @@ import { TMDB_LANGUAGES } from "@/shared/config/tmdb-languages";
 import { mapToMediaDetails } from "../lib/mappers/media.mapper";
 import { MediaType, TMDBMedia } from "@/shared/types/media-types";
 import { TMDBMediaCredits } from "@/shared/types/credits-types";
+import { translateText } from "@/shared/api/translate-api";
 
 export async function getMediaDetails(
    mediaId: string,
@@ -41,8 +42,30 @@ export async function getMediaDetails(
          return null;
       }
 
+      let finalOverview = details.overview;
+
+      if (!finalOverview || finalOverview.trim() === "") {
+         const fallbackDetails = await tmdbFetch<TMDBMedia>(
+            `/${mediaType}/${mediaId}`,
+            { language: "en-US" },
+            CacheConfig.DETAILS,
+         );
+
+         const englishOverview = fallbackDetails?.overview ?? "";
+
+         if (englishOverview) {
+            finalOverview = await translateText(
+               englishOverview,
+               TMDB_LANGUAGES[locale] ?? locale,
+            );
+         } else {
+            finalOverview = "";
+         }
+      }
+
       const results = {
          ...details,
+         overview: finalOverview,
          media_type: mediaType,
          cast: credits?.cast || [],
          crew: credits?.crew || [],

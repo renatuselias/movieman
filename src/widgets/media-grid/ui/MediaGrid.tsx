@@ -16,17 +16,21 @@ import {
 interface MediaGridProps {
    title: string;
    subtitle: string;
-   mediaType: MediaTypeWithAll;
-   mediaCount: number;
+   mediaType?: MediaTypeWithAll;
+   mediaCount?: number;
    params?: MediaParams;
+   recommendations?: BaseMedia[];
+   recommendationsLoading?: boolean;
 }
 
 export function MediaGrid({
    title,
    subtitle,
-   params,
    mediaType,
    mediaCount = 12,
+   params,
+   recommendations = [],
+   recommendationsLoading = false,
 }: MediaGridProps) {
    const [selectedItem, setSelectedItem] = useState<BaseMedia | null>(null);
    const posterUrl = useTmdbImagePath("poster");
@@ -36,16 +40,19 @@ export function MediaGrid({
       setSelectedItem(null);
    }, []);
 
-   const shouldFetch = Boolean(params);
+   const shouldFetch = Boolean(params) && recommendations.length < 1;
 
-   const { data: medias = [], isLoading } = useGetMedias({
+   const { data: fetchMedias = [], isLoading } = useGetMedias({
       ...params,
       mediaType,
       limit: mediaCount,
       enabled: shouldFetch,
    });
 
-   const showSkeleton = isLoading && medias?.length === 0;
+   const showSkeleton =
+      (isLoading && fetchMedias?.length === 0) || recommendationsLoading;
+
+   const medias = recommendations.length > 0 ? recommendations : fetchMedias;
 
    return (
       <section className="w-full flex flex-col gap-5 sm:gap-10">

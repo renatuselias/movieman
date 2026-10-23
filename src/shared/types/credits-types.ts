@@ -1,5 +1,6 @@
 // --- Movies (credits) ---
-interface TMDBCastMember {
+
+interface TMDBMovieBaseMember {
    id: number;
    gender: number | null;
    known_for_department: string;
@@ -7,25 +8,19 @@ interface TMDBCastMember {
    original_name: string;
    popularity: number;
    profile_path: string | null;
-   cast_id: number;
-   character: string;
-   credit_id: string;
-   order: number;
    media_type: "movie";
+   credit_id: string;
 }
 
-interface TMDBCrewMember {
-   id: number;
-   gender: number | null;
-   known_for_department: string;
-   name: string;
-   original_name: string;
-   popularity: number;
-   profile_path: string | null;
-   credit_id: string;
+interface TMDBCastMember extends TMDBMovieBaseMember {
+   cast_id: number;
+   character: string;
+   order: number;
+}
+
+interface TMDBCrewMember extends TMDBMovieBaseMember {
    department: string;
    job: string;
-   media_type: "movie";
 }
 
 interface TMDBMovieCredits {
@@ -47,7 +42,7 @@ interface TMDBAggregateJob {
    episode_count: number;
 }
 
-interface TMDBAggregateCastMember {
+interface TMDBTVBaseMember {
    id: number;
    media_type: "tv";
    gender: number | null;
@@ -56,23 +51,17 @@ interface TMDBAggregateCastMember {
    original_name: string;
    popularity: number;
    profile_path: string | null;
-   roles: TMDBAggregateRole[];
    total_episode_count: number;
+}
+
+interface TMDBAggregateCastMember extends TMDBTVBaseMember {
+   roles: TMDBAggregateRole[];
    order: number;
 }
 
-interface TMDBAggregateCrewMember {
-   id: number;
-   media_type: "tv";
-   gender: number | null;
-   known_for_department: string;
-   name: string;
-   original_name: string;
-   popularity: number;
-   profile_path: string | null;
+interface TMDBAggregateCrewMember extends TMDBTVBaseMember {
    jobs: TMDBAggregateJob[];
    department: string;
-   total_episode_count: number;
 }
 
 interface TMDBTVAggregateCredits {

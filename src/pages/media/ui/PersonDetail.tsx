@@ -2,20 +2,15 @@
 
 import { useState } from "react";
 import { Link } from "@/app/i18n/navigation";
-import { CrewMember } from "@/entities/media";
+import { BaseCreditMember } from "@/entities/media";
 import { useTranslations } from "next-intl";
-
-interface BasePerson {
-   id: number | string;
-   name: string;
-}
 
 export const PersonDetailItem = ({
    title,
    items,
 }: {
    title: string;
-   items: BasePerson | BasePerson[] | CrewMember | CrewMember[];
+   items: BaseCreditMember | BaseCreditMember[];
 }) => {
    const t = useTranslations("siteInterface");
    const [isExpanded, setIsExpanded] = useState(false);

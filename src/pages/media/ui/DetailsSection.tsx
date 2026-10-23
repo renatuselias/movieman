@@ -4,6 +4,7 @@ import { TextDetailItem } from "./TextDetail";
 import { MediaType } from "@/shared/types/media-types";
 import { formatDate } from "@/shared/lib/format/format-date";
 import { useLocale, useTranslations } from "next-intl";
+import { ContentTitle } from "@/shared/ui/ContentTitle";
 
 interface DetailsSectionProps {
    extraMedia: MediaFullInfo | null | undefined;
@@ -46,13 +47,14 @@ export function DetailsSection({ extraMedia, mediaType }: DetailsSectionProps) {
    );
 
    return (
-      <div className="w-full flex gap-5 sm:gap-10 md:gap-20 flex-wrap md:flex-nowrap justify-between items-start">
-         <div className="flex flex-col gap-2 text-sm w-full md:w-fit min-w-0">
-            <h3 className="text-base text-zinc-400">{t("moreContext")}</h3>
-            <h2 className="w-fit text-3xl text-zinc-100 text-wrap font-medium">
-               {t("menu.details")}.
-            </h2>
-         </div>
+      <div
+         id="details"
+         className="w-full flex gap-5 sm:gap-10 md:gap-20 flex-wrap md:flex-nowrap justify-between items-start"
+      >
+         <ContentTitle
+            title={t("menu.details")}
+            subtitle={t("moreContext")}
+         />
 
          <div className="flex flex-col gap-4 w-full md:w-6/9 min-w-0">
             <div className="grid grid-cols-2 gap-x-8 sm:gap-x-12 gap-y-6">
@@ -73,6 +75,12 @@ export function DetailsSection({ extraMedia, mediaType }: DetailsSectionProps) {
                   items={photography}
                />
 
+               {extraMedia?.status && (
+                  <TextDetailItem title={t("mediaDetails.status")}>
+                     {t(`status.${extraMedia.status}`)}
+                  </TextDetailItem>
+               )}
+
                {mediaType === "movie" && (
                   <TextDetailItem title={t("mediaDetails.releaseDate")}>
                      {formatDate(
@@ -83,15 +91,8 @@ export function DetailsSection({ extraMedia, mediaType }: DetailsSectionProps) {
                   </TextDetailItem>
                )}
 
-               <TextDetailItem title={t("mediaDetails.originalTitle")}>
-                  {extraMedia?.originalTitle}
-               </TextDetailItem>
-
                {mediaType === "tv" && (
                   <>
-                     <TextDetailItem title={t("mediaDetails.seriesFormat")}>
-                        {extraMedia?.type}
-                     </TextDetailItem>
                      <TextDetailItem title={t("mediaDetails.firstAired")}>
                         {formatDate(
                            extraMedia?.releaseDate || null,
@@ -99,6 +100,11 @@ export function DetailsSection({ extraMedia, mediaType }: DetailsSectionProps) {
                            locale,
                         )}
                      </TextDetailItem>
+
+                     <TextDetailItem title={t("mediaDetails.seriesFormat")}>
+                        {extraMedia?.type}
+                     </TextDetailItem>
+
                      {extraMedia?.status === "Returning Series" &&
                      extraMedia.nextEpisode ? (
                         <TextDetailItem title={t("mediaDetails.nextEpisode")}>
@@ -117,6 +123,10 @@ export function DetailsSection({ extraMedia, mediaType }: DetailsSectionProps) {
                      </TextDetailItem>
                   </>
                )}
+
+               <TextDetailItem title={t("mediaDetails.originalTitle")}>
+                  {extraMedia?.originalTitle}
+               </TextDetailItem>
 
                <TextDetailItem title={t("mediaDetails.countries")}>
                   {extraMedia?.productionCountries.map((item) => item.name)}
@@ -143,12 +153,6 @@ export function DetailsSection({ extraMedia, mediaType }: DetailsSectionProps) {
                         {extraMedia?.revenue}
                      </TextDetailItem>
                   </>
-               )}
-
-               {extraMedia?.status && (
-                  <TextDetailItem title={t("mediaDetails.status")}>
-                     {t(`status.${extraMedia.status}`)}
-                  </TextDetailItem>
                )}
             </div>
          </div>

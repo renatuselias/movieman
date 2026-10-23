@@ -91,7 +91,7 @@ export function MediaLogo({
          </div>
       </Link>
    ) : (
-      <div className="max-w-70 sm:max-w-150">
+      <div className="max-w-70 sm:max-w-120">
          <Link
             onClick={handleLinkClick}
             href={mediaHref}

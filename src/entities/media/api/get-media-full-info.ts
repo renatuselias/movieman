@@ -12,6 +12,7 @@ import {
 import { TMDBMediaCredits } from "@/shared/types/credits-types";
 import { Locale } from "next-intl";
 import { mapToFullMedia } from "../lib/mappers/media.mapper";
+import { translateText } from "@/shared/api/translate-api";
 
 export async function getMediaFullInfo(
    mediaId: string,
@@ -19,7 +20,9 @@ export async function getMediaFullInfo(
    locale: Locale,
 ) {
    try {
-      const language = TMDB_LANGUAGES[locale] ?? locale;
+      const preferredLanguage = TMDB_LANGUAGES[locale] ?? locale;
+      const language = `${preferredLanguage},en-US`;
+
       const creditsEndpoint =
          mediaType === "movie" ? "credits" : "aggregate_credits";
 
@@ -52,6 +55,27 @@ export async function getMediaFullInfo(
          return null;
       }
 
+      let finalOverview = details.overview;
+
+      if (!finalOverview || finalOverview.trim() === "") {
+         const fallbackDetails = await tmdbFetch<TMDBMedia>(
+            `/${mediaType}/${mediaId}`,
+            { language: "en-US" },
+            CacheConfig.DETAILS,
+         );
+
+         const englishOverview = fallbackDetails?.overview ?? "";
+
+         if (englishOverview) {
+            finalOverview = await translateText(
+               englishOverview,
+               TMDB_LANGUAGES[locale] ?? locale,
+            );
+         } else {
+            finalOverview = "";
+         }
+      }
+
       type TMDBVideosResponse = { results: TMDBVideo[] };
       let videos: TMDBVideo[] = details.videos?.results ?? [];
 
@@ -66,6 +90,7 @@ export async function getMediaFullInfo(
 
       const results = {
          ...details,
+         overview: finalOverview,
          media_type: mediaType,
          videos: { ...details.videos, results: videos },
          cast: credits?.cast || [],
