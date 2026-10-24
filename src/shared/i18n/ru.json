@@ -48,7 +48,7 @@
          "season": "{count, plural, =1 {# сезон} one {# сезон} few {# сезона} many {# сезонов} other {# сезонов}}",
          "details": "Подробнее",
          "createdBy": "Режиссер",
-         "fullCast": "> Весь состав",
+         "fullCast": "Весь состав",
          "cast": "Актеры",
          "director": "Режиссер",
          "synopsis": "Синопсис",
@@ -100,6 +100,16 @@
          "details": "Детали",
          "cast": "В ролях",
          "moreLike": "Рекомендации"
+      },
+
+      "cast": {
+         "topCast": "В главных ролях",
+         "biography": "Биография",
+         "noBiography": "Биография отсутствует.",
+         "born": "Дата рождения",
+         "birthplace": "Место рождения",
+         "credits": "Проекты",
+         "filmography": "Фильмография"
       }
    },
 

@@ -13,6 +13,7 @@ import { MediaGrid } from "@/widgets/media-grid";
 import { ContentTitle } from "@/shared/ui/ContentTitle";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { DetailsSkeleton, SynopsisSkeleton } from "./MediaSkeletons";
+import { MediaCast } from "@/widgets/media-cast/ui/MediaCast";
 
 const NAV_LIST = [
    { id: "01", text: "details", href: "#details" },
@@ -43,6 +44,8 @@ export function MediaPage({
       ? extraMedia?.posterPath
       : extraMedia?.backdropPath;
    const backdrop = rawPath ? `${imageBaseUrl}${rawPath}` : null;
+
+   console.log(extraMedia);
 
    return (
       <div className="w-full">
@@ -139,7 +142,12 @@ export function MediaPage({
             )}
 
             {/* Cast (Placeholder) */}
-            <div id="cast"></div>
+            <div id="cast">
+               <MediaCast
+                  mediaLoading={isLoading}
+                  mediaCast={extraMedia?.cast || []}
+               />
+            </div>
 
             {/* Recommendations */}
             <div

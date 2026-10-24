@@ -37,6 +37,7 @@ export function MediaCard({
             className=" relative aspect-2/3 w-full overflow-hidden bg-zinc-950 cursor-pointer transform transition-all duration-500"
          >
             <Skeleton className="absolute inset-0 h-full w-full rounded-none! border border-zinc-700/30 z-0" />
+            <div className="absolute inset-0 bg-linear-to-t from-zinc-950 via-transparent to-transparent opacity-80" />
 
             <TmdbImage
                src={posterPath}

@@ -28,7 +28,7 @@ export interface BaseCreditMember {
    profilePath: string | null;
 }
 
-interface CastMember extends BaseCreditMember {
+export interface CastMember extends BaseCreditMember {
    character: string;
    episodeCount: number;
 }

@@ -48,7 +48,7 @@
          "season": "{count, plural, =1 {# season} one {# season} other {# seasons}}",
          "details": "Details",
          "createdBy": "Directed by",
-         "fullCast": "> Full cast",
+         "fullCast": "Full cast",
          "cast": "starring",
          "director": "Director",
          "synopsis": "Synopsis",
@@ -100,6 +100,16 @@
          "details": "The details",
          "cast": "Cast",
          "moreLike": "More like this"
+      },
+
+      "cast": {
+         "topCast": "Top Cast",
+         "biography": "Biography",
+         "noBiography": "No biography available.",
+         "born": "Born",
+         "birthplace": "Birthplace",
+         "credits": "Credits",
+         "filmography": "Filmography"
       }
    },
 

@@ -48,7 +48,7 @@
          "season": "{count, plural, one {# сезон} few {# сезони} many {# сезонів} other {# сезонів}}",
          "details": "Детальніше",
          "createdBy": "Режисер",
-         "fullCast": "> Повний склад",
+         "fullCast": "Повний склад",
          "cast": "Актори",
          "director": "Режисер",
          "synopsis": "Синопсис",
@@ -100,6 +100,16 @@
          "details": "Деталі",
          "cast": "У ролях",
          "moreLike": "Подібні"
+      },
+
+      "cast": {
+         "topCast": "У головних ролях",
+         "biography": "Біографія",
+         "noBiography": "Біографія відсутня.",
+         "born": "Дата народження",
+         "birthplace": "Місце народження",
+         "credits": "Проєкти",
+         "filmography": "Фільмографія"
       }
    },
    "siteInterface": {
