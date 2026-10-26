@@ -46,7 +46,7 @@ export function MediaCard({
                tmdbSize={tmdbSize}
             />
             <div className="px-5 absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-700 flex flex-col justify-center z-20">
-               <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-700 ease-out flex flex-col gap-2">
+               <div className="text-zinc-100/90 translate-y-4 group-hover:translate-y-0 transition-transform duration-700 ease-out flex flex-col gap-2">
                   {releaseDate && (
                      <div>
                         <h4>

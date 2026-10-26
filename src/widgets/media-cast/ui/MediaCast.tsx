@@ -26,8 +26,6 @@ export function MediaCast({
    const { cast = [], crew = [] } = combined_credits || {};
    const totalCredits = cast.length + crew.length;
 
-   console.log(personDetails);
-
    return (
       <section className="w-full space-y-4 ">
          <ContentTitle

@@ -95,6 +95,15 @@
       "moreContext": "Немного контекста",
       "recommendations": "Вам также может понравиться",
       "followThread": "Следовать за сюжетом",
+      "backdrops": "Кадры",
+      "posters": "Постеры",
+      "videos": "Видео",
+      "viewBackdrop": "Открыть кадр {number} на весь экран",
+      "viewPoster": "Открыть постер {number} на весь экран",
+      "playVideo": "Смотреть видео «{name}»",
+      "closeFullscreen": "Закрыть полноэкранный просмотр",
+      "previousMedia": "Предыдущий медиафайл",
+      "nextMedia": "Следующий медиафайл",
 
       "menu": {
          "details": "Детали",

@@ -95,6 +95,15 @@
       "moreContext": "Трохи контексту",
       "recommendations": "Вам також може сподобатися",
       "followThread": "Стежити за сюжетом",
+      "backdrops": "Світлини",
+      "posters": "Постери",
+      "videos": "Відео",
+      "viewBackdrop": "Відкрити світлину {number} на весь екран",
+      "viewPoster": "Відкрити постер {number} на весь екран",
+      "playVideo": "Дивитися відео «{name}»",
+      "closeFullscreen": "Закрити повноекранний перегляд",
+      "previousMedia": "Попередній медіафайл",
+      "nextMedia": "Наступний медіафайл",
 
       "menu": {
          "details": "Деталі",

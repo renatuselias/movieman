@@ -57,6 +57,8 @@ export interface MediaDetails extends BaseMedia {
    status: MediaStatus;
    createdBy: BaseCreditMember[] | null;
    type: TvType | null;
+   backdrops: string[];
+   posters: string[];
 }
 
 export interface MediaFullInfo extends MediaDetails {

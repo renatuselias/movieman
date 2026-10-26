@@ -101,6 +101,8 @@ export function mapToMediaDetails(media: TMDBMedia): MediaDetails {
       revenue: isMovieMedia ? media.revenue : 0,
       status: media.status,
       type: isMovieMedia ? null : media.type,
+      backdrops: media.images.backdrops.map((i) => i.file_path),
+      posters: media.images.posters.map((i) => i.file_path),
    };
 }
 

@@ -31,6 +31,10 @@ export function CastCarousel({
       [],
    );
 
+   if (isLoading === false && cast.length === 0) {
+      return null;
+   }
+
    return (
       <div className="w-full pt-20">
          <Carousel

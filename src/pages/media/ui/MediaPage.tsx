@@ -14,6 +14,7 @@ import { ContentTitle } from "@/shared/ui/ContentTitle";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { DetailsSkeleton, SynopsisSkeleton } from "./MediaSkeletons";
 import { MediaCast } from "@/widgets/media-cast/ui/MediaCast";
+import { MediaGallery } from "./MediaGallery";
 
 const NAV_LIST = [
    { id: "01", text: "details", href: "#details" },
@@ -77,7 +78,7 @@ export function MediaPage({
          </div>
 
          {/* Main Content Section */}
-         <div className="w-full px-4 sm:px-8 mt-20 text-zinc-500 space-y-10 sm:space-y-20">
+         <div className="w-full px-4 sm:px-10 mt-20 text-zinc-500 space-y-10 sm:space-y-20">
             {/* Synopsis */}
             <div className="w-full flex gap-5 sm:gap-10 md:gap-20 flex-wrap md:flex-nowrap justify-between items-start">
                {isLoading ? (
@@ -92,7 +93,7 @@ export function MediaPage({
                         <h3 className="text-zinc-400 text-xl">
                            {t("media.synopsis")}
                         </h3>
-                        <p className="text-base w-full lg:w-4/5 tracking-wide">
+                        <p className="text-base w-full lg:w-4/5 leading-relaxed tracking-tighter text-neutral-300 font-normal overflow-hidden text-ellipsis display-webkit-box">
                            {extraMedia?.overview}
                         </p>
                      </div>
@@ -146,6 +147,15 @@ export function MediaPage({
                <MediaCast
                   mediaLoading={isLoading}
                   mediaCast={extraMedia?.cast || []}
+               />
+            </div>
+
+            {/* Media photos */}
+            <div>
+               <MediaGallery
+                  backdrops={extraMedia?.backdrops || []} // массив строк (путей к картинкам)
+                  posters={extraMedia?.posters}
+                  videos={extraMedia?.videos}
                />
             </div>
 

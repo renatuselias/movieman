@@ -95,6 +95,15 @@
       "moreContext": "A little more context",
       "recommendations": "More like this",
       "followThread": "Follow the thread",
+      "backdrops": "Backdrops",
+      "posters": "Posters",
+      "videos": "Videos",
+      "viewBackdrop": "View backdrop {number} fullscreen",
+      "viewPoster": "View poster {number} fullscreen",
+      "playVideo": "Play {name}",
+      "closeFullscreen": "Close fullscreen media",
+      "previousMedia": "Previous media",
+      "nextMedia": "Next media",
 
       "menu": {
          "details": "The details",
