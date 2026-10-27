@@ -3,14 +3,11 @@
 import { useCallback, useMemo, useState, useEffect } from "react";
 import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 import {
-   ChevronLeft,
-   ChevronRight,
    Film,
    IdCardIcon,
    Image as ImageIcon,
    Maximize2,
    Play,
-   X,
 } from "lucide-react";
 import {
    Carousel,
@@ -23,7 +20,8 @@ import {
 import { TmdbImage } from "@/shared/ui/TmdbImage";
 import { useTranslations } from "next-intl";
 import { Tabs, TabsList, TabsTrigger } from "@/shared/ui/tabs";
-import { Dialog, DialogContent } from "@/shared/ui/dialog";
+import { GalleryModal } from "./GalleryModal";
+import { ContentTitle } from "@/shared/ui/ContentTitle";
 
 export interface MediaVideo {
    id: string;
@@ -36,12 +34,16 @@ interface MediaGalleryProps {
    backdrops?: string[];
    posters?: string[];
    videos?: MediaVideo[];
+   title: string;
+   subtitle: string;
 }
 
 export function MediaGallery({
    backdrops = [],
    posters = [],
    videos = [],
+   title,
+   subtitle,
 }: MediaGalleryProps) {
    const t = useTranslations("media");
 
@@ -68,6 +70,7 @@ export function MediaGallery({
       if (activeTab === "posters") return posters;
       return videos;
    }, [activeTab, backdrops, posters, videos]);
+
    const selectedMedia =
       selectedIndex === null ? undefined : currentItems[selectedIndex];
 
@@ -120,7 +123,14 @@ export function MediaGallery({
    }
 
    return (
-      <div className="w-full">
+      <div
+         id="gallery"
+         className="w-full space-y-3"
+      >
+         <ContentTitle
+            title={title}
+            subtitle={subtitle}
+         />
          <Tabs
             value={activeTab}
             onValueChange={(val) => setSelectedTab(val as MediaTab)}
@@ -204,7 +214,7 @@ export function MediaGallery({
                               fill
                               className="object-cover transition-transform duration-500 group-hover:scale-105"
                            />
-                           <div className="absolute inset-0 bg-zinc-950 z-10 opacity-0 group-hover:opacity-50 transition-opacity flex items-center justify-center">
+                           <div className="absolute inset-0 bg-zinc-950 z-10 opacity-0 group-hover:opacity-70 transition-opacity duration-300 flex items-center justify-center">
                               <Maximize2 className="z-20 w-6 h-6 text-white" />
                            </div>
                         </button>
@@ -229,7 +239,7 @@ export function MediaGallery({
                               fill
                               className="object-cover transition-transform duration-500 group-hover:scale-105"
                            />
-                           <div className="absolute inset-0 bg-zinc-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                           <div className="absolute inset-0 bg-zinc-950/40 z-20 opacity-0 group-hover:opacity-90 transition-opacity duration-300 flex items-center justify-center">
                               <Maximize2 className="z-20 w-6 h-6 text-white" />
                            </div>
                         </button>
@@ -266,85 +276,15 @@ export function MediaGallery({
             </div>
          </Carousel>
 
-         <Dialog
-            open={selectedIndex !== null}
-            onOpenChange={(open) => {
-               if (!open) setSelectedIndex(null);
-            }}
-         >
-            <DialogContent
-               showCloseButton={false}
-               className={`gap-0! overflow-hidden! rounded-xs! border-0! bg-black! p-0! ring-0! ${
-                  activeTab === "posters"
-                     ? "h-[min(82dvh,850px)]! w-auto! max-w-[92vw]! aspect-2/3!"
-                     : "w-[min(94vw,72rem)]! max-w-none! aspect-video! max-h-[82dvh]!"
-               }`}
-            >
-               <div className="relative flex h-full w-full items-center justify-center bg-zinc-950">
-                  {typeof selectedMedia === "string" && (
-                     <div className="absolute inset-0">
-                        <TmdbImage
-                           src={selectedMedia}
-                           alt={`${activeTab === "posters" ? "Poster" : "Backdrop"} ${(selectedIndex ?? 0) + 1}`}
-                           fill
-                           sizes="100vw"
-                           className="object-contain!"
-                        />
-                     </div>
-                  )}
-                  {activeTab === "videos" &&
-                     selectedIndex !== null &&
-                     videos[selectedIndex] && (
-                        <iframe
-                           src={`https://www.youtube-nocookie.com/embed/${encodeURIComponent(videos[selectedIndex].key)}?autoplay=1&rel=0`}
-                           title={videos[selectedIndex].name}
-                           allow="autoplay; encrypted-media; picture-in-picture"
-                           allowFullScreen
-                           className="aspect-video h-full max-h-[82dvh] w-full object-contain"
-                        />
-                     )}
-                  <button
-                     type="button"
-                     onClick={() => setSelectedIndex(null)}
-                     aria-label={t("closeFullscreen")}
-                     className="absolute right-2 top-2 z-20 rounded-sm bg-black/70 p-1 text-white transition-colors hover:bg-white/20 sm:right-3 sm:top-3"
-                  >
-                     <X className="h-6 w-6" />
-                  </button>
-                  {currentItems.length > 1 && (
-                     <>
-                        <button
-                           type="button"
-                           onClick={(event) => {
-                              event.preventDefault();
-                              event.stopPropagation();
-                              navigateMedia(-1);
-                           }}
-                           aria-label={t("previousMedia")}
-                           className="absolute left-2 top-1/2 z-20 -translate-y-1/2 rounded-sm bg-black/70 p-1 text-white transition-colors hover:bg-white/20 sm:left-3 sm:p-3"
-                        >
-                           <ChevronLeft className="h-7 w-7" />
-                        </button>
-                        <button
-                           type="button"
-                           onClick={(event) => {
-                              event.preventDefault();
-                              event.stopPropagation();
-                              navigateMedia(1);
-                           }}
-                           aria-label={t("nextMedia")}
-                           className="absolute right-2 top-1/2 z-20 -translate-y-1/2 rounded-sm bg-black/70 p-1 text-white transition-colors hover:bg-white/20 sm:right-3 sm:p-3"
-                        >
-                           <ChevronRight className="h-7 w-7" />
-                        </button>
-                        <div className="absolute bottom-5 left-1/2 z-20 -translate-x-1/2 rounded-xs bg-black/60 px-2 py-1 text-sm text-white">
-                           {(selectedIndex ?? 0) + 1} / {currentItems.length}
-                        </div>
-                     </>
-                  )}
-               </div>
-            </DialogContent>
-         </Dialog>
+         <GalleryModal
+            selectedMedia={selectedMedia}
+            activeTab={activeTab}
+            selectedIndex={selectedIndex}
+            setSelectedIndex={setSelectedIndex}
+            videos={videos}
+            currentItems={currentItems}
+            navigateMedia={navigateMedia}
+         />
       </div>
    );
 }

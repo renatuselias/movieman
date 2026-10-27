@@ -104,8 +104,11 @@
       "closeFullscreen": "Закрити повноекранний перегляд",
       "previousMedia": "Попередній медіафайл",
       "nextMedia": "Наступний медіафайл",
+      "subGallery": "Кадри, емоції та рух",
+      "viewCollection": "Переглянути колекцію",
 
       "menu": {
+         "gallery": "Галерея",
          "details": "Деталі",
          "cast": "У ролях",
          "moreLike": "Подібні"

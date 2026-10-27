@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import { MediaHeader, useGetMediaFullInfo } from "@/entities/media";
 import { useIsPortrait } from "@/shared/lib/hooks/useIsPortrait";
 import { useTmdbImagePath } from "@/shared/lib/hooks/useTmdbImagePath";
@@ -14,13 +15,9 @@ import { ContentTitle } from "@/shared/ui/ContentTitle";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { DetailsSkeleton, SynopsisSkeleton } from "./MediaSkeletons";
 import { MediaCast } from "@/widgets/media-cast/ui/MediaCast";
-import { MediaGallery } from "./MediaGallery";
-
-const NAV_LIST = [
-   { id: "01", text: "details", href: "#details" },
-   { id: "02", text: "cast", href: "#cast" },
-   { id: "03", text: "moreLike", href: "#more" },
-] as const;
+import { GallerySkeleton, MediaGallery } from "@/widgets/media-gallery";
+import { TmdbImage } from "@/shared/ui/TmdbImage";
+import { Link } from "@/app/i18n/navigation";
 
 export function MediaPage({
    mediaType,
@@ -46,11 +43,40 @@ export function MediaPage({
       : extraMedia?.backdropPath;
    const backdrop = rawPath ? `${imageBaseUrl}${rawPath}` : null;
 
+   const hasCast =
+      isLoading || Boolean(extraMedia?.cast && extraMedia.cast.length > 0);
+   const hasGallery =
+      isLoading ||
+      Boolean(
+         (extraMedia?.backdrops && extraMedia.backdrops.length > 0) ||
+         (extraMedia?.posters && extraMedia.posters.length > 0) ||
+         (extraMedia?.videos && extraMedia.videos.length > 0),
+      );
+   const hasRecommendations =
+      isLoading ||
+      Boolean(
+         extraMedia?.recommendations && extraMedia.recommendations.length > 0,
+      );
+
+   const navList = useMemo(() => {
+      return [
+         { id: "details", text: "details", href: "#details", show: true },
+         { id: "cast", text: "cast", href: "#cast", show: hasCast },
+         { id: "gallery", text: "gallery", href: "#gallery", show: hasGallery },
+         {
+            id: "moreLike",
+            text: "moreLike",
+            href: "#more",
+            show: hasRecommendations,
+         },
+      ].filter((item) => item.show);
+   }, [hasCast, hasGallery, hasRecommendations]);
+
    console.log(extraMedia);
 
    return (
       <div className="w-full">
-         {/* Hero / Backdrop Section */}
+         {/* Hero Section */}
          <div className="flex-1 min-h-[calc(100dvh-50px)] sm:min-h-screen transition-[min-height] duration-300 ease-out relative flex flex-col justify-end bg-black lg:bg-[#010101]">
             <BackgroundImage
                src={backdrop}
@@ -102,37 +128,39 @@ export function MediaPage({
             </div>
 
             {/* Navigation */}
-            <div className="w-full border-t border-b py-6">
-               {isLoading ? (
-                  <div className="flex gap-3">
-                     <Skeleton className="w-20 h-4" />
-                     <Skeleton className="w-20 h-4" />
-                     <Skeleton className="w-20 h-4" />
-                  </div>
-               ) : (
-                  <nav>
-                     <ul className="flex gap-4 items-center text-xs">
-                        {NAV_LIST.map((item) => (
-                           <li key={item.id}>
-                              <a
-                                 href={item.href}
-                                 className="inline-block hover:opacity-80 transition-opacity cursor-pointer"
-                              >
-                                 <h2>
-                                    {item.id}{" "}
-                                    <span className="text-zinc-300 ml-1">
-                                       {t(`media.menu.${item.text}`)}
-                                    </span>
-                                 </h2>
-                              </a>
-                           </li>
-                        ))}
-                     </ul>
-                  </nav>
-               )}
-            </div>
+            {navList.length > 1 && (
+               <div className="w-full border-t border-b py-6">
+                  {isLoading ? (
+                     <div className="flex gap-3">
+                        <Skeleton className="w-20 h-4" />
+                        <Skeleton className="w-20 h-4" />
+                        <Skeleton className="w-20 h-4" />
+                     </div>
+                  ) : (
+                     <nav>
+                        <ul className="flex gap-4 items-center text-xs">
+                           {navList.map((item, index) => (
+                              <li key={item.id}>
+                                 <a
+                                    href={item.href}
+                                    className="inline-block hover:opacity-80 transition-opacity cursor-pointer"
+                                 >
+                                    <h2>
+                                       {String(index + 1).padStart(2, "0")}{" "}
+                                       <span className="text-zinc-300 ml-1">
+                                          {t(`media.menu.${item.text}`)}
+                                       </span>
+                                    </h2>
+                                 </a>
+                              </li>
+                           ))}
+                        </ul>
+                     </nav>
+                  )}
+               </div>
+            )}
 
-            {/* Details Section */}
+            {/* Details */}
             {isLoading ? (
                <DetailsSkeleton />
             ) : (
@@ -142,35 +170,87 @@ export function MediaPage({
                />
             )}
 
-            {/* Cast (Placeholder) */}
-            <div id="cast">
+            {/* Cast */}
+            {hasCast && (
                <MediaCast
                   mediaLoading={isLoading}
                   mediaCast={extraMedia?.cast || []}
                />
-            </div>
+            )}
 
-            {/* Media photos */}
-            <div>
-               <MediaGallery
-                  backdrops={extraMedia?.backdrops || []} // массив строк (путей к картинкам)
-                  posters={extraMedia?.posters}
-                  videos={extraMedia?.videos}
-               />
-            </div>
+            {/* Gallery */}
+            {isLoading ? (
+               <GallerySkeleton />
+            ) : (
+               hasGallery && (
+                  <MediaGallery
+                     backdrops={extraMedia?.backdrops}
+                     posters={extraMedia?.posters}
+                     videos={extraMedia?.videos}
+                     title={t("media.menu.gallery")}
+                     subtitle={t("media.subGallery")}
+                  />
+               )
+            )}
+
+            {/* Collection */}
+            {extraMedia?.belongsToCollection && (
+               <section
+                  aria-label={extraMedia.belongsToCollection.name}
+                  className="relative isolate flex min-h-40 w-full items-center justify-between gap-4 overflow-hidden border border-zinc-800 bg-zinc-950 p-4 sm:min-h-100 sm:gap-8 sm:p-8"
+               >
+                  <div className="absolute inset-0 z-0">
+                     <TmdbImage
+                        src={extraMedia.belongsToCollection.backdrop_path}
+                        alt=""
+                        fill
+                        sizes="100vw"
+                        className="object-cover"
+                     />
+                  </div>
+                  <div className="absolute inset-0 z-10 bg-linear-to-r from-black/90 via-black/70 to-black/35" />
+                  <div className="relative z-20 flex w-full items-center justify-between gap-4 sm:gap-8">
+                     <div className="flex flex-col gap-4">
+                        <h2 className="peer tracking-tighter text-xl sm:text-3xl md:text-4xl text-zinc-300">
+                           {extraMedia.belongsToCollection.name}
+                        </h2>
+
+                        <Link
+                           className="w-fit transition-colors duration-300 hover:text-white cursor-pointer text-base sm:text-xl uppercase tracking-tight"
+                           href={`${extraMedia.belongsToCollection.id}`}
+                        >
+                           {t("media.viewCollection")}
+                        </Link>
+                     </div>
+
+                     {extraMedia.belongsToCollection.poster_path && (
+                        <Link
+                           href={`${extraMedia.belongsToCollection.id}`}
+                           className="relative hidden sm:block sm:w-40 md:w-60 lg:w-80 aspect-2/3 shrink-0 overflow-hidden rounded-xl"
+                        >
+                           <TmdbImage
+                              src={extraMedia.belongsToCollection.poster_path}
+                              alt={extraMedia.belongsToCollection.name}
+                              fill
+                              sizes="(max-width: 640px) 80px, 144px"
+                              className="object-cover transition-[filter] duration-300 hover:brightness-125 peer-hover:brightness-125"
+                           />
+                           <div className="pointer-events-none absolute inset-0 z-10 bg-black/40 transition-opacity duration-300 hover:opacity-0 peer-hover:opacity-0" />
+                        </Link>
+                     )}
+                  </div>
+               </section>
+            )}
 
             {/* Recommendations */}
-            <div
-               className="w-full"
-               id="more"
-            >
+            {hasRecommendations && (
                <MediaGrid
                   title={t("media.followThread")}
                   subtitle={t("media.recommendations")}
                   recommendations={extraMedia?.recommendations}
                   recommendationsLoading={isLoading}
                />
-            </div>
+            )}
          </div>
       </div>
    );

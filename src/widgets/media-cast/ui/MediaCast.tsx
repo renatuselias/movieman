@@ -27,7 +27,10 @@ export function MediaCast({
    const totalCredits = cast.length + crew.length;
 
    return (
-      <section className="w-full space-y-4 ">
+      <section
+         id="cast"
+         className="w-full space-y-4 "
+      >
          <ContentTitle
             title={t("mediaDetails.cast")}
             subtitle={t("cast.topCast")}

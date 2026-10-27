@@ -2,7 +2,7 @@ import { CrewMember, getMainCreators, MediaFullInfo } from "@/entities/media";
 import { PersonDetailItem } from "./PersonDetail";
 import { TextDetailItem } from "./TextDetail";
 import { MediaType } from "@/shared/types/media-types";
-import { formatDate } from "@/shared/lib/format/format-date";
+import { formatDate, getReleaseLabel } from "@/shared/lib/format/format-date";
 import { useLocale, useTranslations } from "next-intl";
 import { ContentTitle } from "@/shared/ui/ContentTitle";
 
@@ -81,8 +81,12 @@ export function DetailsSection({ extraMedia, mediaType }: DetailsSectionProps) {
                   </TextDetailItem>
                )}
 
-               {mediaType === "movie" && (
-                  <TextDetailItem title={t("mediaDetails.releaseDate")}>
+               {mediaType === "movie" && extraMedia?.releaseDate && (
+                  <TextDetailItem
+                     title={t(
+                        `mediaDetails.${getReleaseLabel(extraMedia.releaseDate, mediaType)}`,
+                     )}
+                  >
                      {formatDate(
                         extraMedia?.releaseDate || null,
                         "full",
@@ -93,13 +97,15 @@ export function DetailsSection({ extraMedia, mediaType }: DetailsSectionProps) {
 
                {mediaType === "tv" && (
                   <>
-                     <TextDetailItem title={t("mediaDetails.firstAired")}>
-                        {formatDate(
-                           extraMedia?.releaseDate || null,
-                           "full",
-                           locale,
-                        )}
-                     </TextDetailItem>
+                     {extraMedia?.releaseDate && (
+                        <TextDetailItem
+                           title={t(
+                              `mediaDetails.${getReleaseLabel(extraMedia.releaseDate, mediaType)}`,
+                           )}
+                        >
+                           {formatDate(extraMedia.releaseDate, "full", locale)}
+                        </TextDetailItem>
+                     )}
 
                      <TextDetailItem title={t("mediaDetails.seriesFormat")}>
                         {extraMedia?.type}

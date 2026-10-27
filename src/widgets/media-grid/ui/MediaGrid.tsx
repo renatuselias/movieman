@@ -55,7 +55,10 @@ export function MediaGrid({
    const medias = recommendations.length > 0 ? recommendations : fetchMedias;
 
    return (
-      <section className="w-full flex flex-col gap-5 sm:gap-10">
+      <section
+         id="more"
+         className="w-full flex flex-col gap-5 sm:gap-10"
+      >
          <ContentTitle
             title={title}
             subtitle={subtitle}

@@ -103,6 +103,8 @@ export function mapToMediaDetails(media: TMDBMedia): MediaDetails {
       type: isMovieMedia ? null : media.type,
       backdrops: media.images.backdrops.map((i) => i.file_path),
       posters: media.images.posters.map((i) => i.file_path),
+      belongsToCollection: media.belongs_to_collection,
+      externalIds: media.external_ids,
    };
 }
 

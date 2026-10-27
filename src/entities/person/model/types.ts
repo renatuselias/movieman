@@ -2,6 +2,8 @@
  * --- PEOPLE & CREDITS & CREW ---
  */
 
+import { TMDBExternalIds } from "@/shared/types/media-types";
+
 export interface TmdbPersonCastCredit {
    id: number;
    title?: string;
@@ -29,16 +31,6 @@ export interface TmdbPersonCrewCredit {
    popularity: number;
 }
 
-export interface TmdbPersonExternalIds {
-   imdb_id: string | null;
-   wikidata_id: string | null;
-   facebook_id: string | null;
-   instagram_id: string | null;
-   twitter_id: string | null;
-   tiktok_id: string | null;
-   youtube_id: string | null;
-}
-
 export interface TmdbPersonDetail {
    id: number;
    name: string;
@@ -57,5 +49,5 @@ export interface TmdbPersonDetail {
       cast: TmdbPersonCastCredit[];
       crew: TmdbPersonCrewCredit[];
    };
-   external_ids?: TmdbPersonExternalIds;
+   external_ids?: TMDBExternalIds;
 }

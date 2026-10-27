@@ -104,11 +104,14 @@
       "closeFullscreen": "Закрыть полноэкранный просмотр",
       "previousMedia": "Предыдущий медиафайл",
       "nextMedia": "Следующий медиафайл",
+      "subGallery": "Кадры, эмоции и движение",
+      "viewCollection": "Посмотреть коллекцию",
 
       "menu": {
          "details": "Детали",
          "cast": "В ролях",
-         "moreLike": "Рекомендации"
+         "moreLike": "Рекомендации",
+         "gallery": "Галерея"
       },
 
       "cast": {

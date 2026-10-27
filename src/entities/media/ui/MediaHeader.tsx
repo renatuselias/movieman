@@ -100,7 +100,7 @@ export function MediaHeader({
 
                   {!isMediaPage && createdBy && createdBy.length > 0 && (
                      <div className="text-sm text-zinc-500 mt-2">
-                        <span>
+                        <span className="flex items-center gap-2">
                            {t("createdBy")}
                            <Link
                               className="text-base text-zinc-400 hover:text-zinc-300 transition-all duration-500"

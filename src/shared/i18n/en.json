@@ -104,11 +104,14 @@
       "closeFullscreen": "Close fullscreen media",
       "previousMedia": "Previous media",
       "nextMedia": "Next media",
+      "subGallery": "Frames, Emotions, and Motion",
+      "viewCollection": "View the collection",
 
       "menu": {
          "details": "The details",
          "cast": "Cast",
-         "moreLike": "More like this"
+         "moreLike": "More like this",
+         "gallery": "Gallery"
       },
 
       "cast": {

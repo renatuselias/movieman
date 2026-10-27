@@ -3,7 +3,17 @@ import { TMDBMediaCast, TMDBMediaCrew } from "./credits-types";
 export type MediaType = "movie" | "tv";
 export type MediaTypeWithAll = MediaType | "all";
 
-interface TMDBImage {
+export interface TMDBExternalIds {
+   imdb_id: string | null;
+   wikidata_id: string | null;
+   facebook_id: string | null;
+   instagram_id: string | null;
+   twitter_id: string | null;
+   tiktok_id: string | null;
+   youtube_id: string | null;
+}
+
+export interface TMDBImage {
    aspect_ratio: number;
    height: number;
    iso_639_1: string | null;
@@ -67,6 +77,13 @@ export interface TMDBNetwork {
    origin_country: string;
 }
 
+export interface TMDBMediaCollection {
+   id: number;
+   name: string;
+   poster_path: string | null;
+   backdrop_path: string | null;
+}
+
 type MovieStatus =
    | "Rumored"
    | "Planned"
@@ -116,6 +133,8 @@ interface TMDBBaseMedia {
    homepage: string;
    recommendations: { results: TMDBMedia[] };
    status: MediaStatus;
+   belongs_to_collection: TMDBMediaCollection;
+   external_ids: TMDBExternalIds;
 }
 
 interface TMDBMovieListItem extends TMDBBaseMedia {

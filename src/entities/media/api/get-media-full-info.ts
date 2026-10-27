@@ -31,7 +31,7 @@ export async function getMediaFullInfo(
             `/${mediaType}/${mediaId}`,
             {
                language,
-               append_to_response: "videos,images",
+               append_to_response: "videos,images,external_ids",
                include_image_language: `${locale}`,
             },
             CacheConfig.DETAILS,
