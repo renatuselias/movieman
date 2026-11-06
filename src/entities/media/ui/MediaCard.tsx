@@ -15,6 +15,8 @@ export function MediaCard({
    posterPath,
    releaseDate,
    tmdbSize,
+   character,
+   job,
    onClick,
 }: {
    genreIds: number[];
@@ -23,8 +25,10 @@ export function MediaCard({
    title: string;
    mediaType: MediaType;
    posterPath: string | null;
-   releaseDate: string;
+   releaseDate: string | null;
    tmdbSize: TmdbSize;
+   character?: string | null;
+   job?: string | null;
    onClick: () => void;
 }) {
    const t = useTranslations("");
@@ -69,7 +73,7 @@ export function MediaCard({
             </div>
          </div>
          <div>
-            <div className="flex gap-2 flex-wrap justify-between items-center">
+            <div className="flex gap-2 flex-wrap justify-start sm:justify-between items-center">
                <span className="text-zinc-500 text-xs">
                   {[
                      mediaType && t(`media.${mediaType}`),
@@ -89,12 +93,18 @@ export function MediaCard({
                {title}
             </button>
 
-            <div className="w-full hidden sm:block">
-               <GenresList
-                  genreIds={genreIds}
-                  isCard={true}
-               />
-            </div>
+            {character || job ? (
+               <p className="text-zinc-500 font-light text-sm">
+                  As {character || job}
+               </p>
+            ) : (
+               <div className="w-full hidden sm:block">
+                  <GenresList
+                     genreIds={genreIds}
+                     isCard={true}
+                  />
+               </div>
+            )}
          </div>
       </div>
    );

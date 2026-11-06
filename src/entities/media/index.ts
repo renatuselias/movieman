@@ -12,6 +12,7 @@ export {
 export { MediaHeader } from "./ui/MediaHeader";
 export { GenresList } from "./ui/GenresList";
 export { MediaCard } from "./ui/MediaCard";
+export { MediaCarousel } from "./ui/MediaCarousel";
 
 export { mapToBaseMedia } from "./lib/mappers/media.mapper";
 

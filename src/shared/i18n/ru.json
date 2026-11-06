@@ -55,6 +55,7 @@
          "premiere": "Премьера",
          "firstAired": "Первый эфир",
          "releaseDate": "Дата выхода",
+         "rating": "Рейтинг",
          "creators": "Создатели",
          "screenplay": "Сценарий",
          "music": "Композиторы",
@@ -120,16 +121,29 @@
          "noBiography": "Биография отсутствует.",
          "born": "Дата рождения",
          "birthplace": "Место рождения",
+         "died": "Дата смерти",
          "credits": "Проекты",
          "filmography": "Фильмография"
       }
+   },
+
+   "person": {
+      "inFocus": "В фокусе",
+      "throughTheLens": "Сквозь объектив",
+      "closerLook": "Детальный взгляд",
+      "behindTheScreen": "За кадром",
+      "selectedWorks": "Ключевые проекты",
+      "goodPlaceToStart": "С чего начать",
+      "filmography": "Все проекты",
+      "completePicture": "Полная картина"
    },
 
    "siteInterface": {
       "readMore": "Читать далее",
       "readLess": "Свернуть",
       "more": "больше",
-      "showLess": "скрыть"
+      "showLess": "скрыть",
+      "sortBy": "Сортировать по"
    },
 
    "genres": {

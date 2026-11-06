@@ -1,8 +1,9 @@
 import { BaseMedia, MediaDetails, MediaFullInfo } from "../../model/types";
 import { TMDBMedia } from "@/shared/types/media-types";
 import { getMainCreators } from "../getMainCreators";
+import { PersonCredit } from "@/entities/person/model/types";
 
-export function mapToBaseMedia(media: TMDBMedia): BaseMedia {
+export function mapToBaseMedia(media: TMDBMedia | PersonCredit): BaseMedia {
    const isMovie = media.media_type === "movie";
 
    return {
@@ -14,7 +15,10 @@ export function mapToBaseMedia(media: TMDBMedia): BaseMedia {
       rating: media.vote_average,
       genreIds: media.genre_ids,
       overview: media.overview,
-      releaseDate: isMovie ? media.release_date : media.first_air_date,
+      releaseDate:
+         (isMovie ? media.release_date : media.first_air_date) || null,
+      character: "character" in media ? media.character : null,
+      job: "job" in media ? media.job : null,
    };
 }
 

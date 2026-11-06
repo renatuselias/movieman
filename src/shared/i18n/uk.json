@@ -55,6 +55,7 @@
          "premiere": "Прем'єра",
          "firstAired": "Перший ефір",
          "releaseDate": "Дата виходу",
+         "rating": "Рейтинг",
          "creators": "Творці",
          "screenplay": "Сценарій",
          "music": "Композитори",
@@ -120,15 +121,29 @@
          "noBiography": "Біографія відсутня.",
          "born": "Дата народження",
          "birthplace": "Місце народження",
+         "died": "Дата смерті",
          "credits": "Проєкти",
          "filmography": "Фільмографія"
       }
    },
+
+   "person": {
+      "inFocus": "У фокусі",
+      "throughTheLens": "Крізь об'єктив",
+      "closerLook": "Детальний ракурс",
+      "behindTheScreen": "За лаштунками",
+      "selectedWorks": "Ключові проєкти",
+      "goodPlaceToStart": "З чого почати",
+      "filmography": "Усі проєкти",
+      "completePicture": "Повне занурення"
+   },
+
    "siteInterface": {
       "readMore": "Читати далі",
       "readLess": "Згорнути",
       "more": "більше",
-      "showLess": "приховати"
+      "showLess": "приховати",
+      "sortBy": "Сортувати за"
    },
    "genres": {
       "genres": "Жанри",

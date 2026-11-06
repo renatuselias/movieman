@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useMemo, useState, useEffect } from "react";
-import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 import {
    Film,
    IdCardIcon,
@@ -22,6 +21,7 @@ import { useTranslations } from "next-intl";
 import { Tabs, TabsList, TabsTrigger } from "@/shared/ui/tabs";
 import { GalleryModal } from "./GalleryModal";
 import { ContentTitle } from "@/shared/ui/ContentTitle";
+import WheelGesturesPlugin from "embla-carousel-wheel-gestures";
 
 export interface MediaVideo {
    id: string;
@@ -36,6 +36,7 @@ interface MediaGalleryProps {
    videos?: MediaVideo[];
    title: string;
    subtitle: string;
+   isPersonPage?: boolean;
 }
 
 export function MediaGallery({
@@ -44,8 +45,14 @@ export function MediaGallery({
    videos = [],
    title,
    subtitle,
+   isPersonPage = false,
 }: MediaGalleryProps) {
    const t = useTranslations("media");
+
+   const wheelPlugin = useMemo(
+      () => WheelGesturesPlugin({ forceWheelAxis: "x" }),
+      [],
+   );
 
    type MediaTab = "backdrops" | "posters" | "videos";
    const [selectedTab, setSelectedTab] = useState<MediaTab | null>(null);
@@ -59,11 +66,6 @@ export function MediaGallery({
 
    const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
    const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
-
-   const wheelPlugin = useMemo(
-      () => WheelGesturesPlugin({ forceWheelAxis: "x" }),
-      [],
-   );
 
    const currentItems = useMemo(() => {
       if (activeTab === "backdrops") return backdrops;
@@ -123,73 +125,88 @@ export function MediaGallery({
    }
 
    return (
-      <div
+      <section
          id="gallery"
-         className="w-full space-y-3"
+         className="w-full space-y-6"
       >
          <ContentTitle
             title={title}
             subtitle={subtitle}
          />
-         <Tabs
-            value={activeTab}
-            onValueChange={(val) => setSelectedTab(val as MediaTab)}
-            className="w-full mb-5"
-         >
-            <div className="w-full">
-               <TabsList className="flex w-full max-w-full flex-nowrap justify-start overflow-x-auto overflow-y-hidden overscroll-x-contain pb-2! sm:w-fit sm:overflow-x-visible sm:pb-0! bg-transparent p-0 h-auto gap-2 rounded-none">
-                  {backdrops.length > 0 && (
-                     <TabsTrigger
-                        value="backdrops"
-                        style={{
-                           backgroundColor:
-                              activeTab === "backdrops" ? "#ffffff" : undefined,
-                           color:
-                              activeTab === "backdrops" ? "#000000" : undefined,
-                        }}
-                        className="flex-none shrink-0 whitespace-nowrap flex items-center gap-2 text-xs uppercase tracking-widest px-1 sm:px-3! py-2! rounded-none text-zinc-400 hover:text-zinc-100 hover:bg-zinc-900 data-[state=active]:bg-white! data-[state=active]:text-black! font-semibold transition-colors cursor-pointer shadow-none border-0"
-                     >
-                        <ImageIcon className="w-3.5 h-3.5" />
-                        {t("backdrops")} ({backdrops.length})
-                     </TabsTrigger>
-                  )}
+         {!isPersonPage && (
+            <Tabs
+               value={activeTab}
+               onValueChange={(val) => setSelectedTab(val as MediaTab)}
+               className="w-full mb-5"
+            >
+               <div className="w-full">
+                  <TabsList className="flex w-full max-w-full flex-nowrap justify-start overflow-x-auto overflow-y-hidden overscroll-x-contain pb-2! sm:w-fit sm:overflow-x-visible sm:pb-0! bg-transparent p-0 h-auto gap-2 rounded-none">
+                     {backdrops.length > 0 && (
+                        <TabsTrigger
+                           value="backdrops"
+                           style={{
+                              backgroundColor:
+                                 activeTab === "backdrops"
+                                    ? "#ffffff"
+                                    : undefined,
+                              color:
+                                 activeTab === "backdrops"
+                                    ? "#000000"
+                                    : undefined,
+                           }}
+                           className="flex-none shrink-0 whitespace-nowrap flex items-center gap-2 text-xs uppercase tracking-widest px-1 sm:px-3! py-2! rounded-none text-zinc-400 hover:text-zinc-100 hover:bg-zinc-900 data-[state=active]:bg-white! data-[state=active]:text-black! font-semibold transition-colors cursor-pointer shadow-none border-0"
+                        >
+                           <ImageIcon className="w-3.5 h-3.5" />
+                           {t("backdrops")} ({backdrops.length})
+                        </TabsTrigger>
+                     )}
 
-                  {posters.length > 0 && (
-                     <TabsTrigger
-                        value="posters"
-                        style={{
-                           backgroundColor:
-                              activeTab === "posters" ? "#ffffff" : undefined,
-                           color:
-                              activeTab === "posters" ? "#000000" : undefined,
-                        }}
-                        className="flex-none shrink-0 whitespace-nowrap flex items-center gap-2 text-xs uppercase tracking-widest px-1 sm:px-3! py-2! rounded-none text-zinc-400 hover:text-zinc-100 hover:bg-zinc-900 data-[state=active]:bg-white! data-[state=active]:text-black! font-semibold transition-colors cursor-pointer shadow-none border-0"
-                     >
-                        <IdCardIcon className="w-3.5 h-3.5" />
-                        {t("posters")} ({posters.length})
-                     </TabsTrigger>
-                  )}
+                     {posters.length > 0 && (
+                        <TabsTrigger
+                           value="posters"
+                           style={{
+                              backgroundColor:
+                                 activeTab === "posters"
+                                    ? "#ffffff"
+                                    : undefined,
+                              color:
+                                 activeTab === "posters"
+                                    ? "#000000"
+                                    : undefined,
+                           }}
+                           className="flex-none shrink-0 whitespace-nowrap flex items-center gap-2 text-xs uppercase tracking-widest px-1 sm:px-3! py-2! rounded-none text-zinc-400 hover:text-zinc-100 hover:bg-zinc-900 data-[state=active]:bg-white! data-[state=active]:text-black! font-semibold transition-colors cursor-pointer shadow-none border-0"
+                        >
+                           <IdCardIcon className="w-3.5 h-3.5" />
+                           {t("posters")} ({posters.length})
+                        </TabsTrigger>
+                     )}
 
-                  {videos.length > 0 && (
-                     <TabsTrigger
-                        value="videos"
-                        style={{
-                           backgroundColor:
-                              activeTab === "videos" ? "#ffffff" : undefined,
-                           color:
-                              activeTab === "videos" ? "#000000" : undefined,
-                        }}
-                        className="flex-none shrink-0 whitespace-nowrap flex items-center gap-2 text-xs uppercase tracking-widest px-1 sm:px-3! py-2! rounded-none text-zinc-400 hover:text-zinc-100 hover:bg-zinc-900 data-[state=active]:bg-white! data-[state=active]:text-black! font-semibold transition-colors cursor-pointer shadow-none border-0"
-                     >
-                        <Film className="w-3.5 h-3.5" />
-                        {t("videos")} ({videos.length})
-                     </TabsTrigger>
-                  )}
-               </TabsList>
-            </div>
-         </Tabs>
+                     {videos.length > 0 && (
+                        <TabsTrigger
+                           value="videos"
+                           style={{
+                              backgroundColor:
+                                 activeTab === "videos" ? "#ffffff" : undefined,
+                              color:
+                                 activeTab === "videos" ? "#000000" : undefined,
+                           }}
+                           className="flex-none shrink-0 whitespace-nowrap flex items-center gap-2 text-xs uppercase tracking-widest px-1 sm:px-3! py-2! rounded-none text-zinc-400 hover:text-zinc-100 hover:bg-zinc-900 data-[state=active]:bg-white! data-[state=active]:text-black! font-semibold transition-colors cursor-pointer shadow-none border-0"
+                        >
+                           <Film className="w-3.5 h-3.5" />
+                           {t("videos")} ({videos.length})
+                        </TabsTrigger>
+                     )}
+                  </TabsList>
+               </div>
+            </Tabs>
+         )}
+
          <Carousel
-            opts={{ align: "start", loop: true, watchDrag: true }}
+            opts={{
+               align: "start",
+               loop: true,
+               watchDrag: true,
+            }}
             className="w-full relative"
             plugins={[wheelPlugin]}
             setApi={setCarouselApi}
@@ -212,6 +229,8 @@ export function MediaGallery({
                               src={path}
                               alt={`Backdrop ${index + 1}`}
                               fill
+                              tmdbSize="w780"
+                              sizes="(max-width: 640px) 100vw, 33vw"
                               className="object-cover transition-transform duration-500 group-hover:scale-105"
                            />
                            <div className="absolute inset-0 bg-zinc-950 z-10 opacity-0 group-hover:opacity-70 transition-opacity duration-300 flex items-center justify-center">
@@ -237,6 +256,8 @@ export function MediaGallery({
                               src={path}
                               alt={`Poster ${index + 1}`}
                               fill
+                              tmdbSize="w500"
+                              sizes="(max-width: 640px) 50vw, 14vw"
                               className="object-cover transition-transform duration-500 group-hover:scale-105"
                            />
                            <div className="absolute inset-0 bg-zinc-950/40 z-20 opacity-0 group-hover:opacity-90 transition-opacity duration-300 flex items-center justify-center">
@@ -285,6 +306,6 @@ export function MediaGallery({
             currentItems={currentItems}
             navigateMedia={navigateMedia}
          />
-      </div>
+      </section>
    );
 }

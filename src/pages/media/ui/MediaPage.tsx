@@ -72,8 +72,6 @@ export function MediaPage({
       ].filter((item) => item.show);
    }, [hasCast, hasGallery, hasRecommendations]);
 
-   console.log(extraMedia);
-
    return (
       <div className="w-full">
          {/* Hero Section */}
@@ -85,7 +83,7 @@ export function MediaPage({
                loadingText={t("loaders.loadingPoster")}
                isLoading={isLoading}
             />
-            <div className="w-full px-4 sm:px-8 pt-20 flex justify-between items-end pb-5 sm:pb-20">
+            <div className="w-full custom-container pt-20 flex justify-between items-end pb-5 sm:pb-20">
                <MediaHeader
                   id={mediaId}
                   mediaType={mediaType}
@@ -138,7 +136,7 @@ export function MediaPage({
                      </div>
                   ) : (
                      <nav>
-                        <ul className="flex gap-4 items-center text-xs">
+                        <ul className="flex flex-wrap gap-2 sm:gap-4 items-center text-xs">
                            {navList.map((item, index) => (
                               <li key={item.id}>
                                  <a
@@ -147,7 +145,7 @@ export function MediaPage({
                                  >
                                     <h2>
                                        {String(index + 1).padStart(2, "0")}{" "}
-                                       <span className="text-zinc-300 ml-1">
+                                       <span className="text-zinc-300 sm:ml-1">
                                           {t(`media.menu.${item.text}`)}
                                        </span>
                                     </h2>
@@ -194,52 +192,58 @@ export function MediaPage({
             )}
 
             {/* Collection */}
-            {extraMedia?.belongsToCollection && (
-               <section
-                  aria-label={extraMedia.belongsToCollection.name}
-                  className="relative isolate flex min-h-40 w-full items-center justify-between gap-4 overflow-hidden border border-zinc-800 bg-zinc-950 p-4 sm:min-h-100 sm:gap-8 sm:p-8"
-               >
-                  <div className="absolute inset-0 z-0">
-                     <TmdbImage
-                        src={extraMedia.belongsToCollection.backdrop_path}
-                        alt=""
-                        fill
-                        sizes="100vw"
-                        className="object-cover"
-                     />
-                  </div>
-                  <div className="absolute inset-0 z-10 bg-linear-to-r from-black/90 via-black/70 to-black/35" />
-                  <div className="relative z-20 flex w-full items-center justify-between gap-4 sm:gap-8">
-                     <div className="flex flex-col gap-4">
-                        <h2 className="peer tracking-tighter text-xl sm:text-3xl md:text-4xl text-zinc-300">
-                           {extraMedia.belongsToCollection.name}
-                        </h2>
-
-                        <Link
-                           className="w-fit transition-colors duration-300 hover:text-white cursor-pointer text-base sm:text-xl uppercase tracking-tight"
-                           href={`${extraMedia.belongsToCollection.id}`}
-                        >
-                           {t("media.viewCollection")}
-                        </Link>
+            {isLoading ? (
+               <Skeleton className="w-full aspect-16/6" />
+            ) : (
+               extraMedia?.belongsToCollection && (
+                  <section
+                     aria-label={extraMedia.belongsToCollection.name}
+                     className="relative isolate flex aspect-16/6 w-full items-center justify-between gap-4 overflow-hidden border border-zinc-800 bg-zinc-950 p-4 sm:min-h-100 sm:gap-8 sm:p-8"
+                  >
+                     <div className="absolute inset-0 z-0">
+                        <TmdbImage
+                           src={extraMedia.belongsToCollection.backdrop_path}
+                           alt=""
+                           fill
+                           sizes="100vw"
+                           className="object-cover"
+                        />
                      </div>
+                     <div className="absolute inset-0 z-10 bg-linear-to-r from-black/90 via-black/70 to-black/35" />
+                     <div className="relative z-20 flex w-full items-center justify-between gap-4 sm:gap-8">
+                        <div className="flex flex-col gap-4">
+                           <h2 className="peer tracking-tighter text-xl sm:text-3xl md:text-4xl text-zinc-300">
+                              {extraMedia.belongsToCollection.name}
+                           </h2>
 
-                     {extraMedia.belongsToCollection.poster_path && (
-                        <Link
-                           href={`${extraMedia.belongsToCollection.id}`}
-                           className="relative hidden sm:block sm:w-40 md:w-60 lg:w-80 aspect-2/3 shrink-0 overflow-hidden rounded-xl"
-                        >
-                           <TmdbImage
-                              src={extraMedia.belongsToCollection.poster_path}
-                              alt={extraMedia.belongsToCollection.name}
-                              fill
-                              sizes="(max-width: 640px) 80px, 144px"
-                              className="object-cover transition-[filter] duration-300 hover:brightness-125 peer-hover:brightness-125"
-                           />
-                           <div className="pointer-events-none absolute inset-0 z-10 bg-black/40 transition-opacity duration-300 hover:opacity-0 peer-hover:opacity-0" />
-                        </Link>
-                     )}
-                  </div>
-               </section>
+                           <Link
+                              className="w-fit transition-colors duration-300 hover:text-white cursor-pointer text-base sm:text-xl uppercase tracking-tight"
+                              href={`${extraMedia.belongsToCollection.id}`}
+                           >
+                              {t("media.viewCollection")}
+                           </Link>
+                        </div>
+
+                        {extraMedia.belongsToCollection.poster_path && (
+                           <Link
+                              href={`${extraMedia.belongsToCollection.id}`}
+                              className="relative hidden sm:block sm:w-40 md:w-60 lg:w-80 aspect-2/3 shrink-0 overflow-hidden rounded-xl"
+                           >
+                              <TmdbImage
+                                 src={
+                                    extraMedia.belongsToCollection.poster_path
+                                 }
+                                 alt={extraMedia.belongsToCollection.name}
+                                 fill
+                                 sizes="(max-width: 640px) 80px, 144px"
+                                 className="object-cover transition-[filter] duration-300 hover:brightness-125 peer-hover:brightness-125"
+                              />
+                              <div className="pointer-events-none absolute inset-0 z-10 bg-black/40 transition-opacity duration-300 hover:opacity-0 peer-hover:opacity-0" />
+                           </Link>
+                        )}
+                     </div>
+                  </section>
+               )
             )}
 
             {/* Recommendations */}

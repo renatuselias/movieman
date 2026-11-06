@@ -55,6 +55,7 @@
          "premiere": "Premiere",
          "firstAired": "First Aired",
          "releaseDate": "Release Date",
+         "rating": "Rating",
          "creators": "Created by",
          "screenplay": "Screenplay",
          "music": "music",
@@ -120,16 +121,29 @@
          "noBiography": "No biography available.",
          "born": "Born",
          "birthplace": "Birthplace",
+         "died": "Died",
          "credits": "Credits",
          "filmography": "Filmography"
       }
+   },
+
+   "person": {
+      "inFocus": "In Focus",
+      "throughTheLens": "Through the lens",
+      "closerLook": "A closer look",
+      "behindTheScreen": "Behind the screen",
+      "selectedWorks": "Selected works",
+      "goodPlaceToStart": "A good place to start",
+      "filmography": "Filmography",
+      "completePicture": "The complete picture"
    },
 
    "siteInterface": {
       "readMore": "Read more",
       "readLess": "Read less",
       "more": "more",
-      "showLess": "show less"
+      "showLess": "show less",
+      "sortBy": "Sort by"
    },
 
    "genres": {

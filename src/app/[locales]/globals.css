@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@import "lenis/dist/lenis.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -174,6 +175,16 @@ li:hover {
 
 ::-webkit-scrollbar-thumb:hover {
    background: rgba(123, 122, 122, 0.682);
+}
+
+.custom-container {
+   padding-inline: 32px;
+}
+
+@media (max-width: 640px) {
+   .custom-container {
+      padding-inline: 16px;
+   }
 }
 
 /* shimmer animation for header logo title */

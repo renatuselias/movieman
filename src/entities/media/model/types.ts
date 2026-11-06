@@ -20,8 +20,10 @@ export interface BaseMedia {
    rating: number;
    genreIds: number[];
    overview: string;
-   releaseDate: string;
+   releaseDate: string | null;
    popularity?: number;
+   character?: string | null;
+   job?: string | null;
 }
 
 export interface BaseCreditMember {

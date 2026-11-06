@@ -61,7 +61,7 @@ export function HeroSlideContent({
 
          <div
             className="relative z-30 w-full
-               px-4 sm:px-8 pt-20 lg:pt-24 pb-4 sm:pb-6
+            custom-container pt-20 lg:pt-24 pb-4 sm:pb-6
                flex flex-col-reverse sm:flex-row items-start sm:items-end justify-end sm:justify-between gap-4 sm:gap-10 
                mt-auto bg-linear-to-t from-black via-black/90 to-transparent sm:bg-none overflow-hidden"
          >

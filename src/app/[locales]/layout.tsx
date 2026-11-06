@@ -7,6 +7,7 @@ import { Header } from "@/widgets/header";
 import QueryProvider from "../providers/QueryProvider";
 import { Footer } from "@/widgets/footer";
 import { MobileMenu } from "@/widgets/mobile-menu";
+import SmoothScroll from "../providers/SmoothScroll";
 
 const inter = Inter({
    variable: "--font-inter",
@@ -39,6 +40,7 @@ export default async function RootLayout({
          suppressHydrationWarning
       >
          <body className="font-sans min-h-full bg-background text-foreground">
+            <SmoothScroll />
             <NextIntlClientProvider messages={messages}>
                <QueryProvider>
                   <div className="flex flex-col min-h-dvh sm:min-h-screen relative">

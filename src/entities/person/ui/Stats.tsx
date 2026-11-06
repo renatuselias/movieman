@@ -9,14 +9,22 @@ interface StatsProps {
    personDetails?: TmdbPersonDetail | null;
    totalCredits: number;
    isLoading: boolean;
+   isPersonPage?: boolean;
 }
 
-export function Stats({ personDetails, totalCredits, isLoading }: StatsProps) {
+export function Stats({
+   personDetails,
+   totalCredits,
+   isLoading,
+   isPersonPage = false,
+}: StatsProps) {
    const currentLocale = useLocale();
    const t = useTranslations("media.cast");
 
    return (
-      <div className="md:col-span-3 lg:col-span-3 space-y-6">
+      <div
+         className={`${isPersonPage ? "grid grid-cols-2 gap-4 sm:gap-10" : "md:col-span-3 space-y-6"}`}
+      >
          <div className="space-y-3">
             <span className="block text-xs uppercase tracking-widest text-neutral-500">
                {t("born")}
@@ -29,7 +37,7 @@ export function Stats({ personDetails, totalCredits, isLoading }: StatsProps) {
                      personDetails?.birthday || null,
                      "full",
                      currentLocale,
-                  )}
+                  ) || "—"}
                </p>
             )}
          </div>
@@ -46,6 +54,22 @@ export function Stats({ personDetails, totalCredits, isLoading }: StatsProps) {
                </p>
             )}
          </div>
+
+         {personDetails?.deathday && isPersonPage && (
+            <div className="space-y-3">
+               <span className="block text-xs uppercase tracking-widest text-neutral-500">
+                  {t("died")}
+               </span>
+
+               <p className="text-base text-neutral-200">
+                  {formatDate(
+                     personDetails?.deathday || null,
+                     "full",
+                     currentLocale,
+                  )}
+               </p>
+            </div>
+         )}
 
          <div className="space-y-3">
             <span className="block text-xs uppercase tracking-widest text-neutral-500">

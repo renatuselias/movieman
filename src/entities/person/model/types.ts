@@ -2,34 +2,36 @@
  * --- PEOPLE & CREDITS & CREW ---
  */
 
-import { TMDBExternalIds } from "@/shared/types/media-types";
+import { TMDBExternalIds, TMDBImage } from "@/shared/types/media-types";
 
-export interface TmdbPersonCastCredit {
+interface TmdbBaseCredit {
    id: number;
    title?: string;
    name?: string;
    media_type: "movie" | "tv";
-   character: string;
    poster_path: string | null;
+   backdrop_path: string | null;
    release_date?: string;
    first_air_date?: string;
    vote_average: number;
    popularity: number;
+   vote_count: number;
+   weighted_score: number;
+   overview: string;
+   genre_ids: number[];
+   order?: number;
 }
 
-export interface TmdbPersonCrewCredit {
-   id: number;
-   title?: string;
-   name?: string;
-   media_type: "movie" | "tv";
+export interface TmdbPersonCastCredit extends TmdbBaseCredit {
+   character: string;
+}
+
+export interface TmdbPersonCrewCredit extends TmdbBaseCredit {
    job: string;
    department: string;
-   poster_path: string | null;
-   release_date?: string;
-   first_air_date?: string;
-   vote_average: number;
-   popularity: number;
 }
+
+export type PersonCredit = TmdbPersonCastCredit | TmdbPersonCrewCredit;
 
 export interface TmdbPersonDetail {
    id: number;
@@ -50,4 +52,5 @@ export interface TmdbPersonDetail {
       crew: TmdbPersonCrewCredit[];
    };
    external_ids?: TMDBExternalIds;
+   images?: { profiles: TMDBImage[] };
 }

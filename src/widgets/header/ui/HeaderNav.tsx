@@ -10,7 +10,7 @@ export function HeaderNav() {
    const pathname = usePathname();
 
    return (
-      <ul className="hidden sm:flex flex-wrap gap-4 text-base font-normal tracking-wider select-none ">
+      <ul className="hidden sm:flex flex-wrap gap-4 text-sm md:text-base font-normal tracking-wider select-none ">
          {NAV_ITEMS.map((item) => {
             const isActive = pathname === item.href;
             return (

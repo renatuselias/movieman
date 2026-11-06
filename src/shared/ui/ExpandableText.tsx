@@ -58,7 +58,7 @@ export const ExpandableText = ({
          >
             <p
                ref={textRef}
-               className="text-base leading-relaxed"
+               className="text-base leading-relaxed tracking-tighter text-neutral-300 font-normal whitespace-pre-line"
             >
                {text}
             </p>

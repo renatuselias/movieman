@@ -117,7 +117,7 @@ export function MediaModal({ mediaId, mediaType, onClose }: MediaModalProps) {
                </div>
 
                {isLoading ? (
-                  <div className="w-full px-4 sm:px-8 md:px-12 z-50 -mt-10 sm:-mt-44 text-zinc-300">
+                  <div className="w-full custom-container md:px-12 z-50 -mt-10 sm:-mt-44 text-zinc-300">
                      {/* logo */}
                      <Skeleton className="h-12 w-64 sm:h-16 sm:w-80 md:h-20" />
                      {/* tagline */}
@@ -155,7 +155,7 @@ export function MediaModal({ mediaId, mediaType, onClose }: MediaModalProps) {
                      </div>
                   </div>
                ) : (
-                  <div className="relative z-999 w-full px-4 sm:px-8 md:px-12 -mt-10 sm:-mt-44 space-y-5 text-zinc-300">
+                  <div className="relative z-999 w-full custom-container md:px-12 -mt-10 sm:-mt-44 space-y-5 text-zinc-300">
                      <MediaLogo
                         logoPath={logoPath ?? null}
                         title={title ?? ""}

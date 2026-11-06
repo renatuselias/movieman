@@ -1,11 +1,9 @@
 import { CastCarousel } from "./CastCarousel";
-import { Profile } from "./Profile";
 import { useGetPersonDetails } from "@/entities/person/model/use-get-person-details";
-import { Stats } from "./Stats";
-import { Biography } from "./Biography";
 import { CastMember } from "@/entities/media";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { ContentTitle } from "@/shared/ui/ContentTitle";
+import { Biography, Profile, Stats } from "@/entities/person";
 
 export function MediaCast({
    mediaCast,
@@ -15,11 +13,12 @@ export function MediaCast({
    mediaLoading: boolean;
 }) {
    const t = useTranslations("media");
-
+   const locale = useLocale();
    const [firstActor, ...remainingCast] = mediaCast;
 
    const { data: personDetails, isLoading } = useGetPersonDetails(
       firstActor?.id,
+      locale,
    );
 
    const { combined_credits } = personDetails || {};

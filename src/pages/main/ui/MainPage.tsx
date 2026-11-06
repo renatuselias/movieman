@@ -27,7 +27,7 @@ export async function MainPage({ media }: { media: BaseMedia[] }) {
    return (
       <>
          <HeroCarousel media={media} />
-         <div className="w-full px-4 sm:px-8 mt-60 space-y-20 sm:space-y-32 ">
+         <div className="w-full custom-container mt-60 space-y-20 sm:space-y-32 ">
             <MediaGrid
                title={t("inTheaters.title")}
                subtitle={t("inTheaters.subtitle")}

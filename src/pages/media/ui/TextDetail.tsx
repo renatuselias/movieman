@@ -7,7 +7,9 @@ export const TextDetailItem = ({
    title: string;
    children?: ReactNode;
 }) => {
-   if (!children) return null;
+   if (!children || (Array.isArray(children) && children.length === 0)) {
+      return null;
+   }
 
    return (
       <div className="flex flex-col gap-2 pb-5 border-b border-zinc-800">
