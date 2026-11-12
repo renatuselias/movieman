@@ -24,6 +24,8 @@ export interface BaseMedia {
    popularity?: number;
    character?: string | null;
    job?: string | null;
+   firstCreditAirDate?: string | null;
+   episodeCount?: number | null;
 }
 
 export interface BaseCreditMember {

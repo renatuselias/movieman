@@ -30,10 +30,15 @@ export function PersonPage({ personId }: { personId: number }) {
       mapToBaseMedia(item),
    );
 
+   console.log(cast);
+
    const creditsByMedia = new Map<string, ReturnType<typeof mapToBaseMedia>>();
 
    [...cast, ...crew]
-      .filter((item) => item.release_date && item.poster_path)
+      .filter(
+         (item) =>
+            (item.release_date || item.first_air_date) && item.poster_path,
+      )
       .map((item) => mapToBaseMedia(item))
       .forEach((credit) => {
          const key = `${credit.mediaType}:${credit.id}`;

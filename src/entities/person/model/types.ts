@@ -20,6 +20,8 @@ interface TmdbBaseCredit {
    overview: string;
    genre_ids: number[];
    order?: number;
+   episode_count?: number;
+   first_credit_air_date?: string | null;
 }
 
 export interface TmdbPersonCastCredit extends TmdbBaseCredit {

@@ -46,8 +46,6 @@ export function DetailsSection({ extraMedia, mediaType }: DetailsSectionProps) {
       ["Director of Photography"].includes(member.job),
    );
 
-   console.log(extraMedia);
-
    return (
       <div
          id="details"

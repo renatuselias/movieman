@@ -135,7 +135,9 @@
       "selectedWorks": "Ключевые проекты",
       "goodPlaceToStart": "С чего начать",
       "filmography": "Все проекты",
-      "completePicture": "Полная картина"
+      "completePicture": "Полная картина",
+      "as": "В роли",
+      "countOfEpisodes": "{count, plural, =0 {# эпизодов} one {# эпизод} few {# эпизода} many {# эпизодов} other {# эпизодов}}"
    },
 
    "siteInterface": {

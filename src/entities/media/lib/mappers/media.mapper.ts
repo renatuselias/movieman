@@ -5,7 +5,8 @@ import { PersonCredit } from "@/entities/person/model/types";
 
 export function mapToBaseMedia(media: TMDBMedia | PersonCredit): BaseMedia {
    const isMovie = media.media_type === "movie";
-
+   const firstCreditAirDate =
+      "first_credit_air_date" in media ? media.first_credit_air_date : null;
    return {
       id: media.id,
       mediaType: media.media_type,
@@ -16,9 +17,13 @@ export function mapToBaseMedia(media: TMDBMedia | PersonCredit): BaseMedia {
       genreIds: media.genre_ids,
       overview: media.overview,
       releaseDate:
-         (isMovie ? media.release_date : media.first_air_date) || null,
+         (isMovie
+            ? media.release_date
+            : firstCreditAirDate || media.first_air_date) || null,
       character: "character" in media ? media.character : null,
       job: "job" in media ? media.job : null,
+      firstCreditAirDate,
+      episodeCount: "episode_count" in media ? media.episode_count : null,
    };
 }
 

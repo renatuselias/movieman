@@ -1,11 +1,11 @@
 "use client";
 
-import { useLocale, useTranslations } from "next-intl";
-import { useState } from "react";
-import { formatDate } from "@/shared/lib/format/format-date";
+import { Fragment } from "react";
 import { StarRating } from "@/shared/ui/StarRating";
 import { FormattedRuntime } from "@/shared/ui/FormattedRuntime";
 import { MediaType, TMDBProductionCountry } from "@/shared/types/media-types";
+import { DateComponent } from "@/shared/ui/DateComponent";
+import { useTranslations } from "next-intl";
 
 interface InfoProps {
    rating: number;
@@ -25,65 +25,49 @@ export function Info({
    productionCountries,
 }: InfoProps) {
    const t = useTranslations("media.mediaDetails");
-   const currentLocale = useLocale();
 
-   const [dateFormat, setDateFormat] = useState<"yearOnly" | "full">(
-      "yearOnly",
-   );
+   const items = [
+      Number(rating) > 0 && (
+         <StarRating
+            key="rating"
+            rating={Number(Number(rating).toFixed(1))}
+         />
+      ),
+      releaseDate && (
+         <DateComponent
+            key="date"
+            releaseDate={releaseDate}
+         />
+      ),
+      mediaType === "movie" && runtime > 0 && (
+         <FormattedRuntime
+            key="runtime"
+            runtime={runtime}
+         />
+      ),
+      mediaType === "tv" && numberOfSeasons > 0 && (
+         <span key="seasons">{t("season", { count: numberOfSeasons })}</span>
+      ),
+      productionCountries && productionCountries.length > 0 && (
+         <span
+            key="countries"
+            className="text-sm"
+         >
+            {productionCountries.map((c) => c.iso_3166_1).join(", ")}
+         </span>
+      ),
+   ].filter(Boolean);
 
-   const release = (format: "yearOnly" | "full") =>
-      releaseDate ? formatDate(releaseDate, format, currentLocale) : null;
+   if (items.length === 0) return null;
 
    return (
       <div className="text-muted-foreground my-1 flex items-center flex-wrap tracking-tighter gap-2 drop-shadow-md cursor-default">
-         {Number(rating) > 0 && (
-            <>
-               <StarRating rating={Number(Number(rating).toFixed(1))} />
-               <span className="text-white/20">•</span>
-            </>
-         )}
-
-         {releaseDate && (
-            <>
-               <span
-                  onClick={() =>
-                     setDateFormat((prev) =>
-                        prev === "yearOnly" ? "full" : "yearOnly",
-                     )
-                  }
-                  className="cursor-pointer hover:text-zinc-300"
-               >
-                  {release(dateFormat)}
-               </span>
-            </>
-         )}
-
-         {mediaType === "movie" && runtime ? (
-            <>
-               <span className="text-white/20">•</span>
-               <FormattedRuntime runtime={runtime} />
-            </>
-         ) : null}
-
-         {mediaType === "tv" && numberOfSeasons ? (
-            <>
-               <span className="text-white/20">•</span>
-               <span>
-                  {t("season", {
-                     count: numberOfSeasons,
-                  })}
-               </span>
-            </>
-         ) : null}
-
-         {productionCountries && productionCountries.length > 0 && (
-            <>
-               <span className="text-white/20">•</span>
-               <span className="text-sm">
-                  {productionCountries.map((c) => c.iso_3166_1).join(", ")}
-               </span>
-            </>
-         )}
+         {items.map((item, index) => (
+            <Fragment key={index}>
+               {index > 0 && <span className="text-white/40">•</span>}
+               {item}
+            </Fragment>
+         ))}
       </div>
    );
 }

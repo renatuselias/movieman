@@ -53,7 +53,7 @@ export function Filmography({ isLoading, medias }: FilmographyProps) {
 
    return (
       <section className="w-full flex flex-col gap-5 sm:gap-10">
-         <div className="flex gap-4 sm:gap-12 justify-between flex-wrap ">
+         <div className="flex gap-5 justify-between flex-wrap">
             {isLoading ? (
                <div className="flex flex-col gap-4">
                   <Skeleton className="w-40 h-4" />
@@ -66,60 +66,66 @@ export function Filmography({ isLoading, medias }: FilmographyProps) {
                />
             )}
 
-            <div className="flex items-center gap-2 self-end text-sm text-gray-400 sm:self-auto">
+            <div className="flex items-end justify-between flex-wrap gap-4 text-sm text-gray-400">
                <span>{t("siteInterface.sortBy")}</span>
-               <Select
-                  value={sortBy}
-                  onValueChange={(value) => {
-                     if (value === "releaseDate" || value === "rating") {
-                        setSortBy(value);
-                     }
-                  }}
-               >
-                  <SelectTrigger
-                     aria-label="Sort filmography"
-                     className="text-white"
+               <div className="flex gap-2">
+                  <Select
+                     value={sortBy}
+                     onValueChange={(value) => {
+                        if (value === "releaseDate" || value === "rating") {
+                           setSortBy(value);
+                        }
+                     }}
                   >
-                     <SelectValue>
-                        {t(
-                           sortBy === "releaseDate"
-                              ? "media.mediaDetails.releaseDate"
-                              : "media.mediaDetails.rating",
-                        )}
-                     </SelectValue>
-                  </SelectTrigger>
-                  <SelectContent>
-                     <SelectGroup>
-                        <SelectLabel>{t("siteInterface.sortBy")}</SelectLabel>
+                     <SelectTrigger
+                        aria-label="Sort filmography"
+                        className="text-white"
+                     >
+                        <SelectValue>
+                           {t(
+                              sortBy === "releaseDate"
+                                 ? "media.mediaDetails.releaseDate"
+                                 : "media.mediaDetails.rating",
+                           )}
+                        </SelectValue>
+                     </SelectTrigger>
+                     <SelectContent>
+                        <SelectGroup>
+                           <SelectLabel>
+                              {t("siteInterface.sortBy")}
+                           </SelectLabel>
 
-                        <SelectItem value="releaseDate">
-                           {t("media.mediaDetails.releaseDate")}
-                        </SelectItem>
-                        <SelectItem value="rating">
-                           {t("media.mediaDetails.rating")}
-                        </SelectItem>
-                     </SelectGroup>
-                  </SelectContent>
-               </Select>
-               <Button
-                  type="button"
-                  variant="outline"
-                  size="icon"
-                  aria-label={`Sort ${
-                     sortBy === "releaseDate" ? "by release date" : "by rating"
-                  } ${sortOrder === "desc" ? "descending" : "ascending"}`}
-                  onClick={() =>
-                     setSortOrder((order) =>
-                        order === "desc" ? "asc" : "desc",
-                     )
-                  }
-               >
-                  {sortOrder === "desc" ? (
-                     <ArrowDown aria-hidden="true" />
-                  ) : (
-                     <ArrowUp aria-hidden="true" />
-                  )}
-               </Button>
+                           <SelectItem value="releaseDate">
+                              {t("media.mediaDetails.releaseDate")}
+                           </SelectItem>
+                           <SelectItem value="rating">
+                              {t("media.mediaDetails.rating")}
+                           </SelectItem>
+                        </SelectGroup>
+                     </SelectContent>
+                  </Select>
+                  <Button
+                     type="button"
+                     variant="outline"
+                     size="icon"
+                     aria-label={`Sort ${
+                        sortBy === "releaseDate"
+                           ? "by release date"
+                           : "by rating"
+                     } ${sortOrder === "desc" ? "descending" : "ascending"}`}
+                     onClick={() =>
+                        setSortOrder((order) =>
+                           order === "desc" ? "asc" : "desc",
+                        )
+                     }
+                  >
+                     {sortOrder === "desc" ? (
+                        <ArrowDown aria-hidden="true" />
+                     ) : (
+                        <ArrowUp aria-hidden="true" />
+                     )}
+                  </Button>
+               </div>
             </div>
          </div>
 
@@ -131,7 +137,7 @@ export function Filmography({ isLoading, medias }: FilmographyProps) {
                   onClick={() => setSelectedItem(item)}
                >
                   <div className="w-full flex items-center gap-3 sm:gap-5 px-2">
-                     <span className="shrink-0 text-sm text-gray-400">
+                     <span className="hidden sm:block shrink-0 text-sm text-gray-400">
                         {formatDate(item.releaseDate, "yearOnly", locale)}
                      </span>
 
@@ -151,12 +157,28 @@ export function Filmography({ isLoading, medias }: FilmographyProps) {
                         </h3>
                         {item.character && (
                            <p className="text-xs sm:text-sm text-gray-400 truncate">
-                              As {item.character}
+                              {`${t("person.as")} ${item.character}`}
                            </p>
                         )}
                         {item.job && (
                            <p className="text-xs sm:text-sm text-gray-400 truncate">
                               {item.job}
+                           </p>
+                        )}
+                        {item.firstCreditAirDate && (
+                           <p className="text-xs sm:text-sm text-gray-400 truncate">
+                              {formatDate(
+                                 item.firstCreditAirDate,
+                                 "full",
+                                 locale,
+                              )}
+                           </p>
+                        )}
+                        {item.episodeCount && (
+                           <p className="text-xs sm:text-sm text-gray-400 truncate">
+                              {t("person.countOfEpisodes", {
+                                 count: Number(item.episodeCount),
+                              })}
                            </p>
                         )}
                      </div>
@@ -169,8 +191,8 @@ export function Filmography({ isLoading, medias }: FilmographyProps) {
                            />
                         </div>
 
-                        <span className="text-xs sm:text-sm">
-                           {item.mediaType}
+                        <span className="hidden sm:block text-xs sm:text-sm">
+                           {t(`media.${item.mediaType}`)}
                         </span>
                         {item.rating > 0 && (
                            <StarRating

@@ -135,7 +135,9 @@
       "selectedWorks": "Ключові проєкти",
       "goodPlaceToStart": "З чого почати",
       "filmography": "Усі проєкти",
-      "completePicture": "Повне занурення"
+      "completePicture": "Повне занурення",
+      "as": "В ролі",
+      "countOfEpisodes": "{count, plural, =0 {# епізодів} one {# епізод} few {# епізода} many {# епізодів} other {# епізодів}}"
    },
 
    "siteInterface": {
