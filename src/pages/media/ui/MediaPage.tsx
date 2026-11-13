@@ -136,7 +136,7 @@ export function MediaPage({
                      </div>
                   ) : (
                      <nav>
-                        <ul className="flex flex-wrap gap-2 sm:gap-4 items-center text-xs">
+                        <ul className="flex flex-wrap gap-4 items-center text-xs">
                            {navList.map((item, index) => (
                               <li key={item.id}>
                                  <a

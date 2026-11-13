@@ -94,14 +94,20 @@ export function PersonPage({ personId }: { personId: number }) {
          <div className="relative custom-container aspect-16/8 flex flex-col items-start md:flex-row md:justify-between md:items-end pt-20">
             <div className="mb-10 lg:mb-40 max-w-full md:max-w-1/2 z-10">
                <h2 className="uppercase text-zinc-400">
-                  In the spotlight / {personDetails?.known_for_department}
+                  {t("person.inTheSpotlight")}
+                  {personDetails?.known_for_department && (
+                     <>
+                        {" "}
+                        / {t(`person.${personDetails?.known_for_department}`)}
+                     </>
+                  )}
                </h2>
                <h1 className="text-4xl sm:text-8xl font-black tracking-wide wrap-break-word">
                   {personDetails?.name}
                </h1>
             </div>
 
-            <div className="relative w-3/4 md:w-1/3 aspect-2/3 [mask-image:linear-gradient(0deg,transparent,black_18%,black_90%,transparent),linear-gradient(90deg,transparent,black_12%,black_90%,transparent)] [mask-composite:intersect]">
+            <div className="relative w-3/4 md:w-1/3 aspect-2/3 mask-[linear-gradient(0deg,transparent,black_18%,black_90%,transparent),linear-gradient(90deg,transparent,black_12%,black_90%,transparent)] mask-intersect">
                <TmdbImage
                   src={personDetails?.profile_path}
                   alt={personDetails?.name || "Person profile"}
@@ -113,7 +119,7 @@ export function PersonPage({ personId }: { personId: number }) {
             </div>
          </div>
 
-         <div className="mt-10 relative z-10 w-full custom-container space-y-20">
+         <div className="mt-10 relative z-10 w-full custom-container space-y-10 sm:space-y-20">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
                <div className="space-y-6 col-span-8 md:col-span-6">
                   <ContentTitle

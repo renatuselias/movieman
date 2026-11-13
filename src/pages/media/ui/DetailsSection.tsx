@@ -19,8 +19,16 @@ export function DetailsSection({ extraMedia, mediaType }: DetailsSectionProps) {
       const targetJobs = [
          "Director",
          "Screenplay",
+         "Producer",
+         "Story",
+         "Executive Producer",
+         "Co-Producer",
+         "Showrunner",
+         "Teleplay",
+         "Creator",
          "Writer",
          "Original Music Composer",
+         "Music",
          "Director of Photography",
       ];
 
@@ -30,11 +38,21 @@ export function DetailsSection({ extraMedia, mediaType }: DetailsSectionProps) {
    const mediaCrew = getFeaturedCrew(extraMedia?.crew || []);
 
    const writers = mediaCrew.filter((member) =>
-      ["Screenplay", "Writer"].includes(member.job),
+      [
+         "Screenplay",
+         "Writer",
+         "Story",
+         "Producer",
+         "Executive Producer",
+         "Co-Producer",
+         "Showrunner",
+         "Teleplay",
+         "Creator",
+      ].includes(member.job),
    );
 
    const musicComposers = mediaCrew.filter((member) =>
-      ["Original Music Composer"].includes(member.job),
+      ["Original Music Composer", "Music"].includes(member.job),
    );
 
    const directors =
@@ -45,6 +63,9 @@ export function DetailsSection({ extraMedia, mediaType }: DetailsSectionProps) {
    const photography = mediaCrew.filter((member) =>
       ["Director of Photography"].includes(member.job),
    );
+
+   console.log(extraMedia?.crew);
+   console.log(directors);
 
    return (
       <div

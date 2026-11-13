@@ -53,7 +53,7 @@ export function Filmography({ isLoading, medias }: FilmographyProps) {
 
    return (
       <section className="w-full flex flex-col gap-5 sm:gap-10">
-         <div className="flex gap-5 justify-between flex-wrap">
+         <div className="flex gap-5 justify-between flex-wrap flex-col sm:flex-row sm:flex-wrap">
             {isLoading ? (
                <div className="flex flex-col gap-4">
                   <Skeleton className="w-40 h-4" />
@@ -66,7 +66,7 @@ export function Filmography({ isLoading, medias }: FilmographyProps) {
                />
             )}
 
-            <div className="flex items-end justify-between flex-wrap gap-4 text-sm text-gray-400">
+            <div className="flex items-center flex-wrap gap-4 text-sm text-gray-400">
                <span>{t("siteInterface.sortBy")}</span>
                <div className="flex gap-2">
                   <Select
@@ -133,15 +133,15 @@ export function Filmography({ isLoading, medias }: FilmographyProps) {
             {sortedMedias.map((item) => (
                <li
                   key={`${item.id} ${item.character} + ${item.job}`}
-                  className="group hover:bg-zinc-950 border-t border-0.5 py-5 cursor-pointer"
+                  className="group hover:bg-zinc-950 border-t border-0.5 py-2.5 sm:py-5 cursor-pointer"
                   onClick={() => setSelectedItem(item)}
                >
-                  <div className="w-full flex items-center gap-3 sm:gap-5 px-2">
+                  <div className="w-full flex items-center gap-3 sm:gap-5 px-1 sm:px-5">
                      <span className="hidden sm:block shrink-0 text-sm text-gray-400">
                         {formatDate(item.releaseDate, "yearOnly", locale)}
                      </span>
 
-                     <div className="ml-2 sm:ml-10 relative aspect-2/3 w-12 sm:w-15 shrink-0 overflow-hidden bg-zinc-950 cursor-pointer transform transition-all duration-500">
+                     <div className="ml-2 sm:ml-5 relative aspect-2/3 w-15 sm:w-25 shrink-0 overflow-hidden bg-zinc-950 cursor-pointer transform transition-all duration-500">
                         <TmdbImage
                            src={item.posterPath}
                            alt={item.title}
@@ -152,7 +152,7 @@ export function Filmography({ isLoading, medias }: FilmographyProps) {
                      </div>
 
                      <div className="ml-2 sm:ml-5 flex flex-col gap-1 min-w-0 flex-1">
-                        <h3 className="text-sm sm:text-lg truncate">
+                        <h3 className="text-zinc-100 text-sm sm:text-lg truncate">
                            {item.title}
                         </h3>
                         {item.character && (

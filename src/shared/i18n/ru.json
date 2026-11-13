@@ -137,7 +137,17 @@
       "filmography": "Все проекты",
       "completePicture": "Полная картина",
       "as": "В роли",
-      "countOfEpisodes": "{count, plural, =0 {# эпизодов} one {# эпизод} few {# эпизода} many {# эпизодов} other {# эпизодов}}"
+      "countOfEpisodes": "{count, plural, =0 {# эпизодов} one {# эпизод} few {# эпизода} many {# эпизодов} other {# эпизодов}}",
+      "inTheSpotlight": "Под светом софитов",
+      "Acting": "Актер",
+      "Directing": "Режиссер",
+      "Writing": "Сценарист",
+      "Production": "Продюсер",
+      "Camera": "Оператор",
+      "Editing": "Монтажер",
+      "Sound": "Звукорежиссер",
+      "Crew": "Съемочная группа",
+      "Actors": "Актер"
    },
 
    "siteInterface": {

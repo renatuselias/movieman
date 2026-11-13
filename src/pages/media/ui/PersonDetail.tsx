@@ -34,7 +34,7 @@ export const PersonDetailItem = ({
 
                return (
                   <span
-                     key={item.id}
+                     key={`${item.id} ${index}`}
                      className={`inline-flex items-center transition-opacity duration-300 ease-in-out ${
                         isHidden
                            ? "opacity-0 w-0 h-0 overflow-hidden m-0 p-0 pointer-events-none select-none"

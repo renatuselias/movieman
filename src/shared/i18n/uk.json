@@ -137,7 +137,17 @@
       "filmography": "Усі проєкти",
       "completePicture": "Повне занурення",
       "as": "В ролі",
-      "countOfEpisodes": "{count, plural, =0 {# епізодів} one {# епізод} few {# епізода} many {# епізодів} other {# епізодів}}"
+      "countOfEpisodes": "{count, plural, =0 {# епізодів} one {# епізод} few {# епізода} many {# епізодів} other {# епізодів}}",
+      "inTheSpotlight": "Під світлом софітів",
+      "Acting": "Актор",
+      "Directing": "Режисер",
+      "Writing": "Сценарист",
+      "Production": "Продюсер",
+      "Camera": "Оператор",
+      "Editing": "Монтажер",
+      "Sound": "Звукорежисер",
+      "Crew": "Знімальна група",
+      "Actors": "Актор"
    },
 
    "siteInterface": {

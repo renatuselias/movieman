@@ -137,7 +137,17 @@
       "filmography": "Filmography",
       "completePicture": "The complete picture",
       "as": "As",
-      "countOfEpisodes": "{count, plural, =0 {# episodes} one {# episode} few {# episodes} many {# episodes} other {# episodes}}"
+      "countOfEpisodes": "{count, plural, =0 {# episodes} one {# episode} few {# episodes} many {# episodes} other {# episodes}}",
+      "inTheSpotlight": "In the spotlight",
+      "Acting": "Actor",
+      "Directing": "Director",
+      "Writing": "Writer",
+      "Production": "Producer",
+      "Camera": "Cinematographer",
+      "Editing": "Editor",
+      "Sound": "Sound Designer",
+      "Crew": "Crew Member",
+      "Actors": "Actor"
    },
 
    "siteInterface": {
