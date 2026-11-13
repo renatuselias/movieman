@@ -44,7 +44,7 @@ export default async function Page({ params }: PersonPageProps) {
    }
 
    const queryClient = new QueryClient();
-   const queryKey = [PERSON_EXTRAS_QUERY_KEY, numericId, "person"] as const;
+   const queryKey = [PERSON_EXTRAS_QUERY_KEY, numericId] as const;
 
    await queryClient.query({
       queryKey,
