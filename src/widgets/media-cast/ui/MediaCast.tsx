@@ -3,7 +3,12 @@ import { useGetPersonDetails } from "@/entities/person/model/use-get-person-deta
 import { CastMember } from "@/entities/media";
 import { useLocale, useTranslations } from "next-intl";
 import { ContentTitle } from "@/shared/ui/ContentTitle";
-import { Biography, Profile, Stats } from "@/entities/person";
+import {
+   Biography,
+   combinePersonCredits,
+   Profile,
+   Stats,
+} from "@/entities/person";
 
 export function MediaCast({
    mediaCast,
@@ -23,7 +28,8 @@ export function MediaCast({
 
    const { combined_credits } = personDetails || {};
    const { cast = [], crew = [] } = combined_credits || {};
-   const totalCredits = cast.length + crew.length;
+
+   const totalCredits = combinePersonCredits(cast, crew).length;
 
    return (
       <section

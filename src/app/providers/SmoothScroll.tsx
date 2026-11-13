@@ -28,8 +28,11 @@ export default function SmoothScroll() {
          wheelMultiplier: 0.9,
          anchors: {
             offset: -72,
-            duration: 1.2,
-            easing: (progress) => 1 - Math.pow(1 - progress, 3),
+            duration: 2,
+            easing: (progress) =>
+               progress < 0.5
+                  ? 4 * progress ** 3
+                  : 1 - Math.pow(-2 * progress + 2, 3) / 2,
          },
          stopInertiaOnNavigate: true,
       });

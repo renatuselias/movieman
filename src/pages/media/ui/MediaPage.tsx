@@ -172,7 +172,7 @@ export function MediaPage({
             {hasCast && (
                <MediaCast
                   mediaLoading={isLoading}
-                  mediaCast={extraMedia?.cast || []}
+                  mediaCast={extraMedia?.cast.slice(0, 100) || []}
                />
             )}
 

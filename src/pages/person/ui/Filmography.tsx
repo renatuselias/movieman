@@ -52,7 +52,10 @@ export function Filmography({ isLoading, medias }: FilmographyProps) {
    );
 
    return (
-      <section className="w-full flex flex-col gap-5 sm:gap-10">
+      <section
+         id="filmography"
+         className="w-full flex flex-col gap-5 sm:gap-10"
+      >
          <div className="flex gap-5 justify-between flex-wrap flex-col sm:flex-row sm:flex-wrap">
             {isLoading ? (
                <div className="flex flex-col gap-4">

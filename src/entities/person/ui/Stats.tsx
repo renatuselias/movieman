@@ -86,7 +86,11 @@ export function Stats({
 
          <div className="pt-2">
             <Link
-               href={`/person/${personDetails?.id}`}
+               href={
+                  !isPersonPage && personDetails?.id
+                     ? `/person/${personDetails.id}`
+                     : "#filmography"
+               }
                className="inline-flex items-center justify-between gap-2 border border-neutral-800 bg-transparent px-3 py-2 text-xs uppercase tracking-widest text-neutral-300 hover:bg-neutral-900 hover:text-white rounded-none transition-colors w-fit"
             >
                <span className="break-all text-left">{t("filmography")}</span>

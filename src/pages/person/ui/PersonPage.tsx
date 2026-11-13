@@ -2,7 +2,12 @@
 
 import { Link } from "@/app/i18n/navigation";
 import { mapToBaseMedia, MediaCarousel } from "@/entities/media";
-import { Biography, getPersonMainWorks, Stats } from "@/entities/person";
+import {
+   Biography,
+   combinePersonCredits,
+   getPersonMainWorks,
+   Stats,
+} from "@/entities/person";
 import { useGetPersonDetails } from "@/entities/person/model/use-get-person-details";
 import { getSocialLinks } from "@/shared/lib/get-social-links";
 
@@ -30,42 +35,7 @@ export function PersonPage({ personId }: { personId: number }) {
       mapToBaseMedia(item),
    );
 
-   console.log(cast);
-
-   const creditsByMedia = new Map<string, ReturnType<typeof mapToBaseMedia>>();
-
-   [...cast, ...crew]
-      .filter(
-         (item) =>
-            (item.release_date || item.first_air_date) && item.poster_path,
-      )
-      .map((item) => mapToBaseMedia(item))
-      .forEach((credit) => {
-         const key = `${credit.mediaType}:${credit.id}`;
-         const existing = creditsByMedia.get(key);
-
-         if (!existing) {
-            creditsByMedia.set(key, credit);
-            return;
-         }
-
-         const mergeValues = (first?: string | null, second?: string | null) =>
-            [
-               ...new Set(
-                  [first, second].filter((value): value is string =>
-                     Boolean(value),
-                  ),
-               ),
-            ].join(", ") || null;
-
-         creditsByMedia.set(key, {
-            ...existing,
-            character: mergeValues(existing.character, credit.character),
-            job: mergeValues(existing.job, credit.job),
-         });
-      });
-
-   const combinedCredits = [...creditsByMedia.values()];
+   const combinedCredits = combinePersonCredits(cast, crew);
 
    const totalCredits = combinedCredits.length;
 
