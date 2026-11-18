@@ -2,6 +2,7 @@ import { BaseMedia, MediaDetails, MediaFullInfo } from "../../model/types";
 import { TMDBMedia } from "@/shared/types/media-types";
 import { getMainCreators } from "../getMainCreators";
 import { PersonCredit } from "@/entities/person/model/types";
+import { mapToBaseCast, mapToBaseCrew, mapToCreators } from "./credits.mapper";
 
 export function mapToBaseMedia(media: TMDBMedia | PersonCredit): BaseMedia {
    const isMovie = media.media_type === "movie";
@@ -39,55 +40,6 @@ export function mapToMediaDetails(media: TMDBMedia): MediaDetails {
 
    const genres = media.genres.map((genre) => genre.id);
 
-   const cast = media.cast.map((member) => {
-      const character =
-         "character" in member && typeof member.character === "string"
-            ? member.character
-            : "roles" in member
-              ? member.roles
-                   ?.map((role) => role.character)
-                   .filter(Boolean)
-                   .join(" / ") || "Unknown character"
-              : "Unknown character";
-
-      return {
-         id: member.id,
-         name: member.name,
-         character,
-         profilePath: member.profile_path,
-         episodeCount:
-            "total_episode_count" in member ? member.total_episode_count : 0,
-      };
-   });
-
-   const crew = media.crew.map((member) => {
-      const job =
-         "job" in member && typeof member.job === "string"
-            ? member.job
-            : "jobs" in member
-              ? member.jobs
-                   ?.map((crewJob) => crewJob.job)
-                   .filter(Boolean)
-                   .join(" / ") || "Unknown job"
-              : "Unknown job";
-
-      return {
-         id: member.id,
-         name: member.name,
-         profilePath: member.profile_path,
-         job,
-      };
-   });
-
-   const creators = getMainCreators(crew);
-   const createdBy = isMovieMedia
-      ? creators
-      : media.created_by.map((item) => ({
-           id: item.id,
-           name: item.name,
-           profilePath: item.profile_path,
-        }));
-
    return {
       ...baseMedia,
       tagline: media.tagline || "",
@@ -99,9 +51,9 @@ export function mapToMediaDetails(media: TMDBMedia): MediaDetails {
       numberOfEpisodes: isMovieMedia ? 0 : media.number_of_episodes,
       lastEpisode: isMovieMedia ? null : media.last_episode_to_air,
       nextEpisode: isMovieMedia ? null : media.next_episode_to_air,
-      cast,
-      crew,
-      createdBy,
+      cast: mapToBaseCast(media.cast),
+      crew: mapToBaseCrew(media.crew),
+      createdBy: mapToCreators(media.crew, media),
       homePage: media.homepage,
       originalTitle: isMovieMedia ? media.original_title : media.original_name,
       networks: isMovieMedia ? null : media.networks,

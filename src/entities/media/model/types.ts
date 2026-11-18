@@ -1,9 +1,9 @@
+import { TMDBCollection } from "@/shared/types/collection-types";
 import {
    MediaStatus,
    MediaType,
    TMDB_episode_to_air,
    TMDBExternalIds,
-   TMDBMediaCollection,
    TMDBNetwork,
    TMDBProductionCompany,
    TMDBProductionCountry,
@@ -65,7 +65,7 @@ export interface MediaDetails extends BaseMedia {
    type: TvType | null;
    backdrops: string[];
    posters: string[];
-   belongsToCollection: TMDBMediaCollection;
+   belongsToCollection: TMDBCollection;
    externalIds: TMDBExternalIds;
 }
 

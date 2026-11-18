@@ -18,12 +18,12 @@ interface TMDBCastMember extends TMDBMovieBaseMember {
    order: number;
 }
 
-interface TMDBCrewMember extends TMDBMovieBaseMember {
+export interface TMDBCrewMember extends TMDBMovieBaseMember {
    department: string;
    job: string;
 }
 
-interface TMDBMovieCredits {
+export interface TMDBMovieCredits {
    id: number;
    cast: TMDBCastMember[];
    crew: TMDBCrewMember[];

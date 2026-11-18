@@ -8,7 +8,7 @@ import {
 } from "@tanstack/react-query";
 import { MEDIA_EXTRAS_QUERY_KEY } from "@/shared/config/query-keys";
 import { getMediaDetails } from "@/entities/media/api/get-media-details";
-import { getLocale } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 
 interface MoviePageProps {
    params: Promise<{ id: string }>;
@@ -20,10 +20,11 @@ export async function generateMetadata({
    const { id } = await params;
    const locale = await getLocale();
    const tvshow = await getMediaDetails(id, "tv", locale);
+   const t = await getTranslations({ locale, namespace: "meta" });
 
    if (!tvshow) {
       return {
-         title: "TV Show Not Found | MovieMan",
+         title: `${t("tvShowNotFound")} | MovieMan`,
       };
    }
 

@@ -1,6 +1,9 @@
 {
    "meta": {
-      "mainPageDescription": "Search, collect and share your movie collection"
+      "mainPageDescription": "Search, collect and share your movie collection",
+      "tvShowNotFound": "TV Show Not Found",
+      "movieNotFound": "Movie Not Found",
+      "collectionNotFound": "Collection Not Found"
    },
 
    "auth": {
@@ -107,12 +110,16 @@
       "nextMedia": "Next media",
       "subGallery": "Frames, Emotions, and Motion",
       "viewCollection": "View the collection",
+      "countOfParts": "{count, plural, =0 {# parts} one {# part} other {# parts}}",
+      "fullSaga": "The Complete Saga",
+      "fullSagaSub": "All parts in order",
 
       "menu": {
          "details": "The details",
          "cast": "Cast",
          "moreLike": "More like this",
-         "gallery": "Gallery"
+         "gallery": "Gallery",
+         "movies": "Movies"
       },
 
       "cast": {

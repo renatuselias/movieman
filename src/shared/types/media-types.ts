@@ -1,3 +1,4 @@
+import { TMDBCollection } from "./collection-types";
 import { TMDBMediaCast, TMDBMediaCrew } from "./credits-types";
 
 export type MediaType = "movie" | "tv";
@@ -77,13 +78,6 @@ export interface TMDBNetwork {
    origin_country: string;
 }
 
-export interface TMDBMediaCollection {
-   id: number;
-   name: string;
-   poster_path: string | null;
-   backdrop_path: string | null;
-}
-
 type MovieStatus =
    | "Rumored"
    | "Planned"
@@ -133,11 +127,11 @@ interface TMDBBaseMedia {
    homepage: string;
    recommendations: { results: TMDBMedia[] };
    status: MediaStatus;
-   belongs_to_collection: TMDBMediaCollection;
+   belongs_to_collection: TMDBCollection;
    external_ids: TMDBExternalIds;
 }
 
-interface TMDBMovieListItem extends TMDBBaseMedia {
+export interface TMDBMovieListItem extends TMDBBaseMedia {
    media_type: "movie";
    title: string;
    original_title: string;

@@ -22,6 +22,7 @@ interface MediaCarouselProps {
    title: string;
    subtitle: string;
    mediaCount?: number;
+   id: string;
 }
 
 export function MediaCarousel({
@@ -30,6 +31,7 @@ export function MediaCarousel({
    isLoading,
    title,
    subtitle,
+   id,
 }: MediaCarouselProps) {
    const [selectedItem, setSelectedItem] = useState<BaseMedia | null>(null);
    const posterUrl = useTmdbImagePath("poster");
@@ -46,7 +48,10 @@ export function MediaCarousel({
    }, []);
 
    return (
-      <section className="w-full flex flex-col gap-5 sm:gap-10">
+      <section
+         id={id}
+         className="w-full flex flex-col gap-5 sm:gap-10"
+      >
          {isLoading ? (
             <div className="flex flex-col gap-4">
                <Skeleton className="w-40 h-4" />

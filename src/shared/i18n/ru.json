@@ -1,6 +1,9 @@
 {
    "meta": {
-      "mainPageDescription": "Ищите, собирайте и делитесь своей коллекцией фильмов"
+      "mainPageDescription": "Ищите, собирайте и делитесь своей коллекцией фильмов",
+      "tvShowNotFound": "Сериал не найден",
+      "movieNotFound": "Фильм не найден",
+      "collectionNotFound": "Коллекция не найдена"
    },
 
    "auth": {
@@ -107,12 +110,16 @@
       "nextMedia": "Следующий медиафайл",
       "subGallery": "Кадры, эмоции и движение",
       "viewCollection": "Посмотреть коллекцию",
+      "countOfParts": "{count, plural, =0 {# частей} one {# часть} few {# части} many {# частей} other {# частей}}",
+      "fullSaga": "Полная сага",
+      "fullSagaSub": "Все части по порядку",
 
       "menu": {
          "details": "Детали",
          "cast": "В ролях",
          "moreLike": "Рекомендации",
-         "gallery": "Галерея"
+         "gallery": "Галерея",
+         "movies": "Фильмы"
       },
 
       "cast": {

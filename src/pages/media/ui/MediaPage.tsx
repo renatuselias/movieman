@@ -45,6 +45,7 @@ export function MediaPage({
 
    const hasCast =
       isLoading || Boolean(extraMedia?.cast && extraMedia.cast.length > 0);
+
    const hasGallery =
       isLoading ||
       Boolean(
@@ -218,7 +219,7 @@ export function MediaPage({
 
                            <Link
                               className="w-fit transition-colors duration-300 hover:text-white cursor-pointer text-base sm:text-xl uppercase tracking-tight"
-                              href={`${extraMedia.belongsToCollection.id}`}
+                              href={`/collection/${extraMedia.belongsToCollection.id}`}
                            >
                               {t("media.viewCollection")}
                            </Link>

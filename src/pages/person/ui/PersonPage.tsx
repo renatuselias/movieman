@@ -18,6 +18,7 @@ import { GallerySkeleton, MediaGallery } from "@/widgets/media-gallery";
 import { ArrowUpRight } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { Filmography } from "./Filmography";
+import { useMemo } from "react";
 
 export function PersonPage({ personId }: { personId: number }) {
    const t = useTranslations();
@@ -45,6 +46,29 @@ export function PersonPage({ personId }: { personId: number }) {
       isLoading ||
       (personDetails?.images?.profiles.length &&
          personDetails?.images?.profiles.length > 1);
+
+   const navList = useMemo(() => {
+      return [
+         {
+            id: "gallery",
+            text: "media.menu.gallery",
+            href: "#gallery",
+            show: hasGallery,
+         },
+         {
+            id: "selected-works",
+            text: "person.selectedWorks",
+            href: "#selected-works",
+            show: true,
+         },
+         {
+            id: "filmography",
+            text: "person.filmography",
+            href: "#filmography",
+            show: true,
+         },
+      ].filter((item) => item.show);
+   }, [hasGallery]);
 
    return (
       <div className="relative w-full">
@@ -132,7 +156,38 @@ export function PersonPage({ personId }: { personId: number }) {
                />
             </div>
 
-            <hr className="w-full" />
+            {/* Navigation */}
+            {navList.length > 1 && (
+               <div className="w-full border-t border-b py-6">
+                  {isLoading ? (
+                     <div className="flex gap-3">
+                        <Skeleton className="w-20 h-4" />
+                        <Skeleton className="w-20 h-4" />
+                        <Skeleton className="w-20 h-4" />
+                     </div>
+                  ) : (
+                     <nav>
+                        <ul className="flex flex-wrap gap-4 items-center text-xs">
+                           {navList.map((item, index) => (
+                              <li key={item.id}>
+                                 <a
+                                    href={item.href}
+                                    className="inline-block hover:opacity-80 transition-opacity cursor-pointer"
+                                 >
+                                    <h2>
+                                       {String(index + 1).padStart(2, "0")}{" "}
+                                       <span className="text-zinc-300 sm:ml-1">
+                                          {t(`${item.text}`)}
+                                       </span>
+                                    </h2>
+                                 </a>
+                              </li>
+                           ))}
+                        </ul>
+                     </nav>
+                  )}
+               </div>
+            )}
 
             {isLoading ? (
                <GallerySkeleton isPersonPage={true} />
@@ -155,6 +210,7 @@ export function PersonPage({ personId }: { personId: number }) {
                subtitle={t("person.goodPlaceToStart")}
                medias={mainArt}
                isLoading={isLoading}
+               id={"selected-works"}
             />
 
             {/* Filmography */}

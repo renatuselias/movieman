@@ -3,3 +3,4 @@ export const MEDIAS_QUERY_KEY = ["get", "medias"];
 export const NOW_IN_CINEMA_QUERY_KEY = ["movies", "now-playing-hero"];
 export const MEDIAS_DISCOVER_QUERY_KEY = ["medias", "discover"];
 export const PERSON_EXTRAS_QUERY_KEY = ["person", "details"];
+export const COLLECTION_EXTRAS_QUERY_KEY = ["collection"];

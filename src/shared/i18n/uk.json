@@ -1,6 +1,9 @@
 {
    "meta": {
-      "mainPageDescription": "Шукайте, збирайте та діліться своєю колекцією фільмів"
+      "mainPageDescription": "Шукайте, збирайте та діліться своєю колекцією фільмів",
+      "tvShowNotFound": "Серіал не знайдено",
+      "movieNotFound": "Фільм не знайдено",
+      "collectionNotFound": "Колекцію не знайдено"
    },
 
    "auth": {
@@ -107,12 +110,16 @@
       "nextMedia": "Наступний медіафайл",
       "subGallery": "Кадри, емоції та рух",
       "viewCollection": "Переглянути колекцію",
+      "countOfParts": "{count, plural, =0 {# частин} one {# частина} few {# частини} many {# частин} other {# частин}}",
+      "fullSaga": "Повна сага",
+      "fullSagaSub": "Усі частини по порядку",
 
       "menu": {
          "gallery": "Галерея",
          "details": "Деталі",
          "cast": "У ролях",
-         "moreLike": "Подібні"
+         "moreLike": "Подібні",
+         "movies": "Фільми"
       },
 
       "cast": {
